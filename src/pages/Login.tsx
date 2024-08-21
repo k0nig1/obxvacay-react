@@ -12,6 +12,7 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonLoading,
   useIonRouter,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
@@ -25,6 +26,7 @@ const INTRO_KEY = "intro-seen";
 const Login: React.FC = () => {
   const router = useIonRouter();
   const [introSeen, setIntroSeen] = useState(false);
+  const [present, dismiss] = useIonLoading();
 
   useEffect(() => {
     const checkStorage = async () => {
@@ -36,8 +38,11 @@ const Login: React.FC = () => {
 
   const doLogin = async (event: any) => {
     event.preventDefault();
-    console.log("doLogin");
-    router.push("/tab1");
+    await present('Loggin in...');
+    setTimeout(async() => {
+        dismiss();
+        router.push("/tab1", "root");
+    })
   };
 
   const finishIntro = async () => {
