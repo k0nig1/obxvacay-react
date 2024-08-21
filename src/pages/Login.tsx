@@ -2,33 +2,54 @@ import {
   IonButton,
   IonCard,
   IonCardContent,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonInput,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
   useIonRouter,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { logInOutline, personCircleOutline } from "ionicons/icons";
 import Intro from "../components/Intro";
+import { Preferences } from "@capacitor/preferences";
+import OBXVacayPNG from "../assets/obx_vacay.png"
+
+const INTRO_KEY = "intro-seen";
 
 const Login: React.FC = () => {
   const router = useIonRouter();
   const [introSeen, setIntroSeen] = useState(false);
 
-  const doLogin = (event: any) => {
+  useEffect(() => {
+    const checkStorage = async () => {
+      const seen = await Preferences.get({ key: INTRO_KEY });
+      setIntroSeen(seen.value === "true");
+    };
+    checkStorage();
+  }, []);
+
+  const doLogin = async (event: any) => {
     event.preventDefault();
     console.log("doLogin");
-    router.push("/tab1", "root");
+    router.push("/tab1");
   };
 
   const finishIntro = async () => {
     console.log("FIN");
     setIntroSeen(true);
+    Preferences.set({ key: INTRO_KEY, value: "true" });
   };
+
+  const seeIntroAgain = () => {
+    setIntroSeen(false);
+    Preferences.remove({key: INTRO_KEY});
+  }
 
   return (
     <>
@@ -38,11 +59,20 @@ const Login: React.FC = () => {
         <IonPage>
           <IonHeader>
             <IonToolbar color={"primary"}>
-              <IonTitle>Login</IonTitle>
+              <IonTitle>OBX Vacay</IonTitle>
             </IonToolbar>
           </IonHeader>
 
-          <IonContent>
+          <IonContent scrollY={false} className="ion-padding">
+            <IonGrid fixed>
+                <IonRow class="ion-justify-content-center">
+                    <IonCol size='12' sizeMd="8" sizeLg="6" sizeXl="4">
+                        <div className="ion-text-center ion-padding">
+                            <img src={OBXVacayPNG} alt="OBX Vacay" width={'50%'} />
+                        </div>
+                    </IonCol>
+                </IonRow>
+            </IonGrid>
             <IonCard>
               <IonCardContent>
                 <form onSubmit={doLogin}>
@@ -75,6 +105,18 @@ const Login: React.FC = () => {
                     className="ion-margin-top"
                   >
                     Create Account
+                    <IonIcon icon={personCircleOutline} slot="end" />
+                  </IonButton>
+                  <IonButton
+                  onClick={seeIntroAgain}
+                  fill="clear"
+                  size="small"
+                    color={'medium'}
+                    type="button"
+                    expand="block"
+                    className="ion-margin-top"
+                  >
+                    Watch Intro Again
                     <IonIcon icon={personCircleOutline} slot="end" />
                   </IonButton>
                 </form>
