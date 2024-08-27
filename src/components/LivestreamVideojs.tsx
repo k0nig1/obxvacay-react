@@ -1,63 +1,54 @@
 import React, { useEffect, useRef } from "react";
-import videojs from "video.js";
-import "video.js/dist/video-js.css";
+import Hls from "hls.js";
+import "./Livestream.css";
 
-// Infer types directly from videojs
-type VideoJsPlayer = ReturnType<typeof videojs>;
-
-interface VideoJSProps {
-  options: any; 
-}
-
-const VideoJS: React.FC<VideoJSProps> = ({ options }) => {
-  const videoNode = useRef<HTMLVideoElement | null>(null);
-  const player = useRef<VideoJsPlayer | null>(null);
-  const vidLog = videojs.log.createLogger("Videojs Logger");
+const LivestreamReactPlayer: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (videoNode.current) {
-      player.current = videojs(videoNode.current, options, () => {
-        vidLog("Player is Ready");
-        vidLog(videoNode.current);
-      });
+    const video = videoRef.current;
+    if (video) {
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(
+          "https://c.streamhoster.com/link/hls/WBs3lk/i2LT4nJscCY/iXF1Nbsfwi9_5/playlist.m3u8"
+        );
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          video.play();
+        });
 
-      return () => {
-        if (player.current && !player.current.isDisposed()) {
-          player.current.dispose();
-          vidLog('Player Disposed');
-        }
-      };
+        // Clean up Hls instance on component unmount
+        return () => {
+          hls.destroy();
+        };
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        // Fallback for Safari and iOS
+        video.src =
+          "https://c.streamhoster.com/link/hls/WBs3lk/i2LT4nJscCY/iXF1Nbsfwi9_5/playlist.m3u8";
+        video.addEventListener("loadedmetadata", () => {
+          video.play();
+        });
+      }
     }
-  }, [options]);
-
-  return (
-    <div data-vjs-player>
-      <video className='video-js' ref={videoNode} />
-    </div>
-  );
-};
-
-const LivestreamVideojs: React.FC = () => {
-  const videoJsOptions = {
-    controls: true,
-    autoplay: true,
-    preload: "auto",
-    liveui: true,
-    fluid: true,
-    sources: [
-      {
-        src: "https://c.streamhoster.com/link/hls/WBs3lk/i2LT4nJscCY/iXF1Nbsfwi9_5/playlist.m3u8",
-        type: "application/x-mpegURL",
-      },
-    ],
-  };
+  }, []);
 
   return (
     <div>
-      <h3>VideoJS Player</h3>
-      <VideoJS options={videoJsOptions} />
+      <h3>Videojs</h3>
+      <div className="responsive-player-wrapper">
+        <video
+          ref={videoRef}
+          className="react-player"
+          controls
+          muted
+          playsInline
+          width="100%"
+          height="100%"
+        />
+      </div>
     </div>
   );
 };
 
-export default LivestreamVideojs;
+export default LivestreamReactPlayer;

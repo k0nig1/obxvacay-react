@@ -28,15 +28,19 @@ const LivestreamReactPlayer: React.FC = () => {
   }, []);
 
   return (
-    <div className="responsive-player-wrapper">
-      <video
-        ref={videoRef}
-        className="react-player"
-        controls
-        muted
-        width="100%"
-        height="100%"
-      />
+    <div>
+      <h3>React Player with HLS Support</h3>
+      <div className="responsive-player-wrapper">
+        <video
+          ref={videoRef}
+          className="react-player"
+          controls
+          muted
+          playsInline
+          width="100%"
+          height="100%"
+        />
+      </div>
     </div>
   );
 };
