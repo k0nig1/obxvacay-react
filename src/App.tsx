@@ -30,6 +30,7 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
+import "video.js/dist/video-js.css";
 
 /**
  * Ionic Dark Mode

@@ -1,26 +1,12 @@
-/* Wrapper with padding for the video frame */
 .responsive-player-wrapper {
-    position: relative;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    margin: 20px; /* Add margin for outer spacing */
-    box-sizing: border-box; /* Ensure padding and borders are included in the width and height */
-    background: black; /* Background color to show even without video */
-    padding: 10px; /* Padding around the video frame */
-    border-radius: 10px; /* Optional: Rounded corners for the video frame */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Optional: Shadow around the video frame */
-    min-height: 200px; /* Minimum height to ensure visibility even without video */
-  }
-  
-  /* Style the ReactPlayer component */
-  .responsive-player-wrapper .react-player {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px; /* Match border radius with the wrapper for smooth edges */
-    background-color: transparent; /* Ensure the video doesn't have its own background color */
-  }
+  position: relative;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

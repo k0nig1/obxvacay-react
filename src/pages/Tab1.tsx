@@ -1,6 +1,19 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import './Tab1.css';
-import LiveStream from '../components/Livestream';
+import {
+  IonCard,
+  IonCardContent,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonPage,
+  IonRow,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
+import "./Tab1.css";
+import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
+import LiveStreamHls from "../components/LivestreamHls";
+import LivestreamVideojs from "../components/LivestreamVideojs";
 
 const Tab1: React.FC = () => {
   return (
@@ -10,13 +23,29 @@ const Tab1: React.FC = () => {
           <IonTitle>Tab 1</IonTitle>
         </IonToolbar>
       </IonHeader>
+
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <LiveStream />
+        <IonGrid fixed>
+          <IonRow class="ion-justify-content-center">
+            <IonCol size="12" sizeMd="8" sizeLg="6" sizeXl="4">
+              <IonCard>
+                <IonCardContent>
+                  <LivestreamReactPlayer />
+                </IonCardContent>
+              </IonCard>
+              {/* <IonCard>
+                <IonCardContent>
+                  <LiveStreamHls />
+                </IonCardContent>
+              </IonCard> */}
+              <IonCard>
+                <IonCardContent>
+                  <LivestreamVideojs />
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
