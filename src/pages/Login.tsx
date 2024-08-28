@@ -41,7 +41,7 @@ const Login: React.FC = () => {
     await present('Loggin in...');
     setTimeout(async() => {
         dismiss();
-        router.push("/tab1", "root");
+        router.push("/homepage", "root");
     })
   };
 
