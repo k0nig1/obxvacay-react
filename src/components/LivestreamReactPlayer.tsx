@@ -29,7 +29,7 @@ const LivestreamReactPlayer: React.FC = () => {
 
   return (
     <div>
-      <h3>React Player with HLS Support</h3>
+      <h3>OBX Vacay Live Stream!</h3>
       <div className="responsive-player-wrapper">
         <video
           ref={videoRef}
@@ -41,6 +41,7 @@ const LivestreamReactPlayer: React.FC = () => {
           height="100%"
         />
       </div>
+      <p>React Player with HLS Support</p>
     </div>
   );
 };

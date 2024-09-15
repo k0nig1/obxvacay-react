@@ -1,16 +1,18 @@
 // CardComponents.tsx
 
-import React from 'react';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton } from '@ionic/react';
-import './CardComponents.css'; // Import the CSS file
+import React from "react";
+import {
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonButton,
+} from "@ionic/react";
+import "./CardComponents.css"; // Import the CSS file
 
 // BaseCard Component - A general-purpose card component
 const BaseCard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <IonCard>
-      {children}
-    </IonCard>
-  );
+  return <IonCard>{children}</IonCard>;
 };
 
 // AdCard Component - A specialized card for advertisements
@@ -27,7 +29,9 @@ const AdCard: React.FC<AdCardProps> = ({ adText, link }) => {
       </IonCardHeader>
       <IonCardContent className="ad-card-content">
         {adText}
-        <IonButton href={link} expand="full">Learn More</IonButton>
+        <IonButton href={link} expand="full">
+          Learn More
+        </IonButton>
       </IonCardContent>
     </BaseCard>
   );
@@ -53,4 +57,24 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoTitle, videoUrl }) => {
   );
 };
 
-export { BaseCard, AdCard, VideoCard };
+interface LinkCardProps {
+  title: string;
+  name: string;
+  link: string;
+}
+const LinkCard: React.FC<LinkCardProps> = ({ title, name, link }) => {
+  return (
+    <BaseCard>
+      <IonCardHeader>
+        <IonCardTitle className="video-card-title">{title}</IonCardTitle>
+      </IonCardHeader>
+      <IonCardContent>
+        <IonButton href={link} expand="full">
+          {name}
+        </IonButton>
+      </IonCardContent>
+    </BaseCard>
+  );
+};
+
+export { BaseCard, AdCard, VideoCard, LinkCard };

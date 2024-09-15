@@ -14,7 +14,7 @@ import "./Tab1.css";
 import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
 import LiveStreamHls from "../components/LivestreamHls";
 import LivestreamVideojs from "../components/LivestreamVideojs";
-import { AdCard, VideoCard } from "../components/CardComponents";
+import { AdCard, VideoCard, LinkCard } from "../components/CardComponents";
 
 const Homepage: React.FC = () => {
   return (
@@ -34,11 +34,12 @@ const Homepage: React.FC = () => {
                   <LivestreamReactPlayer />
                 </IonCardContent>
               </IonCard>
-              <IonCard>
+              {/* <IonCard>
                 <IonCardContent>
                   <LivestreamVideojs />
                 </IonCardContent>
-              </IonCard>
+              </IonCard> */}
+              <LinkCard title="Login" name="Login Here" link="/login" />
               <AdCard
                 adText="Check out our latest product!"
                 link="https://www.google.com"
