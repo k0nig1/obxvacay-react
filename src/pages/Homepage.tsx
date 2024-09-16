@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   IonCard,
   IonCardContent,
@@ -9,14 +10,25 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  IonInput,
+  IonButton,
+  IonItem,
 } from "@ionic/react";
 import "./Tab1.css";
 import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
-import LiveStreamHls from "../components/LivestreamHls";
-import LivestreamVideojs from "../components/LivestreamVideojs";
 import { AdCard, VideoCard, LinkCard } from "../components/CardComponents";
+import WeatherInfo from "../components/WeatherInfo"; // Import the WeatherInfo component
 
 const Homepage: React.FC = () => {
+  const [location, setLocation] = useState<string>('Outer Banks, NC'); // Default location
+  const [searchTerm, setSearchTerm] = useState<string>(''); // To store user input
+
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      setLocation(searchTerm); // Update location when user clicks search
+    }
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -27,18 +39,42 @@ const Homepage: React.FC = () => {
 
       <IonContent fullscreen>
         <IonGrid fixed>
+
+          {/* Livestream Player at the Top */}
           <IonRow class="ion-justify-content-center">
-            <IonCol size="12" sizeMd="8" sizeLg="6" sizeXl="4">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard>
                 <IonCardContent>
                   <LivestreamReactPlayer />
                 </IonCardContent>
               </IonCard>
-              {/* <IonCard>
-                <IonCardContent>
-                  <LivestreamVideojs />
-                </IonCardContent>
-              </IonCard> */}
+            </IonCol>
+          </IonRow>
+
+          {/* Search Bar */}
+          <IonRow class="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+              <IonItem>
+                <IonInput
+                  value={searchTerm}
+                  placeholder="Enter location to see the weather"
+                  onIonChange={(e) => setSearchTerm(e.detail.value!)}
+                />
+                <IonButton onClick={handleSearch}>Search</IonButton>
+              </IonItem>
+            </IonCol>
+          </IonRow>
+
+          {/* WeatherInfo Component */}
+          <IonRow class="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+              <WeatherInfo location={location} /> {/* Pass location as prop */}
+            </IonCol>
+          </IonRow>
+
+          {/* Other content on the homepage */}
+          <IonRow class="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <LinkCard title="Login" name="Login Here" link="/login" />
               <AdCard
                 adText="Check out our latest product!"

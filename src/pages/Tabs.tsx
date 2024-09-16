@@ -21,7 +21,6 @@ import Settings from "./Settings";
 
 const Tabs: React.FC = () => {
   return (
-    <IonPage>
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
@@ -49,7 +48,6 @@ const Tabs: React.FC = () => {
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>
-    </IonPage>
   );
 };
 
