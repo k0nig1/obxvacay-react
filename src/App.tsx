@@ -1,4 +1,4 @@
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
@@ -37,6 +37,7 @@ import "./theme/global.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Tabs from "./pages/Tabs";
+import NotFoundPage from "./pages/NotFoundPage";
 
 setupIonicReact();
 
@@ -44,12 +45,18 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/app" component={Tabs} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/">
-          <Redirect to="/app" />
-        </Route>
+        <Switch>
+          <Route exact path="/app" component={Tabs} />
+          <Route exact path="/error" component={NotFoundPage} />
+          <Route exact path="/app/*" component={Tabs} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+
+          <Redirect exact from="/" to="/app" />
+          <Redirect from="/*" to="/error" />
+          {/* Catch-all route for unknown URLs */}
+          <Route path="/app/*" component={NotFoundPage} />
+        </Switch>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

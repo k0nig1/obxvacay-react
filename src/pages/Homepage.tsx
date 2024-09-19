@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   IonCard,
   IonCardContent,
@@ -14,14 +14,14 @@ import {
   IonButton,
   IonItem,
 } from "@ionic/react";
-import "./Tab1.css";
 import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
 import { AdCard, VideoCard, LinkCard } from "../components/CardComponents";
 import WeatherInfo from "../components/WeatherInfo"; // Import the WeatherInfo component
+import WeatherForecast from "../components/WeatherForecast";
 
 const Homepage: React.FC = () => {
-  const [location, setLocation] = useState<string>('Outer Banks, NC'); // Default location
-  const [searchTerm, setSearchTerm] = useState<string>(''); // To store user input
+  const [location, setLocation] = useState<string>("Kill Devil Hills, NC"); // Default location
+  const [searchTerm, setSearchTerm] = useState<string>(""); // To store user input
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
@@ -39,9 +39,8 @@ const Homepage: React.FC = () => {
 
       <IonContent fullscreen>
         <IonGrid fixed>
-
           {/* Livestream Player at the Top */}
-          <IonRow class="ion-justify-content-center">
+          <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard>
                 <IonCardContent>
@@ -52,7 +51,7 @@ const Homepage: React.FC = () => {
           </IonRow>
 
           {/* Search Bar */}
-          <IonRow class="ion-justify-content-center">
+          <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonItem>
                 <IonInput
@@ -66,44 +65,91 @@ const Homepage: React.FC = () => {
           </IonRow>
 
           {/* WeatherInfo Component */}
-          <IonRow class="ion-justify-content-center">
+          <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <WeatherInfo location={location} /> {/* Pass location as prop */}
             </IonCol>
           </IonRow>
 
-          {/* Other content on the homepage */}
-          <IonRow class="ion-justify-content-center">
+          {/* WeatherForecast Component */}
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+              <WeatherForecast location={location} /> {/* Pass location as prop */}
+            </IonCol>
+          </IonRow>
+
+          {/* Cards in their own rows */}
+          <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <LinkCard title="Login" name="Login Here" link="/login" />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <AdCard
                 adText="Check out our latest product!"
                 link="https://www.google.com"
               />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <VideoCard
                 videoTitle="Puppies open a cat store"
                 videoUrl="https://example.com/video.mp4"
               />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <VideoCard
                 videoTitle="The world is getting smaller"
                 videoUrl="https://example.com/video.mp4"
               />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <VideoCard
                 videoTitle="Dont forget to floss!"
                 videoUrl="https://example.com/video.mp4"
               />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <VideoCard
                 videoTitle="How the OBX got its name"
                 videoUrl="https://example.com/video.mp4"
               />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <AdCard
                 adText="Check out our latest product!"
                 link="https://www.google.com"
               />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <VideoCard
                 videoTitle="The Wright Brothers"
                 videoUrl="https://example.com/video.mp4"
               />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <VideoCard
                 videoTitle="How to swim when you're having so much fun"
                 videoUrl="https://example.com/video.mp4"
