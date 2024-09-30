@@ -8,7 +8,7 @@ import {
   IonCardContent,
   IonButton,
 } from "@ionic/react";
-import "./CardComponents.css"; // Import the CSS file
+import "./CardComponents.css"; 
 
 // BaseCard Component - A general-purpose card component
 const BaseCard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
