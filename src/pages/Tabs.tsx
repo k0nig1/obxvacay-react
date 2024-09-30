@@ -18,6 +18,7 @@ import React from "react";
 import Homepage from "./Homepage";
 import Tab2 from "./Tab2";
 import Settings from "./Settings";
+import Create from "./Create";
 
 const Tabs: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const Tabs: React.FC = () => {
             <Route path="/app/homepage" component={Homepage} exact />
             <Route path="/app/tab2" component={Tab2} exact />
             <Route path="/app/settings" component={Settings} exact />
+            <Route path="/app/settings/create" component={Create} exact />
             <Route path="/app" exact>
               <Redirect to="/app/homepage" />
             </Route>
