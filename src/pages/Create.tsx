@@ -17,19 +17,25 @@ import {
 } from "@ionic/react";
 
 // Interfaces for content types
-interface Video {
+interface Content {
+  type: string;
+  created: string;
+  modified: string;
+}
+
+interface Video extends Content {
   title: string;
   url: string;
   description: string;
 }
 
-interface Blog {
+interface Blog extends Content {
   title: string;
   content: string;
   author: string;
 }
 
-interface Advertisement {
+interface Advertisement extends Content {
   title: string;
   product: string;
   budget: number;
@@ -38,9 +44,7 @@ interface Advertisement {
 // Component
 const Create: React.FC = () => {
   const [contentType, setContentType] = useState<string>("Video");
-  const [contentData, setContentData] = useState<
-    Video | Blog | Advertisement | any
-  >({});
+  const [contentData, setContentData] = useState<Video | Blog | Advertisement | any>({});
 
   // Handle form input changes
   const handleInputChange = (e: any, key: string) => {
@@ -52,7 +56,16 @@ const Create: React.FC = () => {
 
   // Handle form submission
   const handleSubmit = () => {
-    console.log("Content Created:", contentData);
+    const currentDateTime = new Date().toISOString();
+    const newContentData = {
+      ...contentData,
+      type: contentType,
+      created: contentData.created || currentDateTime, // Set created date only if it hasn't been set yet
+      modified: currentDateTime, // Always update the modified date
+    };
+
+    setContentData(newContentData);
+    console.log("Content Created:", newContentData);
     // Add logic to save content here
   };
 
@@ -72,9 +85,7 @@ const Create: React.FC = () => {
             </IonItem>
             <IonItem>
               <IonLabel position="stacked">Description</IonLabel>
-              <IonTextarea
-                onIonChange={(e) => handleInputChange(e, "description")}
-              />
+              <IonTextarea onIonChange={(e) => handleInputChange(e, "description")} />
             </IonItem>
           </>
         );
@@ -87,9 +98,7 @@ const Create: React.FC = () => {
             </IonItem>
             <IonItem>
               <IonLabel position="stacked">Content</IonLabel>
-              <IonTextarea
-                onIonChange={(e) => handleInputChange(e, "content")}
-              />
+              <IonTextarea onIonChange={(e) => handleInputChange(e, "content")} />
             </IonItem>
             <IonItem>
               <IonLabel position="stacked">Author</IonLabel>
@@ -110,10 +119,7 @@ const Create: React.FC = () => {
             </IonItem>
             <IonItem>
               <IonLabel position="stacked">Budget</IonLabel>
-              <IonInput
-                type="number"
-                onIonChange={(e) => handleInputChange(e, "budget")}
-              />
+              <IonInput type="number" onIonChange={(e) => handleInputChange(e, "budget")} />
             </IonItem>
           </>
         );
@@ -135,16 +141,10 @@ const Create: React.FC = () => {
       <IonContent>
         <IonItem>
           <IonLabel>Content Type</IonLabel>
-          <IonSelect
-            value={contentType}
-            placeholder="Select One"
-            onIonChange={(e) => setContentType(e.detail.value)}
-          >
+          <IonSelect value={contentType} placeholder="Select One" onIonChange={(e) => setContentType(e.detail.value)}>
             <IonSelectOption value="Video">Video</IonSelectOption>
             <IonSelectOption value="Blog">Blog</IonSelectOption>
-            <IonSelectOption value="Advertisement">
-              Advertisement
-            </IonSelectOption>
+            <IonSelectOption value="Advertisement">Advertisement</IonSelectOption>
           </IonSelect>
         </IonItem>
 
