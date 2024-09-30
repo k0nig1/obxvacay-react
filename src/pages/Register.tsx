@@ -15,15 +15,18 @@ import {
   IonCol,
   IonRow,
 } from "@ionic/react";
-import React from "react";
+import React, { useState } from "react";
 import { checkmarkDoneOutline } from "ionicons/icons";
+import { createUser } from "../FirebaseServices";
 
 const Register: React.FC = () => {
   const router = useIonRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const doRegister = (event: any) => {
     event.preventDefault();
-    console.log("doRegister");
+    createUser(email, password);
     router.goBack();
   };
 
@@ -50,6 +53,7 @@ const Register: React.FC = () => {
                       labelPlacement="floating"
                       label="email"
                       placeholder="youremail@domain.com"
+                      onIonInput={(e: any) => setEmail(e.target.value)}
                     ></IonInput>
                     <IonInput
                       className="ion-margin-top"
@@ -57,6 +61,7 @@ const Register: React.FC = () => {
                       labelPlacement="floating"
                       label="password"
                       placeholder="yourpassword"
+                      onIonInput={(e: any) => setPassword(e.target.value)}
                     ></IonInput>
                     <IonButton
                       type="submit"

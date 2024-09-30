@@ -20,12 +20,15 @@ import { logInOutline, personCircleOutline } from "ionicons/icons";
 import Intro from "../components/Intro";
 import { Preferences } from "@capacitor/preferences";
 import OBXVacayPNG from "../assets/obx_vacay.png";
+import { signInUser } from "../FirebaseServices";
 
 const INTRO_KEY = "intro-seen";
 
 const Login: React.FC = () => {
   const router = useIonRouter();
   const [introSeen, setIntroSeen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [present, dismiss] = useIonLoading();
 
   useEffect(() => {
@@ -38,15 +41,18 @@ const Login: React.FC = () => {
 
   const doLogin = async (event: any) => {
     event.preventDefault();
-    await present('Loggin in...');
-    setTimeout(async() => {
-        dismiss();
-        router.push("/app", "root");
-    })
+    await present('Logging in...');
+    try {
+      await signInUser(email, password);
+      router.push("/app", "root");
+    } catch (error) {
+      console.error("Login failed", error);
+    } finally {
+      dismiss();
+    }
   };
 
   const finishIntro = async () => {
-    console.log("FIN");
     setIntroSeen(true);
     Preferences.set({ key: INTRO_KEY, value: "true" });
   };
@@ -88,6 +94,8 @@ const Login: React.FC = () => {
                           labelPlacement="floating"
                           label="email"
                           placeholder="youremail@domain.com"
+                          value={email}
+                          onIonInput={(e: any) => setEmail(e.target.value)}
                         ></IonInput>
                         <IonInput
                           className="ion-margin-top"
@@ -95,6 +103,9 @@ const Login: React.FC = () => {
                           labelPlacement="floating"
                           label="password"
                           placeholder="yourpassword"
+                          type="password"
+                          value={password}
+                          onIonInput={(e: any) => setPassword(e.target.value)}
                         ></IonInput>
                         <IonButton
                           type="submit"
