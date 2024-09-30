@@ -22,7 +22,7 @@ const Settings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        Change your settings here
+
         <IonGrid fixed>
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">

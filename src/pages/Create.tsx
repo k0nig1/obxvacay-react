@@ -15,6 +15,8 @@ import {
   IonButtons,
   IonBackButton,
 } from "@ionic/react";
+import { db } from "../FirebaseServices";
+import {addDoc, collection} from "firebase/firestore";
 
 // Interfaces for content types
 interface Content {
@@ -55,7 +57,7 @@ const Create: React.FC = () => {
   };
 
   // Handle form submission
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const currentDateTime = new Date().toISOString();
     const newContentData = {
       ...contentData,
@@ -67,7 +69,12 @@ const Create: React.FC = () => {
     setContentData(newContentData);
     console.log("Content Created:", newContentData);
     // Add logic to save content here
-  };
+    try{
+        const addRef = await addDoc(collection(db, contentType), {});
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+};
 
   // Render fields based on content type
   const renderFields = () => {
