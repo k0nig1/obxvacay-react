@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCol,
   IonContent,
   IonGrid,
   IonHeader,
+  IonInput,
   IonPage,
   IonRow,
   IonTitle,
   IonToolbar,
-  IonInput,
-  IonButton,
-  IonItem,
 } from "@ionic/react";
 import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
-import { AdCard, VideoCard, LinkCard } from "../components/CardComponents";
-import WeatherInfo from "../components/WeatherInfo"; // Import the WeatherInfo component
-import WeatherForecast from "../components/WeatherForecast";
 import SocialMediaIcons from "../components/SocialMediaIcons";
 
 const Homepage: React.FC = () => {
@@ -64,7 +60,7 @@ const Homepage: React.FC = () => {
               <IonCard>
                 <IonCardContent>
                   <h2>Follow Us On Social Media</h2>
-                  <SocialMediaIcons/>
+                  <SocialMediaIcons />
                 </IonCardContent>
               </IonCard>
             </IonCol>
