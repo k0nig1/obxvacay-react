@@ -17,15 +17,7 @@ import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
 import SocialMediaIcons from "../components/SocialMediaIcons";
 
 const Homepage: React.FC = () => {
-  const [location, setLocation] = useState<string>("Kill Devil Hills, NC"); // Default location
-  const [searchTerm, setSearchTerm] = useState<string>(""); // To store user input
-
-  const handleSearch = () => {
-    if (searchTerm.trim()) {
-      setLocation(searchTerm); // Update location when user clicks search
-    }
-  };
-
+  
   return (
     <IonPage>
       <IonHeader>
