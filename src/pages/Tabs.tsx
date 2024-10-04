@@ -37,14 +37,6 @@ const Tabs: React.FC = () => {
               <IonIcon aria-hidden="true" icon={homeOutline} />
               <IonLabel>Homepage</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="tab2" href="/app/tab2">
-              <IonIcon aria-hidden="true" icon={ellipse} />
-              <IonLabel>Tab 2</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="settings" href="/app/settings">
-              <IonIcon aria-hidden="true" icon={settingsOutline} />
-              <IonLabel>Settings</IonLabel>
-            </IonTabButton>
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>
