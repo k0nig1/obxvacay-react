@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "test.e2e": "cypress run",
     "test.unit": "vitest",
+    "test:unit:watch": "vitest --watch",
     "lint": "eslint"
   },
   "dependencies": {
