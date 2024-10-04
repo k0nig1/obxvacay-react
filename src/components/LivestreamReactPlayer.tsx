@@ -56,7 +56,6 @@ const LivestreamReactPlayer: React.FC = () => {
 
   return (
     <div>
-      <h3>OBX Vacay Live Stream!</h3>
       {errorMessage && (
         <div className="error-message" style={{ color: "red", textAlign: "center" }}>
           {errorMessage}
@@ -73,7 +72,6 @@ const LivestreamReactPlayer: React.FC = () => {
           height="100%"
         />
       </div>
-      <p>React Player with HLS Support</p>
     </div>
   );
 };

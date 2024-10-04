@@ -18,6 +18,7 @@ import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
 import { AdCard, VideoCard, LinkCard } from "../components/CardComponents";
 import WeatherInfo from "../components/WeatherInfo"; // Import the WeatherInfo component
 import WeatherForecast from "../components/WeatherForecast";
+import SocialMediaIcons from "../components/SocialMediaIcons";
 
 const Homepage: React.FC = () => {
   const [location, setLocation] = useState<string>("Kill Devil Hills, NC"); // Default location
@@ -33,18 +34,37 @@ const Homepage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Homepage</IonTitle>
+          <IonTitle>OBX Vacay</IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen>
         <IonGrid fixed>
-          {/* Livestream Player at the Top */}
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard>
                 <IonCardContent>
                   <LivestreamReactPlayer />
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+              <IonCard>
+                <IonCardContent>
+                  <h2>Check Out Our Website at</h2>
+                  <a href="https://obxvacay.com">OBXVacay.com</a>
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+              <IonCard>
+                <IonCardContent>
+                  <h2>Follow Us On Social Media</h2>
+                  <SocialMediaIcons/>
                 </IonCardContent>
               </IonCard>
             </IonCol>

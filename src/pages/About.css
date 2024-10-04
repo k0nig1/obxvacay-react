@@ -1,0 +1,50 @@
+/* About.css */
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto; /* Centers the content */
+  }
+  
+  .about-title {
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  .about-subtitle {
+    font-size: 1.5em;
+    margin-top: 24px;
+  }
+  
+  .about-text {
+    font-size: 1em;
+    line-height: 1.6;
+  }
+  
+  @media (min-width: 768px) {
+    /* Adjust font sizes for larger screens */
+    .about-title {
+      font-size: 2.2em;
+    }
+  
+    .about-subtitle {
+      font-size: 1.8em;
+    }
+  
+    .about-text {
+      font-size: 1.2em;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .about-title {
+      font-size: 2.5em;
+    }
+  
+    .about-subtitle {
+      font-size: 2em;
+    }
+  
+    .about-text {
+      font-size: 1.3em;
+    }
+  }
