@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   IonButton,
   IonCard,
@@ -11,11 +11,14 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  IonSpinner,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
-import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
-import SocialMediaIcons from "../components/SocialMediaIcons";
-import WeatherForecast from "../components/WeatherForecast";
+
+// Lazy load the components
+const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
+const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaIcons"));
+const WeatherForecast = React.lazy(() => import("../components/WeatherForecast"));
 
 const Homepage: React.FC = () => {
   const history = useHistory();
@@ -58,7 +61,10 @@ const Homepage: React.FC = () => {
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
-                  <LivestreamReactPlayer />
+                  {/* Use Suspense to lazily load LivestreamReactPlayer */}
+                  <Suspense fallback={<IonSpinner />}>
+                    <LivestreamReactPlayer />
+                  </Suspense>
                 </IonCardContent>
               </IonCard>
             </IonCol>
@@ -69,7 +75,10 @@ const Homepage: React.FC = () => {
             <IonCol className="ion-no-padding" size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard className="ion-no-padding ion-justify-content-center">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
-                  <WeatherForecast location="Nags Head, NC" />
+                  {/* Use Suspense to lazily load WeatherForecast */}
+                  <Suspense fallback={<IonSpinner />}>
+                    <WeatherForecast location="27959" />
+                  </Suspense>
                 </IonCardContent>
               </IonCard>
             </IonCol>
@@ -94,7 +103,10 @@ const Homepage: React.FC = () => {
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Follow Us On Social Media</h2>
-                  <SocialMediaIcons />
+                  {/* Use Suspense to lazily load SocialMediaIcons */}
+                  <Suspense fallback={<IonSpinner />}>
+                    <SocialMediaIcons />
+                  </Suspense>
                 </IonCardContent>
               </IonCard>
             </IonCol>
