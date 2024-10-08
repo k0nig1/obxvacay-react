@@ -17,6 +17,8 @@ import {
 import { useHistory } from "react-router-dom";
 import { usePullToRefresh } from "../utilities/UsePullToRefresh";
 import logo from "../assets/flat_obxvacay.png"; // Import the image
+import obxvacay from "../assets/obx_vacay.png"; // Import the image
+import obxvoice from "../assets/obxvoice.png"; // Import the image
 
 const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
 const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaIcons"));
@@ -26,7 +28,7 @@ const Homepage: React.FC = () => {
   const history = useHistory();
   const PullToRefresh = usePullToRefresh();
 
-  const generateWebViewButton = (url: string, name: string) => {
+  const generateWebViewButton = (url: string, name: string, image: string) => {
     const navigateToWebView = () => {
       history.push(
         {
@@ -36,14 +38,15 @@ const Homepage: React.FC = () => {
         { direction: "forward" }
       );
     };
-
+  
     return (
       <IonButton
         expand="block"
+        fill="clear" // Removes button background and border
         onClick={navigateToWebView}
         routerDirection="forward"
       >
-        {name}
+        <IonImg src={image} style={{ width: "100%", margin: "10px" }} />
       </IonButton>
     );
   };
@@ -88,8 +91,8 @@ const Homepage: React.FC = () => {
               <IonCard className="ion-no-padding">
                 <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Visit External Pages</h2>
-                  {generateWebViewButton("https://outerbanksvoice.com", "Outer Banks Voice")}
-                  {generateWebViewButton("https://obxvacay.com", "OBXVacay")}
+                  {generateWebViewButton("https://outerbanksvoice.com", "Outer Banks Voice", obxvoice)}
+                  {generateWebViewButton("https://obxvacay.com", "OBXVacay", obxvacay)}
                 </IonCardContent>
               </IonCard>
             </IonCol>
