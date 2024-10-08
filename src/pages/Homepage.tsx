@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { Suspense } from "react";
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCol,
@@ -10,150 +11,107 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
-  IonInput,
-  IonButton,
-  IonItem,
+  IonSpinner,
 } from "@ionic/react";
-import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
-import { AdCard, VideoCard, LinkCard } from "../components/CardComponents";
-import WeatherInfo from "../components/WeatherInfo"; // Import the WeatherInfo component
-import WeatherForecast from "../components/WeatherForecast";
+import { useHistory } from "react-router-dom";
+import { usePullToRefresh } from "../utilities/UsePullToRefresh";
+
+// Lazy load the components
+const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
+const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaIcons"));
+const WeatherForecast = React.lazy(() => import("../components/WeatherForecast"));
 
 const Homepage: React.FC = () => {
-  const [location, setLocation] = useState<string>("Kill Devil Hills, NC"); // Default location
-  const [searchTerm, setSearchTerm] = useState<string>(""); // To store user input
+  const history = useHistory();
+  const PullToRefresh = usePullToRefresh(); // Use the custom hook
+  
+  // Function to generate the webview button with the given URL
+  const generateWebViewButton = (url: string, name: string) => {
+    const navigateToWebView = () => {
+      history.push(
+        {
+          pathname: "/webview",
+          state: { url: url, name: name },
+        },
+        { direction: "forward" }
+      ); // Ensure forward routing direction
+    };
 
-  const handleSearch = () => {
-    if (searchTerm.trim()) {
-      setLocation(searchTerm); // Update location when user clicks search
-    }
+    return (
+      <IonButton
+        expand="block"
+        onClick={navigateToWebView}
+        routerDirection="forward"
+      >
+        {name}
+      </IonButton>
+    );
   };
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Homepage</IonTitle>
+          <IonTitle>OBX Vacay</IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen>
-        <IonGrid fixed>
-          {/* Livestream Player at the Top */}
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <IonCard>
-                <IonCardContent>
-                  <LivestreamReactPlayer />
+        <PullToRefresh />
+        <IonGrid className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
+          {/* Livestream Section */}
+          <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+              <IonCard className="ion-no-margin ion-no-padding">
+                <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
+                  {/* Use Suspense to lazily load LivestreamReactPlayer */}
+                  <Suspense fallback={<IonSpinner />}>
+                    <LivestreamReactPlayer />
+                  </Suspense>
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
 
-          {/* Search Bar */}
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <IonItem>
-                <IonInput
-                  value={searchTerm}
-                  placeholder="Enter location to see the weather"
-                  onIonChange={(e) => setSearchTerm(e.detail.value!)}
-                />
-                <IonButton onClick={handleSearch}>Search</IonButton>
-              </IonItem>
+          {/* Weather Forecast Section */}
+          <IonRow className="ion-no-padding ion-align-items-center ion-justify-content-center">
+            <IonCol className="ion-no-padding" size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+              <IonCard className="ion-no-padding ion-justify-content-center">
+                <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
+                  {/* Use Suspense to lazily load WeatherForecast */}
+                  <Suspense fallback={<IonSpinner />}>
+                    <WeatherForecast location="27959" />
+                  </Suspense>
+                </IonCardContent>
+              </IonCard>
             </IonCol>
           </IonRow>
 
-          {/* WeatherInfo Component */}
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <WeatherInfo location={location} /> {/* Pass location as prop */}
+          {/* External Pages Section */}
+          <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+              <IonCard className="ion-no-padding">
+                <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
+                  <h2>Visit External Pages</h2>
+                  {generateWebViewButton("https://outerbanksvoice.com", "Outer Banks Voice")}
+                  {generateWebViewButton("https://obxvacay.com", "OBXVacay")}
+                </IonCardContent>
+              </IonCard>
             </IonCol>
           </IonRow>
 
-          {/* WeatherForecast Component */}
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <WeatherForecast location={location} /> {/* Pass location as prop */}
-            </IonCol>
-          </IonRow>
-
-          {/* Cards in their own rows */}
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <LinkCard title="Login" name="Login Here" link="/login" />
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <AdCard
-                adText="Check out our latest product!"
-                link="https://www.google.com"
-              />
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <VideoCard
-                videoTitle="Puppies open a cat store"
-                videoUrl="https://example.com/video.mp4"
-              />
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <VideoCard
-                videoTitle="The world is getting smaller"
-                videoUrl="https://example.com/video.mp4"
-              />
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <VideoCard
-                videoTitle="Dont forget to floss!"
-                videoUrl="https://example.com/video.mp4"
-              />
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <VideoCard
-                videoTitle="How the OBX got its name"
-                videoUrl="https://example.com/video.mp4"
-              />
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <AdCard
-                adText="Check out our latest product!"
-                link="https://www.google.com"
-              />
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <VideoCard
-                videoTitle="The Wright Brothers"
-                videoUrl="https://example.com/video.mp4"
-              />
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <VideoCard
-                videoTitle="How to swim when you're having so much fun"
-                videoUrl="https://example.com/video.mp4"
-              />
+          {/* Social Media Section */}
+          <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+              <IonCard className="ion-no-margin ion-no-padding">
+                <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
+                  <h2>Follow Us On Social Media</h2>
+                  {/* Use Suspense to lazily load SocialMediaIcons */}
+                  <Suspense fallback={<IonSpinner />}>
+                    <SocialMediaIcons />
+                  </Suspense>
+                </IonCardContent>
+              </IonCard>
             </IonCol>
           </IonRow>
         </IonGrid>
