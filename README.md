@@ -46,13 +46,13 @@ npm install -g @ionic/cli
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/obx-vacay-app.git
+   git clone https://github.com/k0nig1/obxvacay-react.git
    ```
 
 2. **Navigate to the project directory:**
 
    ```bash
-   cd obx-vacay-app
+   cd obxvacay-react
    ```
 
 3. **Install dependencies:**
@@ -120,7 +120,7 @@ Feel free to fork this repository, submit pull requests, or open issues to repor
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature-name`)
 3. Commit your changes (`git commit -m 'Add your feature'`)
-4. Push to the branch (`git push origin feature/your-feature-name`)
+4. Push to the branch (`git push upstream feature/your-feature-name`)
 5. Open a pull request
 
 ## License
