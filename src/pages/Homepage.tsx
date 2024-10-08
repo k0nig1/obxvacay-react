@@ -14,6 +14,7 @@ import {
   IonSpinner,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
+import { usePullToRefresh } from "../utilities/UsePullToRefresh";
 
 // Lazy load the components
 const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
@@ -22,7 +23,8 @@ const WeatherForecast = React.lazy(() => import("../components/WeatherForecast")
 
 const Homepage: React.FC = () => {
   const history = useHistory();
-
+  const PullToRefresh = usePullToRefresh(); // Use the custom hook
+  
   // Function to generate the webview button with the given URL
   const generateWebViewButton = (url: string, name: string) => {
     const navigateToWebView = () => {
@@ -55,6 +57,7 @@ const Homepage: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen>
+        <PullToRefresh />
         <IonGrid className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
           {/* Livestream Section */}
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
