@@ -10,7 +10,7 @@ interface WeatherForecastProps {
 const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
   const [forecastData, setForecastData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false); // State to handle image loading error
+  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({}); // Track errors for each day
 
   const API_KEY = '332a43bda5e94a5a9e1121157241609'; // Replace with your WeatherAPI key
 
@@ -47,6 +47,14 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
   // Get all three days of weather including today
   const forecastDays = forecastData.forecast.forecastday;
 
+  // Function to handle image load error for each day
+  const handleImageError = (index: number) => {
+    setImageErrors((prevErrors) => ({
+      ...prevErrors,
+      [index]: true, // Mark error for the specific day
+    }));
+  };
+
   return (
     <IonCard className="ion-no-margin ion-no-padding">
       <IonCardContent className="ion-no-margin ion-no-padding">
@@ -57,21 +65,27 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
                 ? "Today"
                 : new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' });
 
+              // Ensure HTTPS is used for the weather icon
+                const iconUrl = day.day.condition.icon.startsWith('//') || day.day.condition.icon.startsWith('http')
+                ? `https:${day.day.condition.icon.replace(/^\/\//, '')}` // If the URL starts with "//" or "http", ensure it uses "https:"
+                : day.day.condition.icon;
+
               return (
                 <IonCol size="auto" key={index} className="ion-no-margin ion-no-padding">
                   <IonItem className="forecast-item ion-no-margin ion-no-padding" lines="none">
                     <IonLabel className="forecast-label">
                       <h2 className="day-name">{dayName}</h2>
-                      <img
-                        src={day.day.condition.icon.replace('http://', 'https://')} // Force HTTPS
-                        alt="weather icon"
-                        className="weather-icon"
-                        onError={(e) => {
-                          e.currentTarget.src = '/assets/fallback-icon.png'; // Fallback image
-                          setError(true);
-                        }}
-                      />
-                      {error && <p className="error-text">Image not available</p>} {/* Display error text if image fails */}
+                      {/* If the image fails to load, show the condition text */}
+                      {imageErrors[index] ? (
+                        <p className="weather-condition-text">{day.day.condition.text}</p>
+                      ) : (
+                        <img
+                          src={iconUrl} // Use the modified URL
+                          alt="weather icon"
+                          className="weather-icon"
+                          onError={() => handleImageError(index)} // Handle image load error for this day
+                        />
+                      )}
                       <div className="temp-container">
                         <span className={`temp-high ${isDaytime ? 'bold-large' : ''}`}>
                           {day.day.maxtemp_f}°F
