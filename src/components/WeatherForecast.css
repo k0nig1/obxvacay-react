@@ -1,6 +1,10 @@
 .weather-row {
   flex-wrap: nowrap;
-  overflow-x: auto; /* Allow horizontal scrolling if needed */
+  overflow-x: auto; /* Enable horizontal scrolling if content overflows */
+}
+
+.forecast-col {
+  flex: 1 1 auto; /* Allow column to grow to fit the content */
 }
 
 .forecast-item {
@@ -8,17 +12,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 150px;
-  border: 1px solid #ccc;
+  width: 160px; /* Increased width for better spacing */
+  height: 160px;
   border-radius: 10px;
   margin: 10px;
   text-align: center;
   background-color: #f9f9f9;
-}
-
-.today-weather {
-  background-color: #ffeb3b; /* Highlight today's weather with a yellow background */
 }
 
 .forecast-label {
@@ -39,12 +38,64 @@
   margin-top: 5px;
 }
 
-.temp-text {
-  font-size: 0.8rem;
+.temp-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 3px;
+  padding: 0 5px; /* Added padding to allow more room */
 }
 
-.condition-text {
+.temp-high, .temp-low {
+  font-size: 1rem;
+}
+
+.bold-large {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.temp-separator {
+  display: inline-block;
+  width: 20px; /* Ensure there's adequate spacing between high and low */
+}
+
+.rain-chance {
   font-size: 0.75rem;
-  margin-bottom: 5px;
+  color: #007aff;
+  margin-top: 5px;
+}
+
+/* Media query for smaller screen sizes */
+@media (max-width: 480px) {
+  .forecast-item {
+    width: 120px; /* Smaller width for small screens */
+    height: 120px;
+    margin: 5px;
+  }
+
+  .weather-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .day-name {
+    font-size: 0.8rem;
+  }
+
+  .temp-high, .temp-low {
+    font-size: 0.7rem;
+  }
+
+  .bold-large {
+    font-size: 1rem;
+  }
+
+  .temp-separator {
+    width: 15px;
+  }
+
+  .rain-chance {
+    font-size: 0.65rem;
+  }
 }

@@ -21,12 +21,12 @@ const Homepage: React.FC = () => {
   const history = useHistory();
 
   // Function to generate the webview button with the given URL
-  const generateWebViewButton = (url: string) => {
+  const generateWebViewButton = (url: string, name: string) => {
     const navigateToWebView = () => {
       history.push(
         {
           pathname: "/webview",
-          state: { url: url },
+          state: { url: url, name: name },
         },
         { direction: "forward" }
       ); // Ensure forward routing direction
@@ -38,7 +38,7 @@ const Homepage: React.FC = () => {
         onClick={navigateToWebView}
         routerDirection="forward"
       >
-        {url}
+        {name}
       </IonButton>
     );
   };
@@ -52,52 +52,47 @@ const Homepage: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen>
-        <IonGrid fixed>
+        <IonGrid className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
           {/* Livestream Section */}
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <IonCard>
-                <IonCardContent>
+          <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+              <IonCard className="ion-no-margin ion-no-padding">
+                <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <LivestreamReactPlayer />
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
 
-          <IonRow className="ion-no-margin ion-no-padding ion-justify-content-center">
-            <IonCol
-              className="ion-no-margin ion-no-padding"
-              size="12"
-              sizeMd="10"
-              sizeLg="8"
-              sizeXl="6"
-            >
-              <IonCard className="ion-no-margin ion-no-padding">
-                <IonCardContent className="ion-no-margin ion-no-padding">
+          {/* Weather Forecast Section */}
+          <IonRow className="ion-no-padding ion-align-items-center ion-justify-content-center">
+            <IonCol className="ion-no-padding" size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+              <IonCard className="ion-no-padding ion-justify-content-center">
+                <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <WeatherForecast location="Nags Head, NC" />
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
-          
-          {/* Example: Generate WebView Buttons for multiple URLs */}
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <IonCard>
-                <IonCardContent>
+
+          {/* External Pages Section */}
+          <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+              <IonCard className="ion-no-padding">
+                <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Visit External Pages</h2>
-                  {generateWebViewButton("https://outerbanksvoice.com")}
-                  {generateWebViewButton("https://obxvacay.com")}
+                  {generateWebViewButton("https://outerbanksvoice.com", "Outer Banks Voice")}
+                  {generateWebViewButton("https://obxvacay.com", "OBXVacay")}
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
 
           {/* Social Media Section */}
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <IonCard>
-                <IonCardContent>
+          <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+              <IonCard className="ion-no-margin ion-no-padding">
+                <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Follow Us On Social Media</h2>
                   <SocialMediaIcons />
                 </IonCardContent>
