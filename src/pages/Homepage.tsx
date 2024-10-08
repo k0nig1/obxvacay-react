@@ -12,20 +12,20 @@ import {
   IonTitle,
   IonToolbar,
   IonSpinner,
+  IonImg,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import { usePullToRefresh } from "../utilities/UsePullToRefresh";
+import logo from "../assets/flat_obxvacay.png"; // Import the image
 
-// Lazy load the components
 const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
 const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaIcons"));
 const WeatherForecast = React.lazy(() => import("../components/WeatherForecast"));
 
 const Homepage: React.FC = () => {
   const history = useHistory();
-  const PullToRefresh = usePullToRefresh(); // Use the custom hook
-  
-  // Function to generate the webview button with the given URL
+  const PullToRefresh = usePullToRefresh();
+
   const generateWebViewButton = (url: string, name: string) => {
     const navigateToWebView = () => {
       history.push(
@@ -34,7 +34,7 @@ const Homepage: React.FC = () => {
           state: { url: url, name: name },
         },
         { direction: "forward" }
-      ); // Ensure forward routing direction
+      );
     };
 
     return (
@@ -52,19 +52,17 @@ const Homepage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>OBX Vacay</IonTitle>
+          <IonImg src={logo} style={{ width: "100%", margin: "10px" }} slot="start" />
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen>
         <PullToRefresh />
         <IonGrid className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-          {/* Livestream Section */}
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
-                  {/* Use Suspense to lazily load LivestreamReactPlayer */}
                   <Suspense fallback={<IonSpinner />}>
                     <LivestreamReactPlayer />
                   </Suspense>
@@ -73,12 +71,10 @@ const Homepage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          {/* Weather Forecast Section */}
           <IonRow className="ion-no-padding ion-align-items-center ion-justify-content-center">
             <IonCol className="ion-no-padding" size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard className="ion-no-padding ion-justify-content-center">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
-                  {/* Use Suspense to lazily load WeatherForecast */}
                   <Suspense fallback={<IonSpinner />}>
                     <WeatherForecast location="27959" />
                   </Suspense>
@@ -87,7 +83,6 @@ const Homepage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          {/* External Pages Section */}
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
               <IonCard className="ion-no-padding">
@@ -100,13 +95,11 @@ const Homepage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          {/* Social Media Section */}
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Follow Us On Social Media</h2>
-                  {/* Use Suspense to lazily load SocialMediaIcons */}
                   <Suspense fallback={<IonSpinner />}>
                     <SocialMediaIcons />
                   </Suspense>
