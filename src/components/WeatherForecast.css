@@ -47,17 +47,18 @@
 }
 
 .temp-high, .temp-low {
-  font-size: 1rem;
+  font-size: 1.5rem; /* Ensure both high and low temps are the same size */
+  font-weight: normal; /* Set default weight */
 }
 
 .bold-large {
-  font-weight: bold;
-  font-size: 1.3rem;
+  font-weight: bold; /* Apply bold when needed */
 }
 
 .temp-separator {
-  display: inline-block;
-  width: 20px; /* Ensure there's adequate spacing between high and low */
+  font-size: 1.5rem; /* Match the size of the temperature */
+  font-weight: normal; /* Ensure it's not bold */
+  vertical-align: middle; /* Align properly with the numbers */
 }
 
 .rain-chance {
@@ -77,6 +78,7 @@
   .weather-icon {
     width: 40px;
     height: 40px;
+    margin: 0px;
   }
 
   .day-name {
@@ -84,15 +86,19 @@
   }
 
   .temp-high, .temp-low {
-    font-size: 0.7rem;
+    font-size: 1.0rem;
+    font-weight: normal;
   }
 
   .bold-large {
-    font-size: 1rem;
+    font-weight: bold;;
   }
 
   .temp-separator {
-    width: 15px;
+    font-size: inherit; /* Matches the size of the temperature */
+    font-weight: inherit; /* Matches the weight of the temperature */
+    vertical-align: middle; /* Adjusts the vertical alignment to be in line with numbers */
+
   }
 
   .rain-chance {
