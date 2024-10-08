@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   IonButton,
   IonCard,
@@ -7,17 +7,42 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
-  IonInput,
   IonPage,
   IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { useHistory } from "react-router-dom";
 import LivestreamReactPlayer from "../components/LivestreamReactPlayer";
 import SocialMediaIcons from "../components/SocialMediaIcons";
+import WeatherForecast from "../components/WeatherForecast";
 
 const Homepage: React.FC = () => {
-  
+  const history = useHistory();
+
+  // Function to generate the webview button with the given URL
+  const generateWebViewButton = (url: string) => {
+    const navigateToWebView = () => {
+      history.push(
+        {
+          pathname: "/webview",
+          state: { url: url },
+        },
+        { direction: "forward" }
+      ); // Ensure forward routing direction
+    };
+
+    return (
+      <IonButton
+        expand="block"
+        onClick={navigateToWebView}
+        routerDirection="forward"
+      >
+        {url}
+      </IonButton>
+    );
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -28,6 +53,7 @@ const Homepage: React.FC = () => {
 
       <IonContent fullscreen>
         <IonGrid fixed>
+          {/* Livestream Section */}
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard>
@@ -37,16 +63,37 @@ const Homepage: React.FC = () => {
               </IonCard>
             </IonCol>
           </IonRow>
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <IonCard>
-                <IonCardContent>
-                  <h2>Check Out Our Website at</h2>
-                  <a href="https://obxvacay.com">OBXVacay.com</a>
+
+          <IonRow className="ion-no-margin ion-no-padding ion-justify-content-center">
+            <IonCol
+              className="ion-no-margin ion-no-padding"
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+            >
+              <IonCard className="ion-no-margin ion-no-padding">
+                <IonCardContent className="ion-no-margin ion-no-padding">
+                  <WeatherForecast location="Nags Head, NC" />
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
+          
+          {/* Example: Generate WebView Buttons for multiple URLs */}
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+              <IonCard>
+                <IonCardContent>
+                  <h2>Visit External Pages</h2>
+                  {generateWebViewButton("https://outerbanksvoice.com")}
+                  {generateWebViewButton("https://obxvacay.com")}
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+
+          {/* Social Media Section */}
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard>

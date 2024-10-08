@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonSpinner } from '@ionic/react';
 import axios from 'axios';
+import './WeatherForecast.css'; // Import CSS file for custom styles
 
 interface WeatherForecastProps {
   location: string; // Accept the location as a prop
@@ -38,28 +39,45 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
     return <div>Error loading forecast data.</div>;
   }
 
+  // Extract today's weather from the forecast data
+  const todayWeather = forecastData.forecast.forecastday[0];
+
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardTitle>3-Day Forecast for {forecastData.location.name}</IonCardTitle>
+        <IonCardTitle>Weather Forecast for {forecastData.location.name}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
         <IonGrid>
-          {/* Single IonRow to display forecast items side by side */}
-          <IonRow className="ion-align-items-center ion-justify-content-center">
-            {forecastData.forecast.forecastday.map((day: any, index: number) => {
-              // Get the day name from the date
+          {/* Today's Weather */}
+          <IonRow className="ion-align-items-center ion-justify-content-center weather-row">
+            <IonCol size="auto">
+              <IonItem className="forecast-item today-weather" lines="none">
+                <IonLabel className="forecast-label">
+                  <h2 className="day-name">Today</h2>
+                  <img src={todayWeather.day.condition.icon} alt="weather icon" className="weather-icon" />
+                  <p className="condition-text">{todayWeather.day.condition.text}</p>
+                  <p className="temp-text">{todayWeather.day.maxtemp_f}/{todayWeather.day.mintemp_f}°F</p>
+                </IonLabel>
+              </IonItem>
+            </IonCol>
+          </IonRow>
+
+          {/* 3-Day Forecast */}
+          <IonRow className="ion-align-items-center ion-justify-content-center weather-row">
+            {forecastData.forecast.forecastday.slice(1).map((day: any, index: number) => {
               const dayName = new Date(day.date).toLocaleDateString('en-US', { weekday: 'long' });
 
               return (
-                  <IonItem lines="none">
-                    <IonLabel>
-                      <img src={day.day.condition.icon} alt="weather icon" />
-                      <h2>{dayName}</h2> {/* Show the day name instead of the date */}
-                      <p>{day.day.condition.text}</p>
-                      <p>{day.day.maxtemp_f}/{day.day.mintemp_f}°F</p>
+                <IonCol size="auto" key={index}>
+                  <IonItem className="forecast-item" lines="none">
+                    <IonLabel className="forecast-label">
+                      <h2 className="day-name">{dayName}</h2>
+                      <img src={day.day.condition.icon} alt="weather icon" className="weather-icon" />
+                      <p className="temp-text">{day.day.maxtemp_f}/{day.day.mintemp_f}°F</p>
                     </IonLabel>
                   </IonItem>
+                </IonCol>
               );
             })}
           </IonRow>

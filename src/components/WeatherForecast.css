@@ -1,0 +1,50 @@
+.weather-row {
+  flex-wrap: nowrap;
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
+}
+
+.forecast-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 10px;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.today-weather {
+  background-color: #ffeb3b; /* Highlight today's weather with a yellow background */
+}
+
+.forecast-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.weather-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+.day-name {
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.temp-text {
+  font-size: 0.8rem;
+  margin-top: 3px;
+}
+
+.condition-text {
+  font-size: 0.75rem;
+  margin-bottom: 5px;
+}
