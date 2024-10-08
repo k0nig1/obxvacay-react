@@ -14,6 +14,19 @@ const LivestreamReactPlayer: React.FC = () => {
     const setupHls = () => {
       if (Hls.isSupported()) {
         hls = new Hls();
+
+        // Retry logic after media error
+        const handleMediaError = () => {
+          setTimeout(() => {
+            if (retryCount < 3) {
+              setRetryCount((prev) => prev + 1);
+              setErrorMessage(`Retrying... (${retryCount + 1})`);
+              hls?.recoverMediaError();
+            } else {
+              setErrorMessage("Failed to recover from media error.");
+            }
+          }, 3000);
+        };
         
         // Attach error event listener for HLS errors
         hls.on(Hls.Events.ERROR, (event, data) => {
@@ -21,21 +34,12 @@ const LivestreamReactPlayer: React.FC = () => {
             switch (data.type) {
               case Hls.ErrorTypes.NETWORK_ERROR:
                 setErrorMessage("Live Stream Not Available (Network Error)");
-                hls?.stopLoad(); // Stop loading more chunks
+                // hls?.stopLoad(); // Stop loading more chunks
+                handleMediaError();
                 break;
               case Hls.ErrorTypes.MEDIA_ERROR:
                 setErrorMessage("Live Stream Not Available (Media Error)");
-
-                // Retry logic after media error
-                setTimeout(() => {
-                  if (retryCount < 3) {
-                    setRetryCount((prev) => prev + 1);
-                    setErrorMessage(`Retrying... (${retryCount + 1})`);
-                    hls?.recoverMediaError();
-                  } else {
-                    setErrorMessage("Failed to recover from media error.");
-                  }
-                }, 3000);
+                handleMediaError();
                 break;
               default:
                 setErrorMessage("Live Stream Not Available (Fatal Error)");
