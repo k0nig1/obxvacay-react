@@ -14,19 +14,26 @@ import {
   IonSpinner,
   IonImg,
 } from "@ionic/react";
+import "./Homepage.css";
 import { useHistory } from "react-router-dom";
 import { usePullToRefresh } from "../utilities/UsePullToRefresh";
-import logo from "../assets/flat_obxvacay.png"; // Import the image
-import obxvacay from "../assets/obx_vacay.png"; // Import the image
-import obxvoice from "../assets/obxvoice.png"; // Import the image
+import logo from "../assets/flat_obxvacay.png";
+import obxvacay from "../assets/obx_vacay.png";
+import obxvoice from "../assets/obxvoice.png";
 
-const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
-const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaIcons"));
-const WeatherForecast = React.lazy(() => import("../components/WeatherForecast"));
+const LivestreamReactPlayer = React.lazy(
+  () => import("../components/LivestreamReactPlayer")
+);
+const SocialMediaIcons = React.lazy(
+  () => import("../components/SocialMediaIcons")
+);
+const WeatherForecast = React.lazy(
+  () => import("../components/WeatherForecast")
+);
 
 const Homepage: React.FC = () => {
   const history = useHistory();
-  const PullToRefresh = usePullToRefresh();
+  const PullToRefresh = usePullToRefresh(); // adding hook to the component to enable pull to refresh
 
   const generateWebViewButton = (url: string, name: string, image: string) => {
     const navigateToWebView = () => {
@@ -38,7 +45,7 @@ const Homepage: React.FC = () => {
         { direction: "forward" }
       );
     };
-  
+
     return (
       <IonButton
         expand="block"
@@ -54,8 +61,11 @@ const Homepage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonImg src={logo} style={{ width: "100%", margin: "10px" }} slot="start" />
+        <IonToolbar className="center-logo">
+          <IonImg
+            src={logo}
+            className="header-logo" // Custom logo styles
+          />
         </IonToolbar>
       </IonHeader>
 
@@ -63,7 +73,13 @@ const Homepage: React.FC = () => {
         <PullToRefresh />
         <IonGrid className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <Suspense fallback={<IonSpinner />}>
@@ -75,7 +91,13 @@ const Homepage: React.FC = () => {
           </IonRow>
 
           <IonRow className="ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol className="ion-no-padding" size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+            <IonCol
+              className="ion-no-padding"
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+            >
               <IonCard className="ion-no-padding ion-justify-content-center">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <Suspense fallback={<IonSpinner />}>
@@ -87,19 +109,39 @@ const Homepage: React.FC = () => {
           </IonRow>
 
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
               <IonCard className="ion-no-padding">
                 <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Visit External Pages</h2>
-                  {generateWebViewButton("https://outerbanksvoice.com", "Outer Banks Voice", obxvoice)}
-                  {generateWebViewButton("https://obxvacay.com", "OBXVacay", obxvacay)}
+                  {generateWebViewButton(
+                    "https://outerbanksvoice.com",
+                    "Outer Banks Voice",
+                    obxvoice
+                  )}
+                  {generateWebViewButton(
+                    "https://obxvacay.com",
+                    "OBXVacay",
+                    obxvacay
+                  )}
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
 
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Follow Us On Social Media</h2>
