@@ -131,7 +131,6 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
                           alt="weather icon"
                           className="weather-icon"
                           onError={() => handleImageError(index)} // Handle image load error for this day
-                          onLoad={() => console.log("Icon URL " + iconUrl)}
                         />
                       )}
                       <div className="temp-container">
