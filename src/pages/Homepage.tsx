@@ -9,7 +9,6 @@ import {
   IonHeader,
   IonPage,
   IonRow,
-  IonTitle,
   IonToolbar,
   IonSpinner,
   IonImg,
@@ -35,12 +34,12 @@ const Homepage: React.FC = () => {
   const history = useHistory();
   const PullToRefresh = usePullToRefresh();
 
-  const generateWebViewButton = (url: string, name:string, image: string, style: React.CSSProperties) => {
+  const generateWebViewButton = (url: string, name: string, image: string, style: React.CSSProperties) => {
     const navigateToWebView = () => {
       history.push(
         {
           pathname: "/webview",
-          state: { url: url, name: name },
+          state: { url, name },
         },
         { direction: "forward" }
       );
@@ -53,7 +52,7 @@ const Homepage: React.FC = () => {
         onClick={navigateToWebView}
         routerDirection="forward"
       >
-        <IonImg src={image} style={{ width: "100%" }} />
+        <IonImg src={image} style={{ width: "100%" }} alt={name} />
       </IonButton>
     );
   };
@@ -65,6 +64,7 @@ const Homepage: React.FC = () => {
           <IonImg
             src={logo}
             className="header-logo"
+            alt="OBX Vacay Logo"
           />
         </IonToolbar>
       </IonHeader>
@@ -119,19 +119,18 @@ const Homepage: React.FC = () => {
               <IonCard className="ion-no-padding">
                 <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Visit External Pages</h2>
-                  {/* Adjust buttons to be inline and auto-fit */}
                   <div className="external-links">
                     {generateWebViewButton(
                       "https://outerbanksvoice.com",
                       "OBX Voice",
                       obxvoice,
-                      { width: "50%" } // Full size for Outer Banks Voice
+                      { width: "50%" }
                     )}
                     {generateWebViewButton(
                       "https://obxvacay.com",
                       "OBX Vacay",
                       obxvacay,
-                      { width: "25%" } // Smaller size for OBXVacay
+                      { width: "25%" }
                     )}
                   </div>
                 </IonCardContent>
