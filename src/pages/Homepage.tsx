@@ -9,41 +9,50 @@ import {
   IonHeader,
   IonPage,
   IonRow,
-  IonTitle,
   IonToolbar,
   IonSpinner,
+  IonImg,
 } from "@ionic/react";
+import "./Homepage.css"; // Import your custom CSS for further styling
 import { useHistory } from "react-router-dom";
 import { usePullToRefresh } from "../utilities/UsePullToRefresh";
+import logo from "../assets/flat_obxvacay.png";
+import obxvacay from "../assets/obx_vacay.png";
+import obxvoice from "../assets/obxvoice.png";
 
-// Lazy load the components
-const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
-const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaIcons"));
-const WeatherForecast = React.lazy(() => import("../components/WeatherForecast"));
+const LivestreamReactPlayer = React.lazy(
+  () => import("../components/LivestreamReactPlayer")
+);
+const SocialMediaIcons = React.lazy(
+  () => import("../components/SocialMediaIcons")
+);
+const WeatherForecast = React.lazy(
+  () => import("../components/WeatherForecast")
+);
 
 const Homepage: React.FC = () => {
   const history = useHistory();
-  const PullToRefresh = usePullToRefresh(); // Use the custom hook
-  
-  // Function to generate the webview button with the given URL
-  const generateWebViewButton = (url: string, name: string) => {
+  const PullToRefresh = usePullToRefresh();
+
+  const generateWebViewButton = (url: string, name: string, image: string, style: React.CSSProperties) => {
     const navigateToWebView = () => {
       history.push(
         {
           pathname: "/webview",
-          state: { url: url, name: name },
+          state: { url, name, image },
         },
         { direction: "forward" }
-      ); // Ensure forward routing direction
+      );
     };
 
     return (
       <IonButton
-        expand="block"
+        style={{ ...style, margin: "10px" }}
+        fill="clear"
         onClick={navigateToWebView}
         routerDirection="forward"
       >
-        {name}
+        <IonImg src={image} style={{ width: "100%" }} alt={name} />
       </IonButton>
     );
   };
@@ -51,20 +60,28 @@ const Homepage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>OBX Vacay</IonTitle>
+        <IonToolbar className="center-logo">
+          <IonImg
+            src={logo}
+            className="header-logo"
+            alt="OBX Vacay Logo"
+          />
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen>
         <PullToRefresh />
         <IonGrid className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-          {/* Livestream Section */}
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
-                  {/* Use Suspense to lazily load LivestreamReactPlayer */}
                   <Suspense fallback={<IonSpinner />}>
                     <LivestreamReactPlayer />
                   </Suspense>
@@ -73,12 +90,16 @@ const Homepage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          {/* Weather Forecast Section */}
           <IonRow className="ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol className="ion-no-padding" size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+            <IonCol
+              className="ion-no-padding"
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+            >
               <IonCard className="ion-no-padding ion-justify-content-center">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
-                  {/* Use Suspense to lazily load WeatherForecast */}
                   <Suspense fallback={<IonSpinner />}>
                     <WeatherForecast location="27959" />
                   </Suspense>
@@ -87,26 +108,47 @@ const Homepage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          {/* External Pages Section */}
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
               <IonCard className="ion-no-padding">
                 <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Visit External Pages</h2>
-                  {generateWebViewButton("https://outerbanksvoice.com", "Outer Banks Voice")}
-                  {generateWebViewButton("https://obxvacay.com", "OBXVacay")}
+                  <div className="external-links">
+                    {generateWebViewButton(
+                      "https://outerbanksvoice.com",
+                      "OBX Voice",
+                      obxvoice,
+                      { width: "50%" }
+                    )}
+                    {generateWebViewButton(
+                      "https://obxvacay.com",
+                      "OBX Vacay",
+                      obxvacay,
+                      { width: "25%" }
+                    )}
+                  </div>
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
 
-          {/* Social Media Section */}
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Follow Us On Social Media</h2>
-                  {/* Use Suspense to lazily load SocialMediaIcons */}
                   <Suspense fallback={<IonSpinner />}>
                     <SocialMediaIcons />
                   </Suspense>

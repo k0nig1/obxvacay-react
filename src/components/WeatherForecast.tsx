@@ -10,6 +10,7 @@ import {
   IonSpinner,
 } from "@ionic/react";
 import axios from "axios";
+import { DateTime } from "luxon";
 import "./WeatherForecast.css"; // Import CSS file for custom styles
 
 interface WeatherForecastProps {
@@ -30,7 +31,6 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
         const response = await axios.get(
           `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=3`
         );
-        // console.log("API Forecast Data:", response.data); // Log the raw forecast data
         setForecastData(response.data);
       } catch (error) {
         console.error("Error fetching weather forecast data", error);
@@ -50,39 +50,14 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
     return <div>Error loading forecast data.</div>;
   }
 
-  // Get the current hour in US East Coast time zone
-  const currentHour = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/New_York",
-    hour: "numeric",
-    hour12: false,
-  })
-    .formatToParts(new Date())
-    .find((part) => part.type === "hour")?.value;
+  // Use Luxon to get the current time in the US East Coast (America/New_York)
+  const currentHour = DateTime.now().setZone("America/New_York").hour;
 
-  const isDaytime = Number(currentHour) >= 6 && Number(currentHour) < 18; // Daytime between 6am and 6pm
+  const isDaytime = currentHour >= 6 && currentHour < 18; // Daytime is between 6 AM and 6 PM
 
-  // Get all three days of weather including today
-  const forecastDays = forecastData.forecast.forecastday;
-
-  const myTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  // console.log(`Your current time zone is: ${myTimeZone}`);
-
-  // forecastDays.map((day: any, index: number) => {
-  //   const rawDate = new Date(day.date);
-  //   const formattedDate = new Intl.DateTimeFormat("en-US", {
-  //     weekday: "short",
-  //     timeZone: myTimeZone,
-  //   }).format(rawDate);
-  //   console.log(`Day ${index}: ${formattedDate} (raw date: ${rawDate})`); // Log formatted and raw date
-  // });
-
-  // Function to format the day name based on the U.S. East Coast time zone
+  // Function to format the day name based on U.S. East Coast time zone
   const formatDay = (date: string) => {
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: "short",
-      timeZone: myTimeZone,
-    };
-    return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
+    return DateTime.fromISO(date, { zone: "America/New_York" }).toFormat("ccc");
   };
 
   // Function to handle image load error for each day
@@ -98,15 +73,13 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
       <IonCardContent className="ion-no-margin ion-no-padding">
         <IonGrid className="ion-no-margin ion-no-padding">
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center weather-row">
-            {forecastDays.map((day: any, index: number) => {
+            {forecastData.forecast.forecastday.map((day: any, index: number) => {
               const dayName = index === 0 ? "Today" : formatDay(day.date);
 
               // Ensure HTTPS is used for the weather icon
-              const iconUrl =
-                day.day.condition.icon.startsWith("//") ||
-                day.day.condition.icon.startsWith("http")
-                  ? `https:${day.day.condition.icon.replace(/^\/\//, "")}` // If the URL starts with "//" or "http", ensure it uses "https:"
-                  : day.day.condition.icon;
+              const iconUrl = day.day.condition.icon.startsWith("//")
+                ? `https://${day.day.condition.icon.replace(/^\/\//, "")}`
+                : day.day.condition.icon;
 
               return (
                 <IonCol
@@ -127,10 +100,10 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
                         </p>
                       ) : (
                         <img
-                          src={iconUrl} // Use the modified URL
+                          src={iconUrl}
                           alt="weather icon"
                           className="weather-icon"
-                          onError={() => handleImageError(index)} // Handle image load error for this day
+                          onError={() => handleImageError(index)}
                         />
                       )}
                       <div className="temp-container">

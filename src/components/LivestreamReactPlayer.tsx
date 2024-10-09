@@ -18,14 +18,14 @@ const LivestreamReactPlayer: React.FC = () => {
         // Retry logic after media error
         const handleMediaError = () => {
           setTimeout(() => {
-            if (retryCount < 3) {
+            if (retryCount < 50) {
               setRetryCount((prev) => prev + 1);
               setErrorMessage(`Retrying... (${retryCount + 1})`);
               hls?.recoverMediaError();
             } else {
               setErrorMessage("Failed to recover from media error.");
             }
-          }, 3000);
+          }, 5000);
         };
         
         // Attach error event listener for HLS errors

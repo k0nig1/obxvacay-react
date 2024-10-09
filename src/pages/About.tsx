@@ -1,14 +1,19 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonList, IonItem, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonList, IonItem, IonGrid, IonRow, IonCol, IonImg } from '@ionic/react';
 import SocialMediaIcons from '../components/SocialMediaIcons';
 import './About.css'; // Import custom CSS
+import logo from "../assets/flat_obxvacay.png";
 
 const About: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>About Us - OBX Vacay</IonTitle>
+      <IonToolbar className="center-logo">
+          <IonImg
+            src={logo}
+            className="header-logo"
+            alt="OBX Vacay Logo"
+          />
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
