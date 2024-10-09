@@ -30,7 +30,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
         const response = await axios.get(
           `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=3`
         );
-        // console.log("API Forecast Data:", response.data); // Log the raw forecast data
+        console.log("API Forecast Data:", response.data); // Log the raw forecast data
         setForecastData(response.data);
       } catch (error) {
         console.error("Error fetching weather forecast data", error);
