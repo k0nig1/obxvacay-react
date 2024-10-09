@@ -35,12 +35,12 @@ const Homepage: React.FC = () => {
   const history = useHistory();
   const PullToRefresh = usePullToRefresh();
 
-  const generateWebViewButton = (url: string, image: string, style: React.CSSProperties) => {
+  const generateWebViewButton = (url: string, name:string, image: string, style: React.CSSProperties) => {
     const navigateToWebView = () => {
       history.push(
         {
           pathname: "/webview",
-          state: { url: url },
+          state: { url: url, name: name },
         },
         { direction: "forward" }
       );
@@ -123,11 +123,13 @@ const Homepage: React.FC = () => {
                   <div className="external-links">
                     {generateWebViewButton(
                       "https://outerbanksvoice.com",
+                      "OBX Voice",
                       obxvoice,
                       { width: "50%" } // Full size for Outer Banks Voice
                     )}
                     {generateWebViewButton(
                       "https://obxvacay.com",
+                      "OBX Vacay",
                       obxvacay,
                       { width: "25%" } // Smaller size for OBXVacay
                     )}
