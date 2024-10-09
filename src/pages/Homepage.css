@@ -23,3 +23,11 @@
     max-width: 300px; /* Adjust for mobile devices */
   }
 }
+
+.external-links {
+  display: flex;
+  justify-content: center; /* Center the buttons */
+  align-items: center;
+  gap: 20px; /* Adjust spacing between the buttons */
+  flex-wrap: wrap; /* Ensures wrapping for smaller screens */
+}

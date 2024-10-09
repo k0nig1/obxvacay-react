@@ -14,7 +14,7 @@ import {
   IonSpinner,
   IonImg,
 } from "@ionic/react";
-import "./Homepage.css";
+import "./Homepage.css"; // Import your custom CSS for further styling
 import { useHistory } from "react-router-dom";
 import { usePullToRefresh } from "../utilities/UsePullToRefresh";
 import logo from "../assets/flat_obxvacay.png";
@@ -33,14 +33,14 @@ const WeatherForecast = React.lazy(
 
 const Homepage: React.FC = () => {
   const history = useHistory();
-  const PullToRefresh = usePullToRefresh(); // adding hook to the component to enable pull to refresh
+  const PullToRefresh = usePullToRefresh();
 
-  const generateWebViewButton = (url: string, name: string, image: string) => {
+  const generateWebViewButton = (url: string, image: string, style: React.CSSProperties) => {
     const navigateToWebView = () => {
       history.push(
         {
           pathname: "/webview",
-          state: { url: url, name: name },
+          state: { url: url },
         },
         { direction: "forward" }
       );
@@ -48,8 +48,8 @@ const Homepage: React.FC = () => {
 
     return (
       <IonButton
-        style={{ width: "120px", height: "auto", margin: "10px" }} // Adjust size and spacing
-        fill="clear" // Removes button background and border
+        style={{ ...style, margin: "10px" }}
+        fill="clear"
         onClick={navigateToWebView}
         routerDirection="forward"
       >
@@ -64,7 +64,7 @@ const Homepage: React.FC = () => {
         <IonToolbar className="center-logo">
           <IonImg
             src={logo}
-            className="header-logo" // Custom logo styles
+            className="header-logo"
           />
         </IonToolbar>
       </IonHeader>
@@ -119,24 +119,19 @@ const Homepage: React.FC = () => {
               <IonCard className="ion-no-padding">
                 <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Visit External Pages</h2>
-                  <IonRow className="ion-justify-content-center ion-align-items-center">
-                    <IonCol size="auto">
-                      {" "}
-                      {/* size="auto" allows flexible sizing */}
-                      {generateWebViewButton(
-                        "https://outerbanksvoice.com",
-                        "Outer Banks Voice",
-                        obxvoice
-                      )}
-                    </IonCol>
-                    <IonCol size="auto">
-                      {generateWebViewButton(
-                        "https://obxvacay.com",
-                        "OBXVacay",
-                        obxvacay
-                      )}
-                    </IonCol>
-                  </IonRow>
+                  {/* Adjust buttons to be inline and auto-fit */}
+                  <div className="external-links">
+                    {generateWebViewButton(
+                      "https://outerbanksvoice.com",
+                      obxvoice,
+                      { width: "50%" } // Full size for Outer Banks Voice
+                    )}
+                    {generateWebViewButton(
+                      "https://obxvacay.com",
+                      obxvacay,
+                      { width: "25%" } // Smaller size for OBXVacay
+                    )}
+                  </div>
                 </IonCardContent>
               </IonCard>
             </IonCol>
