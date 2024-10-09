@@ -10,13 +10,15 @@ import {
   IonSpinner,
   IonLabel,
   IonButton,
+  IonImg
 } from "@ionic/react";
 import { useLocation } from "react-router-dom";
 
 const WebViewContainer: React.FC = () => {
-  const location = useLocation<{ url: string; name: string }>(); // Get the URL and name from location state
+  const location = useLocation<{ url: string; name: string, image: string }>(); // Get the URL and name from location state
   const webpageUrl = location.state?.url || "https://obxvacay.com"; // Default URL if none is passed
   const webpageName = location.state?.name || "Web Page"; // Default name if none is passed
+  const webpageImage = location.state?.image || "https://obxvacay.com"; // Default image if none is passed
   const [isLoading, setIsLoading] = useState(true); // Loading state for iframe
 
   // Event handler to hide spinner when iframe finishes loading
@@ -31,7 +33,9 @@ const WebViewContainer: React.FC = () => {
           <IonButton slot="start" >
             <IonBackButton defaultHref="/app/homepage" color={"light"}/>
           </IonButton>
-          <IonTitle>{webpageName}</IonTitle>
+          <IonImg style={{ width: "75%", height: "50px" }}
+            src={webpageImage}
+          />
         </IonToolbar>
       </IonHeader>
 

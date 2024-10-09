@@ -39,7 +39,7 @@ const Homepage: React.FC = () => {
       history.push(
         {
           pathname: "/webview",
-          state: { url, name },
+          state: { url, name, image },
         },
         { direction: "forward" }
       );
