@@ -105,7 +105,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
               const iconUrl =
                 day.day.condition.icon.startsWith("//") ||
                 day.day.condition.icon.startsWith("http")
-                  ? `https:${day.day.condition.icon.replace(/^\/\//, "")}` // If the URL starts with "//" or "http", ensure it uses "https:"
+                  ? `https://${day.day.condition.icon.replace(/^\/\//, "")}` // If the URL starts with "//" or "http", ensure it uses "https:"
                   : day.day.condition.icon;
 
               return (
@@ -131,6 +131,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
                           alt="weather icon"
                           className="weather-icon"
                           onError={() => handleImageError(index)} // Handle image load error for this day
+                          onLoad={() => console.log("Icon URL " + iconUrl)}
                         />
                       )}
                       <div className="temp-container">
