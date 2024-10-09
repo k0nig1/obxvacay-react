@@ -47,4 +47,12 @@
     .about-text {
       font-size: 1.3em;
     }
+
+    .header-logo {
+      width: 25%;
+      height: auto;
+      max-width: 600px; /* Set a max width for larger screens */
+      margin: 10px; /* Add margin around the logo */
+      object-fit: contain; /* Ensures the logo scales properly */
+    }
   }
