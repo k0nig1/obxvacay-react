@@ -35,7 +35,7 @@ const Register: React.FC = () => {
       <IonHeader>
         <IonToolbar color={"success"}>
           <IonButton color={"success"} slot="start">
-            <IonBackButton defaultHref="/" />
+            <IonBackButton defaultHref="/login" />
           </IonButton>
           <IonTitle>Create Account</IonTitle>
         </IonToolbar>

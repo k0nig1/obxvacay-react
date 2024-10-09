@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'obxvacay-react',
+  appName: 'OBX Vacay',
   webDir: 'dist'
 };
 

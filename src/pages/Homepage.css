@@ -1,0 +1,34 @@
+.center-logo {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  height: 100%; /* Ensure the content takes the full height of the toolbar */
+}
+
+.header-logo {
+  width: 25%;
+  height: auto;
+  max-width: 600px; /* Set a max width for larger screens */
+  margin: 10px; /* Add margin around the logo */
+  object-fit: contain; /* Ensures the logo scales properly */
+}
+
+@media (max-width: 768px) {
+  .header-logo {
+    max-width: 400px; /* Adjust the max width for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo {
+    max-width: 300px; /* Adjust the max width for mobile devices */
+  }
+}
+
+.external-links {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  align-items: center; /* Center the buttons vertically */
+  gap: 20px; /* Adjust spacing between the buttons */
+  flex-wrap: wrap; /* Wrap buttons to the next line for smaller screens */
+}
