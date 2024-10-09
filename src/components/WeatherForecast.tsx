@@ -10,6 +10,7 @@ import {
   IonSpinner,
 } from "@ionic/react";
 import axios from "axios";
+import { DateTime } from "luxon";
 import "./WeatherForecast.css"; // Import CSS file for custom styles
 
 interface WeatherForecastProps {
@@ -49,23 +50,14 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
     return <div>Error loading forecast data.</div>;
   }
 
-  // Determine whether it's daytime in the US East Coast
-  const currentHour = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/New_York",
-    hour: "numeric",
-    hour12: false,
-  })
-    .formatToParts(new Date())
-    .find((part) => part.type === "hour")?.value;
+  // Use Luxon to get the current time in the US East Coast (America/New_York)
+  const currentHour = DateTime.now().setZone("America/New_York").hour;
 
-  const isDaytime = Number(currentHour) >= 6 && Number(currentHour) < 18; // Daytime is between 6 AM and 6 PM
+  const isDaytime = currentHour >= 6 && currentHour < 18; // Daytime is between 6 AM and 6 PM
 
   // Function to format the day name based on U.S. East Coast time zone
   const formatDay = (date: string) => {
-    return new Intl.DateTimeFormat("en-US", {
-      weekday: "short",
-      timeZone: "America/New_York",
-    }).format(new Date(date));
+    return DateTime.fromISO(date, { zone: "America/New_York" }).toFormat("ccc");
   };
 
   // Function to handle image load error for each day
