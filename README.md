@@ -3,6 +3,11 @@
 
 **OBX Vacay** is a mobile app built with **Ionic React** that provides visitors and tourists with essential information about the Outer Banks of North Carolina. The app includes features such as weather updates, points of interest, local radio stations, and more.
 
+**Checkout the website!** 
+'''
+https://obxvacay.com 
+'''
+
 ## Features
 
 - Real-time weather updates for the Outer Banks area.
@@ -10,17 +15,13 @@
 - Integrated radio stations from Norfolk, VA, and the Outer Banks using the Radio Browser API.
 - Responsive design for seamless user experience across all devices.
 
-## Screenshots
-
-(Include screenshots or GIFs of your app in action if available.)
-
 ## Technologies
 
 - **Ionic Framework**
 - **React.js**
 - **Radio Browser API**
 - **HLS.js** for live streaming
-- **Firebase** (optional, if you're using Firestore or Firebase services)
+- **Firebase**
 
 ## Getting Started
 
@@ -74,7 +75,11 @@ Once you have installed the dependencies, you can run the app in development mod
    ```
 
    This will start a local development server and open the app in your default browser.
-
+    
+   '''bash
+   ionic serve -w chrome
+   '''
+   or use this to open a non-default browser
 2. **Run the app on an emulator or real device:**
 
    For **Android**:
@@ -99,7 +104,7 @@ To create a production build of the app, run:
 ionic build
 ```
 
-This will generate a `www` directory containing the compiled code.
+This will generate a `dist` directory containing the compiled code.
 
 ### Deployment
 
