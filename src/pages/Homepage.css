@@ -1,0 +1,25 @@
+.center-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure the content takes the full height */
+}
+
+.header-logo {
+  width: 100%;
+  height: auto;
+  max-width: 600px; /* Set a max width for larger screens */
+  margin: 10px;
+}
+
+@media (max-width: 768px) {
+  .header-logo {
+    max-width: 400px; /* Adjust for tablet sizes */
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo {
+    max-width: 300px; /* Adjust for mobile devices */
+  }
+}

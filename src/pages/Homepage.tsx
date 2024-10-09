@@ -14,11 +14,12 @@ import {
   IonSpinner,
   IonImg,
 } from "@ionic/react";
+import "./Homepage.css";
 import { useHistory } from "react-router-dom";
 import { usePullToRefresh } from "../utilities/UsePullToRefresh";
-import logo from "../assets/flat_obxvacay.png"; // Import the image
-import obxvacay from "../assets/obx_vacay.png"; // Import the image
-import obxvoice from "../assets/obxvoice.png"; // Import the image
+import logo from "../assets/flat_obxvacay.png";
+import obxvacay from "../assets/obx_vacay.png";
+import obxvoice from "../assets/obxvoice.png";
 
 const LivestreamReactPlayer = React.lazy(
   () => import("../components/LivestreamReactPlayer")
@@ -32,7 +33,7 @@ const WeatherForecast = React.lazy(
 
 const Homepage: React.FC = () => {
   const history = useHistory();
-  const PullToRefresh = usePullToRefresh();
+  const PullToRefresh = usePullToRefresh(); // adding hook to the component to enable pull to refresh
 
   const generateWebViewButton = (url: string, name: string, image: string) => {
     const navigateToWebView = () => {
@@ -60,11 +61,10 @@ const Homepage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar className="center-logo">
           <IonImg
             src={logo}
-            style={{ width: "100%", margin: "10px" }}
-            slot="start"
+            className="header-logo" // Custom logo styles
           />
         </IonToolbar>
       </IonHeader>
