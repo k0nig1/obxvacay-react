@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi, MockedClass } from "vitest";
+import { render, screen, act } from "@testing-library/react";
+import { describe, test, it, expect, vi, MockedClass } from "vitest";
 import LivestreamReactPlayer from "./LivestreamReactPlayer";
 import Hls from "hls.js";
 
@@ -21,13 +21,16 @@ describe("LivestreamReactPlayer", () => {
     value: mockPause, // mock the pause method
   });
 
-  it("renders without crashing", () => {
-    render(<LivestreamReactPlayer />);
+  test("renders without crashing", async () => {
+    await act(() => {
+      render(<LivestreamReactPlayer />);
+    }); 
+
     const videoElement = screen.getByRole("video", { hidden: true });
     expect(videoElement).toBeInTheDocument();
   });
 
-  it("displays error message on HLS network error", () => {
+  test ("displays error message on HLS network error", async () => {
     const mockHls = {
       on: vi.fn((event, callback) => {
         if (event === Hls.Events.ERROR) {
@@ -42,12 +45,15 @@ describe("LivestreamReactPlayer", () => {
     Hls.isSupported = vi.fn(() => true);
     (Hls as unknown as MockedClass<typeof Hls>).mockImplementation(() => mockHls);
 
-    render(<LivestreamReactPlayer />);
+    await act(() => {
+      render(<LivestreamReactPlayer />);
+    });
+    
     const errorMessage = screen.getByText("Live Stream Not Available (Network Error)");
     expect(errorMessage).toBeInTheDocument();
   });
 
-  it("displays error message on HLS media error", () => {
+  test ("displays error message on HLS media error", async () => {
     const mockHls = {
       on: vi.fn((event, callback) => {
         if (event === Hls.Events.ERROR) {
@@ -62,12 +68,15 @@ describe("LivestreamReactPlayer", () => {
     Hls.isSupported = vi.fn(() => true);
     (Hls as unknown as MockedClass<typeof Hls>).mockImplementation(() => mockHls);
 
-    render(<LivestreamReactPlayer />);
+    await act(() => {
+      render(<LivestreamReactPlayer />);
+    });
+
     const errorMessage = screen.getByText("Live Stream Not Available (Media Error)");
     expect(errorMessage).toBeInTheDocument();
   });
 
-  it("simulates video playback when HLS is supported and manifest is parsed", () => {
+  test("simulates video playback when HLS is supported and manifest is parsed", async () => {
     const mockHls = {
       on: vi.fn((event, callback) => {
         if (event === Hls.Events.MANIFEST_PARSED) {
@@ -82,17 +91,23 @@ describe("LivestreamReactPlayer", () => {
     Hls.isSupported = vi.fn(() => true);
     (Hls as unknown as MockedClass<typeof Hls>).mockImplementation(() => mockHls);
 
-    render(<LivestreamReactPlayer />);
+    await act(() => {
+      render(<LivestreamReactPlayer />);
+    });
+
     const videoElement = screen.getByRole("video", { hidden: true });
 
     // Simulate video playback by checking if play was called
     expect(mockPlay).toHaveBeenCalled();
   });
 
-  it("displays error message on video playback error", () => {
+  test("displays error message on video playback error", async () => {
     Hls.isSupported = vi.fn(() => false);
 
-    render(<LivestreamReactPlayer />);
+    await act(() => {
+      render(<LivestreamReactPlayer />);
+    });
+    
     const videoElement = screen.getByRole("video", { hidden: true });
     videoElement.dispatchEvent(new Event("error"));
 
