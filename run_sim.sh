@@ -2,27 +2,31 @@
 
 # Function to build the Ionic project
 function build() {
+    echo "Building the Ionic project..."
     ionic build && ionic cap copy
 }
 
-# Function to handle Web option
+# Function to handle Web tasks
 function web_option() {
-    echo "You selected Web. Running Web tasks..."
-    ionic serve -w chrome
+    echo "Running Web tasks..."
+    ionic serve -w chrome &
+    open -na "Google Chrome" --args --new-window http://localhost:8100/
 }
 
-# Function to handle iOS option
-function ios_option() {
-    echo "You selected iOS. Running iOS tasks..."
+# General function to handle both iOS and Android options
+# Accepts 'ios' or 'android' as an argument
+function platform_option() {
+    local platform=$1
+    echo "Running $platform tasks..."
     select choice in "Open IDE" "Run Live Sim"; do
         case $choice in
             "Open IDE")
                 build
-                ionic cap open ios
+                ionic cap open $platform
                 break
                 ;;
             "Run Live Sim")
-                ionic capacitor run ios -l --external
+                ionic capacitor run $platform -l --external
                 break
                 ;;
             *)
@@ -32,45 +36,39 @@ function ios_option() {
     done
 }
 
-# Function to handle Android option
-function android_option() {
-    echo "You selected Android. Running Android tasks..."
-    select choice in "Open IDE" "Run Live Sim"; do
-        case $choice in
-            "Open IDE")
-                build
-                ionic cap open android
-                break
-                ;;
-            "Run Live Sim")
-                ionic capacitor run android -l --external
-                break
-                ;;
-            *)
-                echo "Invalid option. Please choose a valid option."
-                ;;
-        esac
-    done
+# Function to run all platforms together
+function run_all() {
+    echo "Running Web, iOS, and Android tasks together..."
+    # Run Web in the background
+    web_option &
+    
+    # Run iOS and Android concurrently
+    platform_option ios &
+    platform_option android
 }
 
 # Prompt user for choice
-echo "Do you want to proceed with Web, iOS, or Android?"
-select choice in "Web" "iOS" "Android"; do
+echo "Do you want to proceed with Web, iOS, Android, or run all?"
+select choice in "Web" "iOS" "Android" "All"; do
     case $choice in
         "Web")
             web_option
             break
             ;;
         "iOS")
-            ios_option
+            platform_option ios
             break
             ;;
         "Android")
-            android_option
+            platform_option android
+            break
+            ;;
+        "All")
+            run_all
             break
             ;;
         *)
-            echo "Invalid option. Please choose Web, iOS, or Android."
+            echo "Invalid option. Please choose Web, iOS, Android, or All."
             ;;
     esac
 done
