@@ -14,10 +14,10 @@ function web_option() {
 # Function to handle iOS option
 function ios_option() {
     echo "You selected iOS. Running iOS tasks..."
-    build
     select choice in "Open IDE" "Run Live Sim"; do
         case $choice in
             "Open IDE")
+                build
                 ionic cap open ios
                 break
                 ;;
@@ -35,10 +35,10 @@ function ios_option() {
 # Function to handle Android option
 function android_option() {
     echo "You selected Android. Running Android tasks..."
-    build
     select choice in "Open IDE" "Run Live Sim"; do
         case $choice in
             "Open IDE")
+                build
                 ionic cap open android
                 break
                 ;;
