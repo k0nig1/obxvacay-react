@@ -3,13 +3,13 @@
 # Function to build the Ionic project
 function build() {
     echo "Building the Ionic project..."
-    ionic build && ionic cap copy
+    ionic build && ionic cap sync
 }
 
 # Function to handle Web tasks
 function web_option() {
     echo "Running Web tasks..."
-    ionic serve -w chrome &
+    ionic serve -w chrome
     web_pid=$!
     open -na "Google Chrome" --args --new-window http://localhost:8100/
 }
@@ -22,7 +22,8 @@ function platform_option() {
     
     echo "Running $platform tasks..."
     if [ "$mode" == "LiveSim" ]; then
-        ionic capacitor run $platform -l --external &
+        build
+        ionic capacitor run $platform -l --external
         platform_pid=$!
     else
         build
