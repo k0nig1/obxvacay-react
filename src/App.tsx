@@ -16,7 +16,7 @@ import "@ionic/react/css/display.css";
 import "video.js/dist/video-js.css";
 
 /* Dark Mode and Theme */
-import "@ionic/react/css/palettes/dark.system.css";
+// import "@ionic/react/css/palettes/dark.system.css";
 import "./theme/variables.css";
 import "./theme/global.css";
 
