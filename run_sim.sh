@@ -73,7 +73,7 @@ function quit_all() {
 
 # Prompt user for choice
 echo "Do you want to proceed with Web, iOS, Android, All (Live Sim), or Quit?"
-select choice in "Web" "iOS" "Android" "All" "Quit"; do
+select choice in "Web" "iOS" "Android"; do
     case $choice in
         "Web")
             web_option
@@ -107,14 +107,6 @@ select choice in "Web" "iOS" "Android" "All" "Quit"; do
                         ;;
                 esac
             done
-            break
-            ;;
-        "All")
-            run_all
-            break
-            ;;
-        "Quit")
-            quit_all
             break
             ;;
         *)
