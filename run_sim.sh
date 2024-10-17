@@ -9,9 +9,14 @@ function build() {
 # Function to handle Web tasks
 function web_option() {
     echo "Running Web tasks..."
-    ionic serve -w chrome
+<<<<<<< Updated upstream
+    ionic serve -w chrome &
     web_pid=$!
     open -na "Google Chrome" --args --new-window http://localhost:8100/
+=======
+    open -na "Google Chrome" --args http://localhost:8100/
+    ionic serve -w chrome
+>>>>>>> Stashed changes
 }
 
 # General function to handle both iOS and Android options
@@ -22,9 +27,13 @@ function platform_option() {
     
     echo "Running $platform tasks..."
     if [ "$mode" == "LiveSim" ]; then
+<<<<<<< Updated upstream
+        ionic capacitor run $platform -l --external &
+        platform_pid=$!
+=======
         build
         ionic capacitor run $platform -l --external
-        platform_pid=$!
+>>>>>>> Stashed changes
     else
         build
         ionic cap open $platform
