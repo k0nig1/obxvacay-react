@@ -78,7 +78,7 @@ const Homepage: React.FC = () => {
           {/* Add RadioPlayer Component */}
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
-              <IonCard className="ion-no-margin ion-no-padding">
+              <IonCard className="ion-no-padding" style={{ margin: "20px 0 0 0" }}>
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Listen to Live Radio</h2>
                   <Suspense fallback={<IonSpinner />}>
@@ -91,7 +91,7 @@ const Homepage: React.FC = () => {
 
           <IonRow className="ion-no-padding ion-align-items-center ion-justify-content-center">
             <IonCol className="ion-no-padding" size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <IonCard className="ion-no-padding ion-justify-content-center">
+              <IonCard className="ion-no-padding ion-justify-content-center" style={{margin: "20px 0 0 0"}}>
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <Suspense fallback={<IonSpinner />}>
                     <WeatherForecast location="27959" />
@@ -105,7 +105,7 @@ const Homepage: React.FC = () => {
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
               <IonCard className="ion-no-padding">
                 <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
-                  <h2>Visit External Pages</h2>
+                  <h2>More From the OBX</h2>
                   <div className="external-links">
                     {generateWebViewButton("https://outerbanksvoice.com", "OBX Voice", obxvoice, { width: "50%" })}
                     {generateWebViewButton("https://obxvacay.com", "OBX Vacay", obxvacay, { width: "25%" })}

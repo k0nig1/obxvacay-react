@@ -3,7 +3,7 @@
   display: flex;
   overflow-x: auto; /* Enable horizontal scrolling */
   white-space: nowrap;
-  padding: 10px 0; /* Add some padding for better spacing */
+  padding: 0 0; /* Add some padding for better spacing */
   scrollbar-width: thin; /* Always show a thin scrollbar in Firefox */
   scrollbar-color: #888 #f1f1f1; /* Style for Firefox scrollbar */
 }
