@@ -42,7 +42,7 @@ const Homepage: React.FC = () => {
 
     return (
       <IonButton
-        style={{ ...style, margin: "10px" }}
+        style={{ ...style, margin: "5px" }}
         fill="clear"
         onClick={navigateToWebView}
         routerDirection="forward"
@@ -107,8 +107,8 @@ const Homepage: React.FC = () => {
                 <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>More From the OBX</h2>
                   <div className="external-links">
-                    {generateWebViewButton("https://outerbanksvoice.com", "OBX Voice", obxvoice, { width: "50%" })}
-                    {generateWebViewButton("https://obxvacay.com", "OBX Vacay", obxvacay, { width: "25%" })}
+                    {generateWebViewButton("https://outerbanksvoice.com", "OBX Voice", obxvoice, { width: "75%" })}
+                    {generateWebViewButton("https://obxvacay.com", "OBX Vacay", obxvacay, { width: "40%" })}
                   </div>
                 </IonCardContent>
               </IonCard>
