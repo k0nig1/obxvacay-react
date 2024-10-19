@@ -23,7 +23,7 @@ import obxvoice from "../assets/obxvoice.png";
 const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
 const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaIcons"));
 const WeatherForecast = React.lazy(() => import("../components/WeatherForecast"));
-const RadioPlayer = React.lazy(() => import("../components/RadioPlayer"));  // <-- Lazy load RadioPlayer
+const RadioPlayer = React.lazy(() => import("../components/RadioPlayer"));  
 
 const Homepage: React.FC = () => {
   const history = useHistory();
