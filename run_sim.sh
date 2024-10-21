@@ -9,8 +9,21 @@ function build() {
 # Function to handle Web tasks
 function web_option() {
     echo "Running Web tasks..."
-    open -na "Google Chrome" --args http://localhost:8100/
-    ionic serve -w chrome
+    echo "Do you need a browser window to open? (y/n)"
+    select choice in "Yes" "No"; do
+        case $choice in
+        "Yes")
+            open -na "Google Chrome" --args http://localhost:8100/
+            ionic serve -w chrome
+            ;;
+        "No")
+            ionic serve -w chrome
+            ;;
+        *)
+            echo "Invalid option. Please choose y or n."
+            ;;
+        esac
+    done
 }
 
 # General function to handle both iOS and Android options
@@ -18,7 +31,7 @@ function web_option() {
 function platform_option() {
     local platform=$1
     local mode=$2 # Mode determines if it's "Open IDE" or "Run Live Sim"
-    
+
     echo "Running $platform tasks..."
     if [ "$mode" == "LiveSim" ]; then
         build
@@ -75,50 +88,50 @@ function quit_all() {
 echo "Do you want to proceed with Web, iOS, Android, All (Live Sim), or Quit?"
 select choice in "Web" "iOS" "Android" "All" "Quit"; do
     case $choice in
-        "Web")
-            web_option
-            break
-            ;;
-        "iOS")
-            select ios_choice in "Open IDE" "Run Live Sim"; do
-                case $ios_choice in
-                    "Open IDE")
-                        platform_option ios IDE
-                        break
-                        ;;
-                    "Run Live Sim")
-                        platform_option ios LiveSim
-                        break
-                        ;;
-                esac
-            done
-            break
-            ;;
-        "Android")
-            select android_choice in "Open IDE" "Run Live Sim"; do
-                case $android_choice in
-                    "Open IDE")
-                        platform_option android IDE
-                        break
-                        ;;
-                    "Run Live Sim")
-                        platform_option android LiveSim
-                        break
-                        ;;
-                esac
-            done
-            break
-            ;;
-        "All")
-            run_all
-            break
-            ;;
-        "Quit")
-            quit_all
-            break
-            ;;
-        *)
-            echo "Invalid option. Please choose Web, iOS, Android, All, or Quit."
-            ;;
+    "Web")
+        web_option
+        break
+        ;;
+    "iOS")
+        select ios_choice in "Open IDE" "Run Live Sim"; do
+            case $ios_choice in
+            "Open IDE")
+                platform_option ios IDE
+                break
+                ;;
+            "Run Live Sim")
+                platform_option ios LiveSim
+                break
+                ;;
+            esac
+        done
+        break
+        ;;
+    "Android")
+        select android_choice in "Open IDE" "Run Live Sim"; do
+            case $android_choice in
+            "Open IDE")
+                platform_option android IDE
+                break
+                ;;
+            "Run Live Sim")
+                platform_option android LiveSim
+                break
+                ;;
+            esac
+        done
+        break
+        ;;
+    "All")
+        run_all
+        break
+        ;;
+    "Quit")
+        quit_all
+        break
+        ;;
+    *)
+        echo "Invalid option. Please choose Web, iOS, Android, All, or Quit."
+        ;;
     esac
 done

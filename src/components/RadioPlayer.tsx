@@ -30,31 +30,36 @@ import {
     {
       id: 1,
       name: "102.5 The Shark (WERX)",
-      url: "https://ice5.securenetsystems.net/WERX",
+      web_url: "https://rdo.to/WERX",
+      raw_url: "https://ice5.securenetsystems.net/WERX",
       icon: radioLogo_WERX,
     },
     {
       id: 2,
-      name: "95.7 The Coast (WJKX)",
-      url: "https://hls-test.securenetsystems.net/hls/wkjxfm/index.m3u8",
+      name: "95.7 The Coast (WKJX)",
+      web_url: "https://rdo.to/WKJXFM",
+      raw_url: "https://hls-test.securenetsystems.net/hls/wkjxfm/index.m3u8",
       icon: radioLogo_WJKX,
     },
     {
       id: 3,
       name: "Dixie 105.7 (WRSF)",
-      url: "https://ice7.securenetsystems.net/WRSF",
+      web_url: "https://rdo.to/WRSF",
+      raw_url: "https://ice7.securenetsystems.net/WRSF",
       icon: radioLogo_WRSF,
     },
     {
       id: 4,
       name: "Pirate 95.3 (WOBR)",
-      url: "https://ice7.securenetsystems.net/WOBR",
+      web_url: "https://rdo.to/WOBR",
+      raw_url: "https://ice7.securenetsystems.net/WOBR",
       icon: radioLogo_WOBR,
     },
     {
       id: 5,
       name: "98.1 The OBX",
-      url: "https://ice5.securenetsystems.net/WOBX",
+      web_url: "https://rdo.to/WOBXAM",
+      raw_url: "https://ice5.securenetsystems.net/WOBX",
       icon: radioLogo_WOBX,
     },
   ];
@@ -91,7 +96,7 @@ const StationList = ({ stations, onStationClick }: any) => (
           />
         )}
         <ReactPlayer
-          url={station?.url}
+          url={station?.raw_url}
           playing={isPlaying}
           controls
           width="200px"
@@ -112,7 +117,7 @@ const StationList = ({ stations, onStationClick }: any) => (
     <IonModal isOpen={!!station} onDidDismiss={closeModal}>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>{station?.name}</IonTitle>
+        <IonImg src={station?.icon} className="modal-icon" alt={station?.name} />
           <IonButton color={"light"} onClick={minimizeModal} slot="start" fill="clear">
             <IonIcon icon={infiniteOutline} />
           </IonButton>
@@ -122,24 +127,22 @@ const StationList = ({ stations, onStationClick }: any) => (
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <IonImg src={station?.icon} className="modal-icon" alt={station?.name} />
         <div style={{ position: "relative" }}>
-          {/* Show spinner while loading, but also render the player */}
+          {/* Show spinner while loading, but also render the webpage */}
           {isLoading && (
             <IonSpinner
               name="dots"
               style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}
             />
           )}
-          <ReactPlayer
-            url={station?.url}
-            playing={isPlaying}
-            controls
+          {/* Show the radio station's webpage in the modal */}
+          <iframe
+            src={station?.web_url}
+            title={`${station?.name} website`}
             width="100%"
-            height="50px"
-            config={{ file: { forceAudio: true } }}
-            onBuffer={() => setIsLoading(true)}
-            onReady={() => setIsLoading(false)}
+            height="400px"
+            onLoad={() => setIsLoading(false)}
+            style={{ border: 'none' }}
           />
         </div>
       </IonContent>
