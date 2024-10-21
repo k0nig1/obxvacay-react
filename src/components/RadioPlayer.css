@@ -68,9 +68,8 @@
 
 /* Style for the modal icon */
 .modal-icon {
-  width: 100px;
-  height: 100px;
-  margin: 20px auto;
+  width: auto;
+  height: 30px;
 }
 
 /* Loading spinner centered in the player */
