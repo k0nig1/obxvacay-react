@@ -9,8 +9,21 @@ function build() {
 # Function to handle Web tasks
 function web_option() {
     echo "Running Web tasks..."
-    open -na "Google Chrome" --args http://localhost:8100/
-    ionic serve -w chrome
+    echo "Do you need a browser window to open? (y/n)"
+    select choice in "Yes" "No"; do
+        case $choice in
+        "Yes")
+            open -na "Google Chrome" --args http://localhost:8100/
+            ionic serve -w chrome
+            ;;
+        "No")
+            ionic serve -w chrome
+            ;;
+        *)
+            echo "Invalid option. Please choose y or n."
+            ;;
+        esac
+    done
 }
 
 # General function to handle both iOS and Android options
@@ -18,7 +31,7 @@ function web_option() {
 function platform_option() {
     local platform=$1
     local mode=$2 # Mode determines if it's "Open IDE" or "Run Live Sim"
-    
+
     echo "Running $platform tasks..."
     if [ "$mode" == "LiveSim" ]; then
         build

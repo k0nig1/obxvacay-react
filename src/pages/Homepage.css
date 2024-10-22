@@ -1,16 +1,27 @@
 .center-logo {
   display: flex;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
-  height: 100%; /* Ensure the content takes the full height of the toolbar */
+  justify-content: center;
+  align-items: center;
+  height: 56px; /* Set a fixed height */
+  width: 100%;
+  height:auto;
 }
 
 .header-logo {
-  width: 25%;
+  width: 40%;
+  max-width: 25%;
   height: auto;
-  max-width: 600px; /* Set a max width for larger screens */
-  margin: 10px; /* Add margin around the logo */
-  object-fit: contain; /* Ensures the logo scales properly */
+  margin: 10px;
+  object-fit: contain;
+  margin: 1px 1px 1px 1px
+}
+
+.header-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height:auto;
 }
 
 @media (max-width: 768px) {
