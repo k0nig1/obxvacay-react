@@ -12,7 +12,7 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
-import { closeOutline, exitOutline, infiniteOutline, playOutline, pauseOutline } from "ionicons/icons";
+import { closeOutline, exitOutline, infiniteOutline, playOutline, pauseOutline, removeOutline, contractOutline } from "ionicons/icons";
 import radioLogo_WERX from "../assets/radioLogos/radioLogo_WERX.png";
 import radioLogo_WJKX from "../assets/radioLogos/radioLogo_WJKX.png";
 import radioLogo_WRSF from "../assets/radioLogos/radioLogo_WRSF.png";
@@ -63,10 +63,10 @@ const MinimizedPlayer: React.FC<{
       <h5>{station.name}</h5>
     </div>
     <div className="player-controls">
-      <IonButton onClick={togglePlayPause} fill="clear">
+      <IonButton color="dark" onClick={togglePlayPause} fill="clear">
         <IonIcon icon={isPlaying ? pauseOutline : playOutline} />
       </IonButton>
-      <IonButton color="light" onClick={exitRadio} fill="clear">
+      <IonButton color="dark" onClick={exitRadio} fill="clear">
         <IonIcon icon={closeOutline} />
       </IonButton>
     </div>
@@ -86,7 +86,7 @@ const StationModal: React.FC<{
       <IonToolbar>
         <IonImg src={station.icon} className="modal-icon" alt={station.name} />
         <IonButton color="light" onClick={minimizeModal} slot="start" fill="clear">
-          <IonIcon icon={infiniteOutline} />
+          <IonIcon icon={contractOutline} />
         </IonButton>
         <IonButton color="light" onClick={closeModal} slot="end" fill="clear">
           <IonIcon icon={closeOutline} />

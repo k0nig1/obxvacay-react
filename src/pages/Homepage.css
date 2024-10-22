@@ -28,6 +28,14 @@
   width: "100%";
 }
 
+.external-links {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  align-items: center; /* Center the buttons vertically */
+  gap: 20px; /* Adjust spacing between the buttons */
+  flex-wrap: wrap; /* Wrap buttons to the next line for smaller screens */
+}
+
 @media (max-width: 768px) {
   .header-logo {
     max-width: 400px; /* Adjust the max width for tablets */
@@ -38,14 +46,6 @@
   .header-logo {
     max-width: 300px; /* Adjust the max width for mobile devices */
   }
-}
-
-.external-links {
-  display: flex;
-  justify-content: center; /* Center the buttons horizontally */
-  align-items: center; /* Center the buttons vertically */
-  gap: 20px; /* Adjust spacing between the buttons */
-  flex-wrap: wrap; /* Wrap buttons to the next line for smaller screens */
 }
 
 @media (prefers-color-scheme: dark) {

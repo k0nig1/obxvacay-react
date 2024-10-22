@@ -53,6 +53,14 @@
   z-index: 1000; /* Ensure it stays on top */
 }
 
+@media (prefers-color-scheme: dark) {
+  .minimized-player {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Light text color */
+    border-top-color: #555; /* Darker border color */
+  }
+}
+
 /* Style for the minimized player info section */
 .minimized-info {
   display: flex;
