@@ -33,27 +33,6 @@
   flex-wrap: wrap;
 }
 
-/* .weather-card{
-  text-align: center;
-} */
-
-/* .weather-card h2{
-  font-size: 1.5rem;
-  font-weight: bold;
-  size: 0.5rem;
-} */
-
-/* .weather-card img{
-  width: auto;
-  height: auto;
-} */
-
-/* @media (max-width: 768px) {
-  .weather-card img{
-    width: 50%;
-  }
-} */
-
 .radio-card, .social-media-card, .external-links-card{
   margin: 20px 0;
   padding: 10px;

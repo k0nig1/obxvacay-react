@@ -1,8 +1,10 @@
 .weather-row {
   display: flex;
   flex-wrap: nowrap;
-  /* overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-x: auto; /* Enable horizontal scrolling */
   padding: 10px; /* Add some padding to avoid elements touching the edges */
+  align-items: center;
+  justify-content: center;
 }
 
 .forecast-col {
