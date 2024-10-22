@@ -15,7 +15,6 @@ import { Route, Redirect } from "react-router";
 import { ellipse, homeOutline, settingsOutline } from "ionicons/icons";
 import React from "react";
 import Homepage from "./Homepage";
-import Tab2 from "./Tab2";
 import Settings from "./Settings";
 import About from "./About";
 import "./Tabs.css";
@@ -25,7 +24,6 @@ const Tabs: React.FC = () => {
     <IonTabs>
       <IonRouterOutlet>
         <Route path="/app/homepage" component={Homepage} exact />
-        <Route path="/app/tab2" component={Tab2} exact />
         <Route path="/app/settings" component={Settings} exact />
         <Route path="/app/about" component={About} exact />
         <Route path="/app" exact>
