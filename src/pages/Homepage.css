@@ -33,6 +33,11 @@
   flex-wrap: wrap;
 }
 
+.weather-card{
+  align-items: center;
+  justify-content: center;
+}
+
 .radio-card, .social-media-card, .external-links-card{
   margin: 20px 0;
   padding: 10px;

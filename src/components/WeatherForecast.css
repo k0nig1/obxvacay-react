@@ -16,8 +16,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 160px; /* Fixed width for uniformity */
-  height: 160px;
+  width: 140px; /* Fixed width for uniformity */
+  height: 150px;
   border-radius: 10px;
   margin: 10px;
   text-align: center;
@@ -72,10 +72,18 @@
 }
 
 /* Media query for smaller screen sizes */
-@media (max-width: 480px) {
+@media (max-width: 400px) {
+  .forecast-item {
+    width: 100px;
+    height: 120px;
+    margin: 5px;
+  }
+}
+
+@media (max-width: 500px) {
   .forecast-item {
     width: 120px;
-    height: 120px;
+    height: 140px;
     margin: 5px;
   }
 

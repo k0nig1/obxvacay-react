@@ -74,7 +74,7 @@ const Homepage: React.FC = () => {
           {/* Weather Forecast Section */}
           <IonRow className="ion-align-items-center ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <IonCard className="ion-no-padding ion-no-margin weather-card ion-justify-content-center ion-align-items-center">
+              <IonCard className="ion-no-padding ion-no-margin weather-card">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <Suspense fallback={<IonSpinner />}>
                     <WeatherForecast location="27959" />
