@@ -103,30 +103,3 @@ body {
     color: var(--ion-color-primary);
     text-decoration: underline;
   }
-  
-  /* Custom Section for Home Page */
-  /* .home-banner {
-    background: linear-gradient(to bottom, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.7)), url('/assets/images/beach.jpg');
-    background-size: cover
-    background-position: center;
-    color: var(--ion-color-light);
-    text-align: center;
-    padding: 60px 20px;
-    border-radius: 12px;
-  } */
-  
-  .home-banner h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: var(--ion-color-light);
-  }
-  
-  .home-banner p {
-    font-size: 1.2rem;
-    color: var(--ion-color-light);
-  }
-  
-  .home-banner .ion-button {
-    background-color: var(--ion-color-secondary);
-    color: var(--ion-color-dark);
-  }

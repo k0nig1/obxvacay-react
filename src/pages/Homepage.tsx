@@ -58,7 +58,7 @@ const Homepage: React.FC = () => {
         onClick={navigateToWebView}
         routerDirection="forward"
       >
-        <IonImg src={image} style={{ width: "100%" }} alt={name} />
+        <IonImg src={image} className="external-link-img" alt={name} />
       </IonButton>
     );
   };

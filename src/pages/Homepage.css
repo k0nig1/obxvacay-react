@@ -4,7 +4,7 @@
   align-items: center;
   height: 56px; /* Set a fixed height */
   width: 100%;
-  height:auto;
+  height: auto;
 }
 
 .header-logo {
@@ -13,7 +13,7 @@
   height: auto;
   margin: 10px;
   object-fit: contain;
-  margin: 1px 1px 1px 1px
+  margin: 1px 1px 1px 1px;
 }
 
 .header-logo-container {
@@ -21,7 +21,11 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height:auto;
+  height: auto;
+}
+
+.external-link-img {
+  width: "100%";
 }
 
 @media (max-width: 768px) {
@@ -42,4 +46,14 @@
   align-items: center; /* Center the buttons vertically */
   gap: 20px; /* Adjust spacing between the buttons */
   flex-wrap: wrap; /* Wrap buttons to the next line for smaller screens */
+}
+
+@media (prefers-color-scheme: dark) {
+  .header-logo {
+    filter: invert(1); /* Invert the logo colors for dark mode */
+  }
+
+  .external-link-img {
+    filter: invert(1); /* Invert the link icons for dark mode */
+  }
 }
