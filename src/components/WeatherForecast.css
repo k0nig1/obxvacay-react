@@ -1,10 +1,12 @@
 .weather-row {
+  display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto; /* Enable horizontal scrolling if content overflows */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  padding: 10px; /* Add some padding to avoid elements touching the edges */
 }
 
 .forecast-col {
-  flex: 1 1 auto; /* Allow column to grow to fit the content */
+  flex: 0 0 auto; /* Prevent column from shrinking */
 }
 
 .forecast-item {
@@ -12,12 +14,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 160px; /* Increased width for better spacing */
+  width: 160px; /* Fixed width for uniformity */
   height: 160px;
   border-radius: 10px;
   margin: 10px;
   text-align: center;
   background-color: #f9f9f9;
+  flex-shrink: 0; /* Prevent the forecast item from shrinking */
 }
 
 .forecast-label {
@@ -43,22 +46,21 @@
   align-items: center;
   justify-content: center;
   margin-top: 3px;
-  padding: 0 5px; /* Added padding to allow more room */
 }
 
 .temp-high, .temp-low {
-  font-size: 1.5rem; /* Ensure both high and low temps are the same size */
-  font-weight: normal; /* Set default weight */
+  font-size: 1.5rem;
+  font-weight: normal;
 }
 
 .bold-large {
-  font-weight: bold; /* Apply bold when needed */
+  font-weight: bold;
 }
 
 .temp-separator {
-  font-size: 1.5rem; /* Match the size of the temperature */
-  font-weight: normal; /* Ensure it's not bold */
-  vertical-align: middle; /* Align properly with the numbers */
+  font-size: 1.5rem;
+  font-weight: normal;
+  vertical-align: middle;
 }
 
 .rain-chance {
@@ -70,7 +72,7 @@
 /* Media query for smaller screen sizes */
 @media (max-width: 480px) {
   .forecast-item {
-    width: 120px; /* Smaller width for small screens */
+    width: 120px;
     height: 120px;
     margin: 5px;
   }
@@ -86,19 +88,11 @@
   }
 
   .temp-high, .temp-low {
-    font-size: 1.0rem;
-    font-weight: normal;
-  }
-
-  .bold-large {
-    font-weight: bold;;
+    font-size: 1rem;
   }
 
   .temp-separator {
-    font-size: inherit; /* Matches the size of the temperature */
-    font-weight: inherit; /* Matches the weight of the temperature */
-    vertical-align: middle; /* Adjusts the vertical alignment to be in line with numbers */
-
+    font-size: inherit;
   }
 
   .rain-chance {

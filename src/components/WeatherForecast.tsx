@@ -72,7 +72,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
     <IonCard className="ion-no-margin ion-no-padding">
       <IonCardContent className="ion-no-margin ion-no-padding">
         <IonGrid className="ion-no-margin ion-no-padding">
-          <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center weather-row">
+          <IonRow className="ion-no-margin ion-no-padding weather-row">
             {forecastData.forecast.forecastday.map((day: any, index: number) => {
               const dayName = index === 0 ? "Today" : formatDay(day.date);
 
@@ -85,7 +85,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
                 <IonCol
                   size="auto"
                   key={index}
-                  className="ion-no-margin ion-no-padding"
+                  className="forecast-col"
                 >
                   <IonItem
                     className="forecast-item ion-no-margin ion-no-padding"
@@ -93,7 +93,6 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
                   >
                     <IonLabel className="forecast-label">
                       <h2 className="day-name">{dayName}</h2>
-                      {/* If the image fails to load, show the condition text */}
                       {imageErrors[index] ? (
                         <p className="weather-condition-text">
                           {day.day.condition.text}
