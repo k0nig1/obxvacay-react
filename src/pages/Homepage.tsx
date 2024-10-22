@@ -20,16 +20,27 @@ import logo from "../assets/flat_obxvacay.png";
 import obxvacay from "../assets/obx_vacay.png";
 import obxvoice from "../assets/obxvoice.png";
 
-const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
-const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaIcons"));
-const WeatherForecast = React.lazy(() => import("../components/WeatherForecast"));
-const RadioPlayer = React.lazy(() => import("../components/RadioPlayer"));  
+const LivestreamReactPlayer = React.lazy(
+  () => import("../components/LivestreamReactPlayer")
+);
+const SocialMediaIcons = React.lazy(
+  () => import("../components/SocialMediaIcons")
+);
+const WeatherForecast = React.lazy(
+  () => import("../components/WeatherForecast")
+);
+const RadioPlayer = React.lazy(() => import("../components/RadioPlayer"));
 
 const Homepage: React.FC = () => {
   const history = useHistory();
   const PullToRefresh = usePullToRefresh();
 
-  const generateWebViewButton = (url: string, name: string, image: string, style: React.CSSProperties) => {
+  const generateWebViewButton = (
+    url: string,
+    name: string,
+    image: string,
+    style: React.CSSProperties
+  ) => {
     const navigateToWebView = () => {
       history.push(
         {
@@ -56,7 +67,9 @@ const Homepage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar className="center-logo">
-          <IonImg src={logo} className="header-logo" alt="OBX Vacay Logo" />
+          <div className="header-logo-container">
+            <IonImg src={logo} className="header-logo" alt="OBX Vacay Logo" />
+          </div>
         </IonToolbar>
       </IonHeader>
 
@@ -64,7 +77,13 @@ const Homepage: React.FC = () => {
         <PullToRefresh />
         <IonGrid className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <Suspense fallback={<IonSpinner />}>
@@ -77,8 +96,17 @@ const Homepage: React.FC = () => {
 
           {/* Add RadioPlayer Component */}
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
-              <IonCard className="ion-no-padding" style={{ margin: "20px 0 0 0" }}>
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
+              <IonCard
+                className="ion-no-padding"
+                style={{ margin: "20px 0 0 0" }}
+              >
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Listen to Live Radio</h2>
                   <Suspense fallback={<IonSpinner />}>
@@ -90,8 +118,17 @@ const Homepage: React.FC = () => {
           </IonRow>
 
           <IonRow className="ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol className="ion-no-padding" size="12" sizeMd="10" sizeLg="8" sizeXl="6">
-              <IonCard className="ion-no-padding ion-justify-content-center" style={{margin: "20px 0 0 0"}}>
+            <IonCol
+              className="ion-no-padding"
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+            >
+              <IonCard
+                className="ion-no-padding ion-justify-content-center"
+                style={{ margin: "20px 0 0 0" }}
+              >
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <Suspense fallback={<IonSpinner />}>
                     <WeatherForecast location="27959" />
@@ -102,13 +139,29 @@ const Homepage: React.FC = () => {
           </IonRow>
 
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
               <IonCard className="ion-no-padding">
                 <IonCardContent className="ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>More From the OBX</h2>
                   <div className="external-links">
-                    {generateWebViewButton("https://outerbanksvoice.com", "OBX Voice", obxvoice, { width: "75%" })}
-                    {generateWebViewButton("https://obxvacay.com", "OBX Vacay", obxvacay, { width: "40%" })}
+                    {generateWebViewButton(
+                      "https://outerbanksvoice.com",
+                      "OBX Voice",
+                      obxvoice,
+                      { width: "75%" }
+                    )}
+                    {generateWebViewButton(
+                      "https://obxvacay.com",
+                      "OBX Vacay",
+                      obxvacay,
+                      { width: "40%" }
+                    )}
                   </div>
                 </IonCardContent>
               </IonCard>
@@ -116,7 +169,13 @@ const Homepage: React.FC = () => {
           </IonRow>
 
           <IonRow className="ion-no-margin ion-no-padding ion-align-items-center ion-justify-content-center">
-            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6" className="ion-no-margin ion-no-padding">
+            <IonCol
+              size="12"
+              sizeMd="10"
+              sizeLg="8"
+              sizeXl="6"
+              className="ion-no-margin ion-no-padding"
+            >
               <IonCard className="ion-no-margin ion-no-padding">
                 <IonCardContent className="ion-no-margin ion-no-padding ion-justify-content-center ion-align-items-center">
                   <h2>Follow Us On Social Media</h2>
