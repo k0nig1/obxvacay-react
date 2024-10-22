@@ -1,0 +1,29 @@
+/* Tabs.css */
+
+/* General styling */
+.ion-tab-bar {
+  background-color: #ffffff;
+}
+
+.ion-tab-bar .ion-tab-button {
+  color: #000000;
+}
+
+.ion-tab-bar .ion-tab-button.ion-selected {
+  color: #3880ff;
+}
+
+/* Dark mode styling */
+@media (prefers-color-scheme: dark) {
+  .ion-tab-bar {
+    background-color: #1e1e1e;
+  }
+
+  .ion-tab-bar .ion-tab-button {
+    color: #ffffff;
+  }
+
+  .ion-tab-bar .ion-tab-button.ion-selected {
+    color: #4cd964;
+  }
+}

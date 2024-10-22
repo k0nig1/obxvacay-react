@@ -56,3 +56,21 @@
       object-fit: contain; /* Ensures the logo scales properly */
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    .about-container {
+      color: #fff; /* Light text color */
+    }
+    
+    .about-title {
+      color: #fff; /* Light text color */
+    }
+    
+    .about-subtitle {
+      color: #fff; /* Light text color */
+    }
+    
+    .about-text {
+      color: #fff; /* Light text color */
+    }
+  }
