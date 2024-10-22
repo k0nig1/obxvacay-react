@@ -1,29 +1,35 @@
 /* Tabs.css */
 
-/* General styling */
+/* General light mode styling */
 .ion-tab-bar {
-  background-color: #ffffff;
+  --background: #ffffff;
+  --color: #000000;
+  --color-selected: #3880ff;
+  background-color: var(--background);
 }
 
 .ion-tab-bar .ion-tab-button {
-  color: #000000;
+  color: var(--color);
 }
 
 .ion-tab-bar .ion-tab-button.ion-selected {
-  color: #3880ff;
+  color: var(--color-selected);
 }
 
 /* Dark mode styling */
 @media (prefers-color-scheme: dark) {
   .ion-tab-bar {
-    background-color: #1e1e1e;
+    --background: #1e1e1e;
+    --color: #ffffff;
+    --color-selected: #4cd964;
+    background-color: var(--background);
   }
 
   .ion-tab-bar .ion-tab-button {
-    color: #ffffff;
+    color: var(--color);
   }
 
   .ion-tab-bar .ion-tab-button.ion-selected {
-    color: #4cd964;
+    color: var(--color-selected);
   }
 }

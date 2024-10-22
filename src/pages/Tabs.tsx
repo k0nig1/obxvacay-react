@@ -12,7 +12,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { Route, Redirect } from "react-router";
-import { ellipse, homeOutline, settingsOutline } from "ionicons/icons";
+import { ellipse, homeOutline, informationCircleOutline, settingsOutline } from "ionicons/icons";
 import React from "react";
 import Homepage from "./Homepage";
 import Settings from "./Settings";
@@ -31,15 +31,20 @@ const Tabs: React.FC = () => {
         </Route>
       </IonRouterOutlet>
 
-      <IonTabBar slot="bottom">
+      {/* Ensure the tab bar uses the defined class for CSS to apply */}
+      <IonTabBar slot="bottom" className="ion-tab-bar">
         <IonTabButton tab="homepage" href="/app/homepage">
           <IonIcon aria-hidden="true" icon={homeOutline} />
           <IonLabel>Homepage</IonLabel>
         </IonTabButton>
         <IonTabButton tab="about" href="/app/about">
-          <IonIcon aria-hidden="true" icon={homeOutline} />
+          <IonIcon aria-hidden="true" icon={informationCircleOutline} />
           <IonLabel>About</IonLabel>
         </IonTabButton>
+        {/* <IonTabButton tab="settings" href="/app/settings">
+          <IonIcon aria-hidden="true" icon={settingsOutline} />
+          <IonLabel>Settings</IonLabel>
+        </IonTabButton> */}
       </IonTabBar>
     </IonTabs>
   );
