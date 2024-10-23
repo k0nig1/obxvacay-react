@@ -89,7 +89,7 @@ const Homepage: React.FC = () => {
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard className="ion-no-padding radio-card">
                 <IonCardContent>
-                  <h2>Listen to Live Radio</h2>
+                  <h2>Tune In to the Sounds of the OBX</h2>
                   <Suspense fallback={<IonSpinner />}>
                     <RadioPlayer />
                   </Suspense>
