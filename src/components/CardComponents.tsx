@@ -1,5 +1,3 @@
-// CardComponents.tsx
-
 import React from "react";
 import {
   IonCard,
@@ -7,6 +5,7 @@ import {
   IonCardTitle,
   IonCardContent,
   IonButton,
+  IonImg,
 } from "@ionic/react";
 import "./CardComponents.css"; // Import the CSS file
 
@@ -77,4 +76,27 @@ const LinkCard: React.FC<LinkCardProps> = ({ title, name, link }) => {
   );
 };
 
-export { BaseCard, AdCard, VideoCard, LinkCard };
+// SponsorCard Component - A specialized card for sponsors
+interface SponsorCardProps {
+  sponsorName: string;
+  sponsorLogo: string;
+  sponsorLink: string;
+}
+
+const SponsorCard: React.FC<SponsorCardProps> = ({ sponsorName, sponsorLogo, sponsorLink }) => {
+  return (
+    <BaseCard>
+      <IonImg src={sponsorLogo} alt={sponsorName} />
+      <IonCardHeader>
+        <IonCardTitle className="sponsor-card-title">{sponsorName}</IonCardTitle>
+      </IonCardHeader>
+      <IonCardContent>
+        <IonButton expand="block" href={sponsorLink} target="_blank">
+          Visit Sponsor
+        </IonButton>
+      </IonCardContent>
+    </BaseCard>
+  );
+};
+
+export { BaseCard, AdCard, VideoCard, LinkCard, SponsorCard };
