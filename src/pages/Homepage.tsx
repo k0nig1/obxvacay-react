@@ -21,7 +21,7 @@ import obxvacay from "../assets/obx_vacay.png";
 import obxvoice from "../assets/obxvoice.png";
 
 const LivestreamReactPlayer = React.lazy(() => import("../components/LivestreamReactPlayer"));
-const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaIcons"));
+const SocialMediaIcons = React.lazy(() => import("../components/SocialMediaButtons"));
 const WeatherForecast = React.lazy(() => import("../components/WeatherForecast"));
 const RadioPlayer = React.lazy(() => import("../components/RadioPlayer"));
 
@@ -103,10 +103,10 @@ const Homepage: React.FC = () => {
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard className="ion-no-padding external-links-card">
                 <IonCardContent>
-                  <h2>More From The OBX</h2>
+                  <h2>News From The OBX</h2>
                   <div className="external-links">
                     {generateWebViewButton("https://outerbanksvoice.com", "OBX Voice", obxvoice, { width: "100%" })}
-                    {generateWebViewButton("https://obxvacay.com", "OBX Vacay", obxvacay, { width: "40%" })}
+                    {/* {generateWebViewButton("https://obxvacay.com", "OBX Vacay", obxvacay, { width: "40%" })} */}
                   </div>
                 </IonCardContent>
               </IonCard>

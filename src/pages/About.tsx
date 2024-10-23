@@ -13,7 +13,7 @@ import {
   IonCol,
   IonImg,
 } from "@ionic/react";
-import SocialMediaIcons from "../components/SocialMediaIcons";
+import SocialMediaIcons from "../components/SocialMediaButtons";
 import "./About.css"; // Import custom CSS
 import logo from "../assets/flat_obxvacay.png";
 
