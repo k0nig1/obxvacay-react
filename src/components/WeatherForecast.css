@@ -1,8 +1,8 @@
 .weather-row {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  padding: 10px; /* Add some padding to avoid elements touching the edges */
+  overflow-x: hidden;
+  padding: 10px;
   align-items: center;
   justify-content: center;
 }
@@ -72,13 +72,13 @@
 }
 
 /* Media query for smaller screen sizes */
-@media (max-width: 400px) {
+/* @media (max-width: 400px) {
   .forecast-item {
     width: 100px;
     height: 120px;
     margin: 5px;
   }
-}
+} */
 
 @media (max-width: 500px) {
   .forecast-item {

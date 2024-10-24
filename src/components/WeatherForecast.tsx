@@ -88,7 +88,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ location }) => {
                   className="forecast-col"
                 >
                   <IonItem
-                    className="forecast-item ion-no-margin ion-no-padding"
+                    className="forecast-item "
                     lines="none"
                   >
                     <IonLabel className="forecast-label">
