@@ -20,6 +20,7 @@ import logo from "../assets/flat_obxvacay.png";
 import obxvacay from "../assets/obx_vacay.png";
 import obxvoice from "../assets/obxvoice.png";
 import { SponsorCard } from "../components/CardComponents";
+import obx4sale from "../assets/obx4sale.png";
 
 const LivestreamReactPlayer = React.lazy(
   () => import("../components/LivestreamReactPlayer")
@@ -142,7 +143,7 @@ const Homepage: React.FC = () => {
                   <Suspense fallback={<IonSpinner />}>
                     <SponsorCard
                       sponsorName="obx4sale.com"
-                      sponsorLogo="https://example.com/techcorp-logo.png"
+                      sponsorLogo={obx4sale}
                       sponsorLink="https://obx4sale.com"
                     />
                   </Suspense>
