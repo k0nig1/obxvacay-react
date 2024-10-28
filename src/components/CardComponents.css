@@ -1,3 +1,4 @@
 .sponsor-button{
     --background: transparent;
+    --background-activated: var(--ion-color-light);
 }
