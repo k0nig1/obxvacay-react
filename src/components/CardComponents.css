@@ -2,3 +2,9 @@
     --background: transparent;
     --background-activated: var(--ion-color-light);
 }
+
+@media (prefers-color-scheme: dark) {
+    .sponsor-button {
+      filter: invert(1);
+    }
+}
