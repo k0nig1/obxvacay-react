@@ -3,13 +3,9 @@ import { IonButton, IonIcon } from "@ionic/react";
 import { logoFacebook, logoInstagram, logoYoutube, link } from "ionicons/icons";
 import { Browser } from "@capacitor/browser";
 import "./SocialMediaButtons.css"; // Include this CSS file for styling
+import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
 
 const SocialMediaButtons: React.FC = () => {
-  
-  // Function to open URLs using Capacitor Browser
-  const openInCapacitorBrowser = async (url: string) => {
-    await Browser.open({ url });
-  };
 
   return (
     <div>
