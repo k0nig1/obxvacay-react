@@ -8,7 +8,7 @@ import {
   IonImg,
 } from "@ionic/react";
 import "./CardComponents.css"; // Import the CSS file
-import {openInCapacitorBrowser} from "../utilities/openInCapacitorBrowser";
+import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
 
 // BaseCard Component - A general-purpose card component
 const BaseCard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -84,16 +84,20 @@ interface SponsorCardProps {
   sponsorLink: string;
 }
 
-const SponsorCard: React.FC<SponsorCardProps> = ({ sponsorName, sponsorLogo, sponsorLink }) => {
+const SponsorCard: React.FC<SponsorCardProps> = ({
+  sponsorName,
+  sponsorLogo,
+  sponsorLink,
+}) => {
   return (
     <BaseCard>
-      <IonImg src={sponsorLogo} alt={sponsorName} />
-      <IonCardHeader>
-        <IonCardTitle className="sponsor-card-title">{sponsorName}</IonCardTitle>
-      </IonCardHeader>
       <IonCardContent>
-        <IonButton expand="block" target="_blank" onClick={() => openInCapacitorBrowser(sponsorLink)}>
-          Visit Sponsor
+        <IonButton
+          expand="block"
+          className="sponsor-button"
+          onClick={() => openInCapacitorBrowser(sponsorLink)}
+        >
+          <IonImg src={sponsorLogo} alt={sponsorName} />
         </IonButton>
       </IonCardContent>
     </BaseCard>
