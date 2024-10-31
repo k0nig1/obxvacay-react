@@ -21,6 +21,7 @@ import obxvacay from "../assets/obx_vacay.png";
 import obxvoice from "../assets/obxvoice.png";
 import { SponsorCard } from "../components/CardComponents";
 import obx4sale from "../assets/obx4sale.png";
+import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
 
 const LivestreamReactPlayer = React.lazy(
   () => import("../components/LivestreamReactPlayer")
@@ -54,7 +55,7 @@ const Homepage: React.FC = () => {
       <IonButton
         style={{ ...style, margin: "5px" }}
         fill="clear"
-        onClick={navigateToWebView}
+        onClick={() => {openInCapacitorBrowser(url)}}
       >
         <IonImg src={image} className="external-link-img" alt={name} />
       </IonButton>
