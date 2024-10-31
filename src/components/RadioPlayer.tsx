@@ -27,6 +27,7 @@ import radioLogo_WRSF from "../assets/radioLogos/radioLogo_WRSF.png";
 import radioLogo_WOBR from "../assets/radioLogos/radioLogo_WOBR.png";
 import radioLogo_WOBX from "../assets/radioLogos/radioLogo_WOBX.png";
 import "./RadioPlayer.css";
+import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
 
 // Types
 interface Station {
@@ -76,17 +77,17 @@ const stations: Station[] = [
   },
 ];
 
-// Reusable component for the list of stations
-const StationList: React.FC<{
-  stations: Station[];
-  onStationClick: (station: Station) => void;
-}> = ({ stations, onStationClick }) => (
-    <IonButtons className="station-list">
+// Main RadioPlayer component
+const RadioPlayer: React.FC = () => {
+  
+  return (
+    <>
+      <IonButtons className="station-list">
       {stations.map((station) => (
         <IonButton
           key={station.id}
           fill="clear"
-          onClick={() => onStationClick(station)}
+          onClick={() => openInCapacitorBrowser(station.web_url)}
           className="station-button"
         >
           <IonImg
@@ -97,96 +98,6 @@ const StationList: React.FC<{
         </IonButton>
       ))}
     </IonButtons>
-);
-
-// Updated Minimized Player component with ReactPlayer controls
-const MinimizedPlayer: React.FC<{
-  station: Station;
-  isPlaying: boolean;
-  togglePlayPause: () => void;
-  reopenModal: () => void;
-  exitRadio: () => void;
-}> = ({ station, isPlaying, togglePlayPause, reopenModal, exitRadio }) => (
-  <div className="minimized-player">
-    <div className="minimized-info" onClick={reopenModal}>
-      <IonImg
-        src={station.icon}
-        className="minimized-icon"
-        alt={station.name}
-      />
-      <h5>{station.name}</h5>
-    </div>
-    <div className="player-controls">
-      <IonButton color="dark" onClick={togglePlayPause} fill="clear">
-        <IonIcon icon={isPlaying ? pauseOutline : playOutline} />
-      </IonButton>
-      <IonButton color="dark" onClick={exitRadio} fill="clear">
-        <IonIcon icon={closeOutline} />
-      </IonButton>
-    </div>
-  </div>
-);
-
-// Reusable component for the modal
-const StationModal: React.FC<{
-  station: Station;
-  closeModal: () => void;
-  isLoading: boolean;
-  setIsLoading: (loading: boolean) => void;
-}> = ({ station, closeModal, isLoading, setIsLoading }) => (
-  <IonModal isOpen={!!station} onDidDismiss={closeModal}>
-    <IonHeader>
-      <IonToolbar>
-        <IonImg src={station.icon} className="modal-icon" alt={station.name} />
-        <IonButton color="light" onClick={closeModal} slot="end" fill="clear">
-          <IonIcon icon={closeOutline} />
-        </IonButton>
-      </IonToolbar>
-    </IonHeader>
-    <IonContent className="ion-padding">
-      <div className="station-modal-content">
-        {isLoading && <IonSpinner name="dots" className="loading-spinner" />}
-        <iframe
-          src={station.web_url}
-          title={`${station.name} website`}
-          className="station-iframe"
-          onLoad={() => setIsLoading(false)}
-        />
-      </div>
-    </IonContent>
-  </IonModal>
-);
-
-// Main RadioPlayer component
-const RadioPlayer: React.FC = () => {
-  const [selectedStation, setSelectedStation] = useState<Station | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleStationClick = (station: Station) => {
-    setSelectedStation(station);
-    setIsPlaying(true);
-    setIsLoading(true);
-  };
-
-  const closeModal = () => {
-    setSelectedStation(null);
-    setIsPlaying(false);
-    setIsLoading(false);
-  };
-
-  return (
-    <>
-      <StationList stations={stations} onStationClick={handleStationClick} />
-
-      {selectedStation && (
-        <StationModal
-          station={selectedStation}
-          closeModal={closeModal}
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-        />
-      )}
     </>
   );
 };
