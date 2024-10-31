@@ -9,7 +9,7 @@ function build() {
 # Function to handle Web tasks
 function web_option() {
     echo "Running Web tasks..."
-    echo "Do you need a browser window to open? (y/n)"
+    echo "Do you need a browser window to open?"
     select choice in "Yes" "No"; do
         case $choice in
         "Yes")
