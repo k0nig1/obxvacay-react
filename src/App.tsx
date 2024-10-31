@@ -25,6 +25,7 @@ import Register from "./pages/Register";
 import Tabs from "./pages/Tabs";
 import NotFoundPage from "./pages/NotFoundPage";
 import WebViewContainer from "./components/WebViewContainer";
+import RedirectPage from "./pages/RedirectPage";
 
 setupIonicReact();
 
@@ -45,6 +46,9 @@ const App: React.FC = () => (
           {/* Login and Register */}
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+
+          {/* Redirect page for app store links */}
+          <Route exact path="/redirect" component={RedirectPage} />
 
           {/* Catch-all route for unknown URLs */}
           <Route path="/error" component={NotFoundPage} />
