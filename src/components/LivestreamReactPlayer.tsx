@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
+import audioManager from "../utilities/AudioManager";
 import "./Livestream.css";
 
 const LivestreamReactPlayer: React.FC = () => {
@@ -10,6 +11,15 @@ const LivestreamReactPlayer: React.FC = () => {
   useEffect(() => {
     const video = videoRef.current;
     let hls: Hls | null = null;
+
+    // Subscribe to AudioManager to stop audio when "stopAudio" event is emitted
+    const handleStopAudio = () => {
+      if (video) {
+        video.pause();
+      }
+    };
+
+    audioManager.on("stopAudio", handleStopAudio);
 
     const setupHls = () => {
       if (Hls.isSupported()) {
@@ -27,14 +37,13 @@ const LivestreamReactPlayer: React.FC = () => {
             }
           }, 5000);
         };
-        
+
         // Attach error event listener for HLS errors
         hls.on(Hls.Events.ERROR, (event, data) => {
           if (data.fatal) {
             switch (data.type) {
               case Hls.ErrorTypes.NETWORK_ERROR:
                 setErrorMessage("Live Stream Not Available (Network Error)");
-                // hls?.stopLoad(); // Stop loading more chunks
                 handleMediaError();
                 break;
               case Hls.ErrorTypes.MEDIA_ERROR:
@@ -43,7 +52,7 @@ const LivestreamReactPlayer: React.FC = () => {
                 break;
               default:
                 setErrorMessage("Live Stream Not Available (Fatal Error)");
-                hls?.destroy(); // Destroy HLS instance
+                hls?.destroy();
                 break;
             }
           }
@@ -56,6 +65,7 @@ const LivestreamReactPlayer: React.FC = () => {
           hls.attachMedia(video);
         }
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          audioManager.setCurrentAudio(video);
           video?.play();
           setErrorMessage(null); // Clear error message on successful load
           setRetryCount(0); // Reset retry count
@@ -64,6 +74,7 @@ const LivestreamReactPlayer: React.FC = () => {
         video.src =
           "https://c.streamhoster.com/link/hls/WBs3lk/i2LT4nJscCY/iXF1Nbsfwi9_5/playlist.m3u8";
         video.addEventListener("loadedmetadata", () => {
+          audioManager.setCurrentAudio(video);
           video.play();
           setErrorMessage(null);
         });
@@ -78,6 +89,14 @@ const LivestreamReactPlayer: React.FC = () => {
     return () => {
       if (hls) {
         hls.destroy();
+      }
+      // Unsubscribe from AudioManager events when component unmounts
+      audioManager.off("stopAudio", handleStopAudio);
+
+      // Stop the video when the component unmounts
+      if (video) {
+        video.pause();
+        video.src = "";
       }
     };
   }, [retryCount]);

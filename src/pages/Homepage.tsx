@@ -35,7 +35,6 @@ const WeatherForecast = React.lazy(
 const RadioPlayer = React.lazy(() => import("../components/RadioPlayer"));
 
 const Homepage: React.FC = () => {
-  const history = useHistory();
   const PullToRefresh = usePullToRefresh();
 
   const generateWebViewButton = (
@@ -44,13 +43,6 @@ const Homepage: React.FC = () => {
     image: string,
     style: React.CSSProperties
   ) => {
-    const navigateToWebView = () => {
-      history.push({
-        pathname: "/webview",
-        state: { url, name, image },
-      });
-    };
-
     return (
       <IonButton
         style={{ ...style, margin: "5px" }}

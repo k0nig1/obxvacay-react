@@ -1,26 +1,9 @@
 import {
   IonButton,
-  IonIcon,
-  IonModal,
-  IonContent,
-  IonHeader,
-  IonToolbar,
   IonImg,
-  IonActionSheet,
   IonButtons,
-  IonSpinner,
 } from "@ionic/react";
-import React, { useState } from "react";
-import ReactPlayer from "react-player";
-import {
-  closeOutline,
-  exitOutline,
-  infiniteOutline,
-  playOutline,
-  pauseOutline,
-  removeOutline,
-  contractOutline,
-} from "ionicons/icons";
+import React, { useState, useRef } from "react";
 import radioLogo_WERX from "../assets/radioLogos/radioLogo_WERX.png";
 import radioLogo_WJKX from "../assets/radioLogos/radioLogo_WJKX.png";
 import radioLogo_WRSF from "../assets/radioLogos/radioLogo_WRSF.png";
@@ -28,6 +11,7 @@ import radioLogo_WOBR from "../assets/radioLogos/radioLogo_WOBR.png";
 import radioLogo_WOBX from "../assets/radioLogos/radioLogo_WOBX.png";
 import "./RadioPlayer.css";
 import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
+import audioManager from "../utilities/AudioManager";
 
 // Types
 interface Station {
@@ -71,7 +55,7 @@ const stations: Station[] = [
   {
     id: 5,
     name: "98.1 The OBX",
-    web_url: "https://rdo.to/WOBXAM",
+    web_url: "https://rdo.to/WOBX",
     raw_url: "https://ice5.securenetsystems.net/WOBX",
     icon: radioLogo_WOBX,
   },
@@ -80,6 +64,16 @@ const stations: Station[] = [
 // Main RadioPlayer component
 const RadioPlayer: React.FC = () => {
   
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handleStationPlay = (station: Station) => {
+    // Create a new audio element
+    const audioElement = new Audio(station.raw_url);
+    audioManager.setCurrentAudio(audioElement); // Stop previous audio and set new
+    // audioElement.play();
+    openInCapacitorBrowser(station.web_url);
+  };
+
   return (
     <>
       <IonButtons className="station-list">
@@ -87,7 +81,7 @@ const RadioPlayer: React.FC = () => {
         <IonButton
           key={station.id}
           fill="clear"
-          onClick={() => openInCapacitorBrowser(station.web_url)}
+          onClick={() => handleStationPlay(station)}
           className="station-button"
         >
           <IonImg
