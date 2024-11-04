@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import {
   IonButton,
   IonCard,
@@ -22,6 +22,7 @@ import obxvoice from "../assets/obxvoice.png";
 import { SponsorCard } from "../components/CardComponents";
 import obx4sale from "../assets/obx4sale.png";
 import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
+import { SplashScreen } from "@capacitor/splash-screen";
 
 const LivestreamReactPlayer = React.lazy(
   () => import("../components/LivestreamReactPlayer")
@@ -36,6 +37,17 @@ const RadioPlayer = React.lazy(() => import("../components/RadioPlayer"));
 
 const Homepage: React.FC = () => {
   const PullToRefresh = usePullToRefresh();
+
+  // Hide the splash screen when the component mounts
+  useEffect(() => {
+
+    // Delay hiding the splash screen for 5 seconds
+    const splashScreenTimer = setTimeout(() => {
+      SplashScreen.hide();
+    }, 3000);
+
+    return () => clearTimeout(splashScreenTimer);
+  }, []);
 
   const generateWebViewButton = (
     url: string,
