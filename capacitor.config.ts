@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'holterhaus.daniel.obxvacay',
+  appId: 'holterhaus.dan.obxvacay',
   appName: 'OBX Vacay',
   webDir: 'dist'
 };

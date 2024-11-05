@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package holterhaus.dan.obxvacay;
 
 import com.getcapacitor.BridgeActivity;
 
