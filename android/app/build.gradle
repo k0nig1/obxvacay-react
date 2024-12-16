@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "holterhaus.dan.obxvacay"
+    namespace "com.ecr.obxvacay"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "holterhaus.dan.obxvacay"
+        applicationId "com.ecr.obxvacay"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

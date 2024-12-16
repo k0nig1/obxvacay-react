@@ -1,4 +1,4 @@
-package holterhaus.dan.obxvacay;
+package com.ecr.obxvacay;
 
 import com.getcapacitor.BridgeActivity;
 
