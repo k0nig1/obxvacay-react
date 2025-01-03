@@ -157,11 +157,6 @@ const Homepage: React.FC = () => {
                       sponsorLogo={obx4sale}
                       sponsorLink="https://obx4sale.com"
                     />
-                    <SponsorCard
-                      sponsorName="obx4sale.com"
-                      sponsorLogo={obx4sale}
-                      sponsorLink="https://obx4sale.com"
-                    />
                   </Suspense>
                 </IonCardContent>
               </IonCard>
