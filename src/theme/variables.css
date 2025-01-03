@@ -1,6 +1,6 @@
 :root {
   /* Light Mode Variables */
-  --ion-color-primary: #3880ff;
+  --ion-color-primary: #0047c2;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -14,7 +14,7 @@
   --ion-color-secondary-shade: #36abe0;
   --ion-color-secondary-tint: #50c8ff;
 
-  --ion-color-tertiary: #5260ff;
+  --ion-color-tertiary: #d7bf47;
   --ion-color-tertiary-rgb: 82, 96, 255;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;

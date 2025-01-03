@@ -8,8 +8,8 @@ import { vi, describe, test, expect } from 'vitest'; // Correct import for Vites
 vi.mock('../components/LivestreamReactPlayer', () => ({
   default: () => <div>LivestreamReactPlayer</div>,
 }));
-vi.mock('../components/SocialMediaIcons', () => ({
-  default: () => <div>SocialMediaIcons</div>,
+vi.mock('../components/SocialMediaButtons', () => ({
+  default: () => <div data-testid="social-media-buttons">SocialMediaButtons</div>,
 }));
 vi.mock('../components/WeatherForecast', () => ({
   default: () => <div>WeatherForecast</div>,
@@ -22,9 +22,7 @@ describe('Homepage', () => {
     });
 
     // Check if the title is rendered (ensure the right match function is used)
-    const titleElement = screen.getByText((content, element) => {
-      return element?.tagName.toLowerCase() === 'ion-img' && content.includes('OBX Vacay');
-    });
+    const titleElement = screen.getByAltText(/OBX Vacay Logo/i);
     expect(titleElement).toBeInTheDocument();
 
     // Check if the LivestreamReactPlayer is rendered
@@ -32,7 +30,7 @@ describe('Homepage', () => {
     expect(livestreamElement).toBeInTheDocument();
 
     // Check if the social media section is rendered
-    const socialMediaElement = screen.getByText(/SocialMediaIcons/i);
+    const socialMediaElement = screen.getByTestId("social-media-buttons");
     expect(socialMediaElement).toBeInTheDocument();
   });
 
@@ -56,7 +54,7 @@ describe('Homepage', () => {
     expect(obxVoiceButton).toBeInTheDocument();
 
     // Check if the OBX Vacay button is rendered with the correct alt text
-    const obxVacayButton = screen.getByAltText(/OBX Vacay/i);
+    const obxVacayButton = screen.getByAltText(/OBX Vacay Button/i);
     expect(obxVacayButton).toBeInTheDocument();
   });
 });

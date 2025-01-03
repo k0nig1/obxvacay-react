@@ -118,6 +118,7 @@ const LivestreamReactPlayer: React.FC = () => {
             playsInline
             width="100%"
             height="100%"
+            data-testid="livestream-video"
           />
         </div>
       )}

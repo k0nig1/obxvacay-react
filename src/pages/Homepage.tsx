@@ -27,8 +27,8 @@ import { SplashScreen } from "@capacitor/splash-screen";
 const LivestreamReactPlayer = React.lazy(
   () => import("../components/LivestreamReactPlayer")
 );
-const SocialMediaIcons = React.lazy(
-  () => import("../components/SocialMediaButtons")
+const SocialMediaButtons = React.lazy(
+  () => import("../components/SocialMediaButtons") // Ensure this path is correct
 );
 const WeatherForecast = React.lazy(
   () => import("../components/WeatherForecast")
@@ -40,7 +40,6 @@ const Homepage: React.FC = () => {
 
   // Hide the splash screen when the component mounts
   useEffect(() => {
-
     // Delay hiding the splash screen for 5 seconds
     const splashScreenTimer = setTimeout(() => {
       SplashScreen.hide();
@@ -59,7 +58,9 @@ const Homepage: React.FC = () => {
       <IonButton
         style={{ ...style, margin: "5px" }}
         fill="clear"
-        onClick={() => {openInCapacitorBrowser(url)}}
+        onClick={() => {
+          openInCapacitorBrowser(url);
+        }}
       >
         <IonImg src={image} className="external-link-img" alt={name} />
       </IonButton>
@@ -132,14 +133,19 @@ const Homepage: React.FC = () => {
                       obxvoice,
                       { width: "100%" }
                     )}
-                    {/* {generateWebViewButton("https://obxvacay.com", "OBX Vacay", obxvacay, { width: "40%" })} */}
+                    {generateWebViewButton(
+                      "https://obxvacay.com",
+                      "OBX Vacay Buttons",
+                      obxvacay,
+                      { width: "40%" }
+                    )}
                   </div>
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
-            
-            {/* Sponsor Section */}
+
+          {/* Sponsor Section */}
           <IonRow className="ion-align-items-center ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard className="ion-no-padding social-media-card">
@@ -151,12 +157,17 @@ const Homepage: React.FC = () => {
                       sponsorLogo={obx4sale}
                       sponsorLink="https://obx4sale.com"
                     />
+                    <SponsorCard
+                      sponsorName="obx4sale.com"
+                      sponsorLogo={obx4sale}
+                      sponsorLink="https://obx4sale.com"
+                    />
                   </Suspense>
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
-          
+
           {/* Social Media Section */}
           <IonRow className="ion-align-items-center ion-justify-content-center">
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
@@ -164,7 +175,7 @@ const Homepage: React.FC = () => {
                 <IonCardContent>
                   <h2>Follow Us on Social Media</h2>
                   <Suspense fallback={<IonSpinner />}>
-                    <SocialMediaIcons />
+                    <SocialMediaButtons />
                   </Suspense>
                 </IonCardContent>
               </IonCard>
