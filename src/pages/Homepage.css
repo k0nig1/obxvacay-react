@@ -4,6 +4,8 @@
   align-items: center;
   /* height: 56px; */
   width: 100%;
+  background-color: var(--ion-background-color);
+
 }
 
 .header-logo {
@@ -68,9 +70,14 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .header-logo {
+  /* .header-logo {
     filter: invert(1);
-  }
+  } */
+
+  /* .header-logo-container {
+    background-color: var(--ion-background-color);
+    color: var(--ion-text-color);
+  } */
 
   .external-link-img {
     filter: invert(1);

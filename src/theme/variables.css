@@ -70,6 +70,9 @@
   /* Text Color */
   --ion-text-color: #000000;
   --ion-text-color-rgb: 0, 0, 0;
+
+  /* Sunset Gradient */
+  --sunset-gradient: linear-gradient(to bottom, #ff7e5f, #feb47b);
 }
 
 @media (prefers-color-scheme: dark) {

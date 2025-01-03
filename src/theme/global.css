@@ -103,3 +103,11 @@ body {
     color: var(--ion-color-primary);
     text-decoration: underline;
   }
+
+  @media screen and (prefers-color-scheme: dark) {
+    ion-toolbar {
+      --background: var(--ion-background-color);
+      --color: var(--ion-color-light);
+      --ion-color-primary-contrast: var(--ion-color-light);
+    }
+  }
