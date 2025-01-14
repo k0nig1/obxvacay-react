@@ -1,0 +1,17 @@
+{
+	"appId": "com.ecr.obxvacay",
+	"appName": "OBX Vacay",
+	"webDir": "dist",
+	"packageClassList": [
+		"AppPlugin",
+		"CAPBrowserPlugin",
+		"HapticsPlugin",
+		"KeyboardPlugin",
+		"PreferencesPlugin",
+		"SplashScreenPlugin",
+		"StatusBarPlugin"
+	],
+	"server": {
+		"url": "http://192.168.2.61:8100"
+	}
+}

@@ -14,7 +14,6 @@ import {
   IonImg,
 } from "@ionic/react";
 import "./Homepage.css";
-import { useHistory } from "react-router-dom";
 import { usePullToRefresh } from "../utilities/UsePullToRefresh";
 import logo from "../assets/flat_obxvacay.png";
 import obxvacay from "../assets/obx_vacay.png";
