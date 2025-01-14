@@ -14,7 +14,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		jMoBqSBGxEgmCI2oV8OjWIOtl2k=
+		j2Mkdo8BaoNP8Fro9IMZuHGsB7I=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-snD-IY-ifK.nib</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Frameworks/Capacitor.framework/Capacitor</key>
 		<data>
-		PNCFJUC1EBHyXclfH5G/+zzv85A=
+		DORRrYvQd2Hnn0YHBbl17cycfOs=
 		</data>
 		<key>Frameworks/Capacitor.framework/Info.plist</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Frameworks/CapacitorApp.framework/CapacitorApp</key>
 		<data>
-		wyax1qHEXORN72uFTQl6pJlZsDA=
+		k1WTVoDDkF9vwKs2BF/P2R23XBM=
 		</data>
 		<key>Frameworks/CapacitorApp.framework/Info.plist</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Frameworks/CapacitorBrowser.framework/CapacitorBrowser</key>
 		<data>
-		U1C2HZH+k1i0igyMMhnOerR8X/M=
+		2npAxco/NNdmeueykzVdxFrCFVU=
 		</data>
 		<key>Frameworks/CapacitorBrowser.framework/Info.plist</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Frameworks/CapacitorHaptics.framework/CapacitorHaptics</key>
 		<data>
-		SkbQBSb3umadps0ycGWxI389zxk=
+		mzO8mpTPGqhBZ+FyysRrwsm51UM=
 		</data>
 		<key>Frameworks/CapacitorHaptics.framework/Info.plist</key>
 		<data>
@@ -94,7 +94,7 @@
 		</data>
 		<key>Frameworks/CapacitorKeyboard.framework/CapacitorKeyboard</key>
 		<data>
-		3/U23EZYrw1ehJ/Sqmsb6lbgasI=
+		41cAoE/Q1FZNddF08B7mxLHX6hM=
 		</data>
 		<key>Frameworks/CapacitorKeyboard.framework/Info.plist</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Frameworks/CapacitorPreferences.framework/CapacitorPreferences</key>
 		<data>
-		WIGopZcj8WWNRzBHMRmZTAXB1dY=
+		bd9TkE7nq2b8ZY49p4/oxzUMxzE=
 		</data>
 		<key>Frameworks/CapacitorPreferences.framework/Info.plist</key>
 		<data>
@@ -118,7 +118,7 @@
 		</data>
 		<key>Frameworks/CapacitorSplashScreen.framework/CapacitorSplashScreen</key>
 		<data>
-		p0/YtrL7Hi0LCV7jFfENEWZvyQY=
+		wLUOYMpubTeDEDfRNT3HR+DLxFo=
 		</data>
 		<key>Frameworks/CapacitorSplashScreen.framework/Info.plist</key>
 		<data>
@@ -130,7 +130,7 @@
 		</data>
 		<key>Frameworks/CapacitorStatusBar.framework/CapacitorStatusBar</key>
 		<data>
-		RerUcnZFaQkVoyGO2y/zUTfIPKI=
+		KKogiRx6m0bfWJWZ+4+62T8bj0o=
 		</data>
 		<key>Frameworks/CapacitorStatusBar.framework/Info.plist</key>
 		<data>
@@ -142,7 +142,7 @@
 		</data>
 		<key>Frameworks/Cordova.framework/Cordova</key>
 		<data>
-		/MW2TwV5MdN8qrkSVu5qhF/ApiM=
+		mMSbe6+u1jRFn2jQSVEY9Xb+uIQ=
 		</data>
 		<key>Frameworks/Cordova.framework/Info.plist</key>
 		<data>
@@ -166,7 +166,7 @@
 		</data>
 		<key>capacitor.config.json</key>
 		<data>
-		2j39lKH0bs4aw/KKhafJawwSiuk=
+		txYIS2jmPFNLTjqCQvDDQ2IY6/4=
 		</data>
 		<key>config.xml</key>
 		<data>
@@ -174,7 +174,7 @@
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
-		+AkzS/Y4DvVgIRM9XUKnRzAG4Bs=
+		lK3jwqyChc2oazxLdziXI9Ceymo=
 		</data>
 		<key>public/assets/AudioManager-legacy-4ZiyHuOl.js</key>
 		<data>
@@ -405,7 +405,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pZrK64TfpDzrRZpDlMRyHpr8nXzkkxqy+JtOLL+HWTQ=
+			jeT9PCkvCJ3SyHHXPFlZI+yWbg4jE7aKNl+sNTZtgpE=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-snD-IY-ifK.nib</key>
@@ -447,7 +447,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yVjslgemUylJMgNsCU3BFbdLNuKc/ZaJktnDDv6ujWQ=
+			VE+zq06VYQpo1sc2gY8m1yBHC079kSLYhWwJN4Q01ms=
 			</data>
 		</dict>
 		<key>Frameworks/Capacitor.framework/Info.plist</key>
@@ -482,7 +482,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HVO/M3Wa/6T8yKpAB1aDAC3eplFE7OXoIjHn4L0Pu0M=
+			Ilh7SeWQOTiBNqGxf249TxYEs7zx5j8j9WIspj2iU1U=
 			</data>
 		</dict>
 		<key>Frameworks/CapacitorApp.framework/Info.plist</key>
@@ -503,7 +503,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			b62cyqtytBUfzu+EhJQYq1EEGVKnTBKhnWVUMZdYtEw=
+			47XqbQ9OXYKmhpaSjES0PwLFxaZTnJW3i6ksMfGs+yk=
 			</data>
 		</dict>
 		<key>Frameworks/CapacitorBrowser.framework/Info.plist</key>
@@ -524,7 +524,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			XCTzE2y7otZ+EbtNqv7s+Gdlrni1V+ul62ODDbeTMnA=
+			mld1YxU6vDWOBHL4BS+MUPntvg50veL6Sv/VemRmCTY=
 			</data>
 		</dict>
 		<key>Frameworks/CapacitorHaptics.framework/Info.plist</key>
@@ -545,7 +545,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			r+4HB1IcMnLXCh3LDSSKOP5b37Rk72qHRqshALVsmi4=
+			7ls8G0YfiJeUxdSkeK1l2hqheRAYehZdnywmwQcuL1U=
 			</data>
 		</dict>
 		<key>Frameworks/CapacitorKeyboard.framework/Info.plist</key>
@@ -566,7 +566,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6FYQmxE1XZ+p9a7wATBtTTku1NIq20zHE2oWttE2dFo=
+			blaGquspbIYF3stDjbiSHraMZFUmkB0brwQ4bs6+fgc=
 			</data>
 		</dict>
 		<key>Frameworks/CapacitorPreferences.framework/Info.plist</key>
@@ -587,7 +587,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			h2RgQOboyRbaxzFWtjqwRWlElbR3qK3ySi6v+wqf+/k=
+			QXP+H8U7szQRQBuLqKgOXlrqwjxQjf1IOLhk+zSHVUc=
 			</data>
 		</dict>
 		<key>Frameworks/CapacitorSplashScreen.framework/Info.plist</key>
@@ -608,7 +608,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qztDDlz0trdxZqXxXSYEaNmceUfVtciwXfcVXJFz/8g=
+			LY09h5h7gQiGK0lBeKypamEQapZvsFDeKfV7bZrh5oI=
 			</data>
 		</dict>
 		<key>Frameworks/CapacitorStatusBar.framework/Info.plist</key>
@@ -629,7 +629,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KUpRapuNULaj0CTYKdvXyb2k6++d3UbroqL1MyO1NKM=
+			PqaKI8dslagHv5v4N5td3oOAWC7vXt9Zo+/iwyhTbm4=
 			</data>
 		</dict>
 		<key>Frameworks/Cordova.framework/Info.plist</key>
@@ -657,7 +657,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			76IHvKYj5EO/8sl1brSBJhVniHaMZTFeB+oagBfvYRo=
+			4V7ShcLKrDBXqWP1OifSYM4sDjLHwMP2Tqs3gJQ8mO8=
 			</data>
 		</dict>
 		<key>config.xml</key>
@@ -671,7 +671,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			eAF9pko78Ap6xy2IM1TKmqYwAFgt//A6uZ7AnpL4/iM=
+			xcKiY3QxQgaQgY8IxnUIExktr0+3foHmQwumNayxAKs=
 			</data>
 		</dict>
 		<key>public/assets/AudioManager-legacy-4ZiyHuOl.js</key>
