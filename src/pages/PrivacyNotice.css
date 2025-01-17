@@ -1,0 +1,67 @@
+/* PrivacyNotice.css */
+
+/* Container Styling */
+.privacy-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Title Styling */
+  .privacy-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  /* Subtitle Styling */
+  .privacy-subtitle {
+    font-size: 1.5rem;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    color: var(--ion-color-secondary);
+  }
+  
+  /* Text Styling */
+  .privacy-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ion-color-medium);
+    margin-bottom: 16px;
+  }
+  
+  /* List Styling */
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+  
+  ul li {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: var(--ion-color-text);
+  }
+  
+  /* Header Logo Styling */
+  .header-logo-container {
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .header-logo {
+    max-width: 150px;
+    height: auto;
+  }
+  
+  /* Button Styling */
+  .ion-button {
+    font-size: 1rem;
+    margin-top: 20px;
+  }
+  
+  /* Footer Styling */
+  .ion-text-center p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ion-color-light);
+  }

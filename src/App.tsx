@@ -26,6 +26,7 @@ import Tabs from "./pages/Tabs";
 import NotFoundPage from "./pages/NotFoundPage";
 import WebViewContainer from "./components/WebViewContainer";
 import RedirectPage from "./pages/RedirectPage";
+import PrivacyNotice from "./pages/PrivacyNotice";
 
 setupIonicReact();
 
@@ -49,6 +50,9 @@ const App: React.FC = () => (
 
           {/* Redirect page for app store links */}
           <Route exact path="/redirect" component={RedirectPage} />
+
+          {/* Privacy Notice */}
+          <Route exact path="/privacy" component={PrivacyNotice} />
 
           {/* Catch-all route for unknown URLs */}
           <Route path="/error" component={NotFoundPage} />
