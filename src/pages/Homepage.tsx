@@ -132,12 +132,6 @@ const Homepage: React.FC = () => {
                       obxvoice,
                       { width: "100%" }
                     )}
-                    {generateWebViewButton(
-                      "https://obxvacay.com",
-                      "OBX Vacay Buttons",
-                      obxvacay,
-                      { width: "40%" }
-                    )}
                   </div>
                 </IonCardContent>
               </IonCard>
