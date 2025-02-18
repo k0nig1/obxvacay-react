@@ -5,6 +5,9 @@ const config: CapacitorConfig = {
   appName: 'OBX Vacay',
   webDir: 'dist'
 ,
+    ios:{
+      scheme: "OBX Vacay",
+    },
     android: {
        buildOptions: {
           keystorePath: 'undefined',
