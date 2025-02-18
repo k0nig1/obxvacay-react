@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { Geolocation } from "@capacitor/geolocation";
 
+const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "";
+
 const mapContainerStyle = {
   width: "100%",
   height: "400px",
@@ -35,7 +37,7 @@ const MapComponent: React.FC = () => {
   }, []);
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyBiW1j1924qWOJmFy4mZabE2fSnhGR90rU">
+    <LoadScript googleMapsApiKey={apiKey}>
       <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={10}>
         {/* User's Location Marker */}
         {userLocation && <Marker position={userLocation} label="You" />}
