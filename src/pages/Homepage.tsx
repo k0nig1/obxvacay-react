@@ -22,6 +22,7 @@ import { SponsorCard } from "../components/CardComponents";
 import obx4sale from "../assets/obx4sale.png";
 import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
 import { SplashScreen } from "@capacitor/splash-screen";
+import MapComponent from "../components/MapComponent";
 
 const LivestreamReactPlayer = React.lazy(
   () => import("../components/LivestreamReactPlayer")
@@ -133,6 +134,16 @@ const Homepage: React.FC = () => {
                       { width: "100%" }
                     )}
                   </div>
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-align-items-center ion-justify-content-center">
+            <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
+              <IonCard className="ion-no-padding social-media-card">
+                <IonCardContent>
+                  <MapComponent />
                 </IonCardContent>
               </IonCard>
             </IonCol>

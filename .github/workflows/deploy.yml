@@ -1,0 +1,32 @@
+name: Deploy OBX Vacay
+
+on:
+  push:
+    branches:
+      - main  # Runs the workflow when changes are pushed to main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Can also use macOS for iOS builds
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Fetch latest code
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18  # Use the same Node.js version as your local environment
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Setup Environment Variables
+        run: echo "VITE_GOOGLE_MAPS_API_KEY=${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}" >> .env.local
+
+      - name: Build Ionic React App
+        run: npm run build  # Vite will now use the secret API key
+
+      - name: Deploy to Firebase (Optional)
+        if: success()
+        run: npm run deploy  # Replace with actual deploy command if using Firebase/Vercel
