@@ -53,10 +53,13 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^7.0.1",
+    "@cypress/react": "^9.0.0",
+    "@cypress/webpack-dev-server": "^4.0.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^29.5.14",
     "@types/luxon": "^3.4.2",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
