@@ -11,7 +11,6 @@ const mapContainerStyle = {
 };
 
 const center = { lat: 35.994, lng: -75.667 }; // Outer Banks default center
-const MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_ID; // Replace with your actual Google Maps Map ID
 
 const MapComponent: React.FC = () => {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -112,7 +111,7 @@ const MapComponent: React.FC = () => {
         mapContainerStyle={mapContainerStyle}
         center={center}
         zoom={10}
-        options={{ mapId: MAP_ID }} // Set Map ID correctly
+        options={{ mapId: import.meta.env.VITE_GOOGLE_MAPS_ID }} // Set Map ID correctly
         onLoad={(mapInstance) => setMap(mapInstance)}
       >
         {/* Custom Info Box */}
