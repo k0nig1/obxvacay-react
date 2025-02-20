@@ -1,8 +1,25 @@
-export  enum MapItemCategory {
+export enum MapItemCategory {
   Beach = "Beach",
   Lighthouse = "Lighthouse",
   Landmark = "Landmark",
   Park = "Park",
   Restaurant = "Restaurant",
   All = "All", // Useful for filtering logic
+  Museum = "Museum",
+  HistoricSite = "HistoricSite",
+  Theater = "Theater",
+  Garden = "Garden",
+  WildlifeRefuge = "WildlifeRefuge",
+  ScenicDrive = "ScenicDrive",
+  Boardwalk = "Boardwalk",
+  Pier = "Pier",
+  Aquarium = "Aquarium",
+  Tour = "Tour",
+  Resort = "Resort",
+  Marina = "Marina",
+  Island = "Island",
+  Village = "Village",
+  Distillery = "Distillery",
+  WaterSports = "WaterSports",
+  Waterpark = "Waterpark",
 }

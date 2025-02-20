@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, InfoWindow, AdvancedMarkerElement } from "@react-google-maps/api";
 import { attractions } from "../data/attractions";
 import { Geolocation } from "@capacitor/geolocation";
 import { IonSelect, IonSelectOption } from "@ionic/react";
@@ -11,6 +11,8 @@ const mapContainerStyle = {
 };
 
 const center = { lat: 35.994, lng: -75.667 }; // Outer Banks default center
+
+const libraries = ["marker"]; // Define libraries as a constant outside the component
 
 const MapComponent: React.FC = () => {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -93,7 +95,7 @@ const MapComponent: React.FC = () => {
   }, [map, userLocation, selectedCategory]);
 
   return (
-    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY} libraries={["marker"]}>
+    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY} libraries={libraries}>
       {/* Category Filter */}
       <IonSelect
         value={selectedCategory}
