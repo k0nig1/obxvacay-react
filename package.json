@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "deploy": "firebase deploy --only hosting",
     "preview": "vite preview",
     "test.e2e": "cypress run",
     "test.unit": "vitest",
