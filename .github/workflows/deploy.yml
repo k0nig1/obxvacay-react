@@ -26,7 +26,3 @@ jobs:
 
       - name: Build Ionic React App
         run: npm run build  # Vite will now use the secret API key
-
-      - name: Deploy to Firebase (Optional)
-        if: success()
-        run: npm run deploy  # Replace with actual deploy command if using Firebase/Vercel
