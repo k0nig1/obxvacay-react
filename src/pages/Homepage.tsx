@@ -28,7 +28,7 @@ const LivestreamReactPlayer = React.lazy(
   () => import("../components/LivestreamReactPlayer")
 );
 const SocialMediaButtons = React.lazy(
-  () => import("../components/SocialMediaButtons") // Ensure this path is correct
+  () => import("../components/SocialMediaButtons")
 );
 const WeatherForecast = React.lazy(
   () => import("../components/WeatherForecast")

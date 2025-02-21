@@ -3,7 +3,12 @@
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true, // Enable interoperability between CommonJS and ES modules
+    "strict": true, // Enable all strict type-checking options
+    "target": "ESNext", // Ensure the target is set to ESNext
+    "lib": ["ESNext"], // Include the ESNext library for the latest JavaScript features
+    "resolveJsonModule": true // Allow importing JSON modules
   },
   "include": ["vite.config.ts"]
 }

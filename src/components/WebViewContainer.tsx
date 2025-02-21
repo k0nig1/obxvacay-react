@@ -30,9 +30,9 @@ const WebViewContainer: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButton slot="start" >
+          {/* <IonButton slot="start" >
             <IonBackButton defaultHref="/app/homepage" color={"light"}/>
-          </IonButton>
+          </IonButton> */}
           <IonImg style={{ width: "75%", height: "50px" }}
             src={webpageImage}
           />
