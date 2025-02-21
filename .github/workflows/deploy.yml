@@ -25,8 +25,7 @@ jobs:
         run: echo "VITE_GOOGLE_MAPS_API_KEY=${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}" >> .env.local
 
       - name: Build Ionic React App
-        run: vite build
-        # run: npm run build 
+        run: npm run build  # Vite will now use the secret API key
 
       - name: Deploy to Firebase (Optional)
         if: success()
