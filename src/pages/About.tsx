@@ -13,9 +13,12 @@ import {
   IonCol,
   IonImg,
 } from "@ionic/react";
-import SocialMediaIcons from "../components/SocialMediaButtons";
 import "./About.css"; // Import custom CSS
 import logo from "../assets/flat_obxvacay.png";
+
+const SocialMediaButtons = React.lazy(
+  () => import("../components/SocialMediaButtons")
+);
 
 const About: React.FC = () => {
   return (
@@ -129,7 +132,7 @@ const About: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        <SocialMediaIcons />
+        <SocialMediaButtons />
       </IonContent>
     </IonPage>
   );

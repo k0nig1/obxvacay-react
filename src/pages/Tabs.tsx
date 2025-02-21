@@ -1,19 +1,14 @@
+import React from "react";
+import { Route, Redirect } from "react-router";
 import {
-  IonContent,
-  IonHeader,
+  IonTabs,
   IonIcon,
   IonLabel,
-  IonPage,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
-  IonTabs,
-  IonTitle,
-  IonToolbar,
 } from "@ionic/react";
-import { Route, Redirect } from "react-router";
-import { ellipse, homeOutline, informationCircleOutline, settingsOutline } from "ionicons/icons";
-import React from "react";
+import { homeOutline, informationCircleOutline } from "ionicons/icons";
 import Homepage from "./Homepage";
 import Settings from "./Settings";
 import About from "./About";
