@@ -1,4 +1,4 @@
-name: Deploy OBX Vacay
+name: Build OBX Vacay
 
 on:
   push:
