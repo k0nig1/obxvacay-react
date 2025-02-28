@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { GoogleMap, LoadScript, InfoWindow, AdvancedMarkerElement } from "@react-google-maps/api";
 import { attractions } from "../data/attractions";
 import { Geolocation } from "@capacitor/geolocation";
-import { IonSelect, IonSelectOption } from "@ionic/react";
+import { IonSelect, IonSelectOption, IonButton, IonToast } from "@ionic/react";
 import { MapItemCategory } from "../types/MapItemCategory";
+import {requestLocationPermission} from "../utilities/requestLocationPermission";
 
 const mapContainerStyle = {
   width: "100%",
@@ -19,24 +20,30 @@ const MapComponent: React.FC = () => {
   const [selectedAttraction, setSelectedAttraction] = useState<any>(null);
   const [selectedCategory, setSelectedCategory] = useState<MapItemCategory>(MapItemCategory.All);
   const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const userMarkerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
   const attractionMarkersRef = useRef<Map<number, google.maps.marker.AdvancedMarkerElement>>(new Map());
 
+  /** Fetch User Location on Load */
   useEffect(() => {
-    const getUserLocation = async () => {
-      try {
-        const coordinates = await Geolocation.getCurrentPosition();
-        setUserLocation({
-          lat: coordinates.coords.latitude,
-          lng: coordinates.coords.longitude,
-        });
-      } catch (error) {
-        console.error("Error getting location: ", error);
-      }
-    };
-
+    requestLocationPermission();
     getUserLocation();
   }, []);
+
+  /** Function to Get User Location */
+  const getUserLocation = async () => {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      setUserLocation({
+        lat: coordinates.coords.latitude,
+        lng: coordinates.coords.longitude,
+      });
+    } catch (error) {
+      console.error("Error getting location: ", error);
+      setErrorMessage("Could not access location. Please enable GPS.");
+    }
+  };
 
   useEffect(() => {
     if (!map || !window.google || !window.google.maps) return;
@@ -48,13 +55,18 @@ const MapComponent: React.FC = () => {
           position: userLocation,
           map,
           title: "Your Location",
+          icon: {
+            url: "/icons/user-location.png", // Custom user marker icon
+            scaledSize: new window.google.maps.Size(40, 40),
+          },
         });
       } else {
+        userMarkerRef.current.position = userLocation;
         userMarkerRef.current.map = map;
       }
     }
 
-    // Remove old markers from DOM
+    // Remove old attraction markers
     attractionMarkersRef.current.forEach((marker) => {
       if (marker.element && marker.element.parentNode) {
         marker.element.parentNode.removeChild(marker.element);
@@ -67,6 +79,7 @@ const MapComponent: React.FC = () => {
       (attraction) => selectedCategory === MapItemCategory.All || attraction.category === selectedCategory
     );
 
+    // Add markers for filtered attractions
     filteredAttractions.forEach((attraction) => {
       const marker = new google.maps.marker.AdvancedMarkerElement({
         position: { lat: attraction.lat, lng: attraction.lng },
@@ -74,12 +87,10 @@ const MapComponent: React.FC = () => {
         title: attraction.name,
       });
 
-      // Add click event listener
       marker.addListener("click", () => {
         setSelectedAttraction(attraction);
       });
 
-      // Store marker reference
       attractionMarkersRef.current.set(attraction.id, marker);
     });
 
@@ -96,6 +107,14 @@ const MapComponent: React.FC = () => {
 
   return (
     <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY} libraries={libraries}>
+      {/* Toast Notification for Errors */}
+      <IonToast
+        isOpen={!!errorMessage}
+        message={errorMessage}
+        duration={3000}
+        onDidDismiss={() => setErrorMessage(null)}
+      />
+
       {/* Category Filter */}
       <IonSelect
         value={selectedCategory}
@@ -109,14 +128,19 @@ const MapComponent: React.FC = () => {
         ))}
       </IonSelect>
 
+      {/* Find My Location Button */}
+      <IonButton expand="full" onClick={getUserLocation} style={{ margin: "10px 0" }}>
+        Find My Location
+      </IonButton>
+
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        center={center}
-        zoom={10}
-        options={{ mapId: import.meta.env.VITE_GOOGLE_MAPS_ID }} // Set Map ID correctly
+        center={userLocation || center}
+        zoom={12}
+        options={{ mapId: import.meta.env.VITE_GOOGLE_MAPS_ID }}
         onLoad={(mapInstance) => setMap(mapInstance)}
       >
-        {/* Custom Info Box */}
+        {/* Custom Info Box for Selected Attraction */}
         {selectedAttraction && window.google && window.google.maps && (
           <div
             className="gm-ui-hover-effect"
