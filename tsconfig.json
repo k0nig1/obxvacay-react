@@ -10,13 +10,12 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "types": ["vite/client", "vitest", "@testing-library/jest-dom", "@ionic/react"]
+    "types": ["vite/client", "vitest", "@testing-library/jest-dom", "@ionic/react", "react"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
