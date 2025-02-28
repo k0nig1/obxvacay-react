@@ -1,4 +1,4 @@
-import { MapItemCategory } from "../types/MapItemCategory"
+import { MapItemCategory } from "../types/MapItemCategory";
 
 export const attractions = [
   {
@@ -93,8 +93,8 @@ export const attractions = [
     id: 12,
     name: "Currituck Beach Lighthouse",
     description: "Historic lighthouse with distinctive red brick exterior, open for climbing.",
-    lat: 36.3750,
-    lng: -75.8300,
+    lat: 36.376658,
+    lng: -75.830636,
     category: MapItemCategory.Lighthouse,
   },
   {
@@ -107,8 +107,8 @@ export const attractions = [
   },
   {
     id: 14,
-    name: "Outer Banks Center for Wildlife Education",
-    description: "Educational facility focusing on the area's wildlife and natural history.",
+    name: "Currituck Maritime Museum",
+    description: "Museum showcasing the maritime heritage of Currituck County with historic boats and artifacts.",
     lat: 36.3750,
     lng: -75.8300,
     category: MapItemCategory.Museum,
@@ -182,7 +182,7 @@ export const attractions = [
     name: "Duck Town Park and Boardwalk",
     description: "Waterfront boardwalk and park area with shops, dining, and scenic views.",
     lat: 36.1740,
-    lng: -     -75.7560,
+    lng: -75.7560,
     category: MapItemCategory.Boardwalk,
   },
   {
@@ -227,22 +227,6 @@ export const attractions = [
   },
   {
     id: 29,
-    name: "Outer Banks Brewing Station",
-    description: "Brewpub offering craft beer, live music, and a laid-back atmosphere.",
-    lat: 36.0089,
-    lng: -75.6676,
-    category: MapItemCategory.Restaurant,
-  },
-  {
-    id: 30,
-    name: "Tortugas’ Lie",
-    description: "Casual seafood restaurant with a Caribbean flair, known for its laid-back vibe.",
-    lat: 35.9876,
-    lng: -75.6334,
-    category: MapItemCategory.Restaurant,
-  },
-  {
-    id: 31,
     name: "Kill Devil Hills Beach",
     description: "Beautiful beach offering great waves for surfers and a relaxing shoreline.",
     lat: 36.0304,
@@ -250,7 +234,7 @@ export const attractions = [
     category: MapItemCategory.Beach,
   },
   {
-    id: 32,
+    id: 30,
     name: "Kitty Hawk Woods Coastal Reserve",
     description: "Protected area with hiking trails through maritime forests and wetlands.",
     lat: 36.0700,
@@ -258,7 +242,7 @@ export const attractions = [
     category: MapItemCategory.Park,
   },
   {
-    id: 33,
+    id: 31,
     name: "Corolla Wild Horse Tours",
     description: "Guided tours to see the famous wild horses of the Outer Banks in their natural habitat.",
     lat: 36.3755,
@@ -266,7 +250,7 @@ export const attractions = [
     category: MapItemCategory.Tour,
   },
   {
-    id: 34,
+    id: 32,
     name: "Rodanthe Pier",
     description: "Scenic fishing pier offering stunning sunrise views over the Atlantic Ocean.",
     lat: 35.5917,
@@ -274,15 +258,7 @@ export const attractions = [
     category: MapItemCategory.Pier,
   },
   {
-    id: 35,
-    name: "Sanderling Resort",
-    description: "Upscale resort offering beachfront accommodations and fine dining.",
-    lat: 36.1885,
-    lng: -75.7630,
-    category: MapItemCategory.Resort,
-  },
-  {
-    id: 36,
+    id: 33,
     name: "Bonner Bridge Pier",
     description: "Fishing pier located at the southern end of the Oregon Inlet Bridge.",
     lat: 35.7733,
@@ -290,7 +266,7 @@ export const attractions = [
     category: MapItemCategory.Pier,
   },
   {
-    id: 37,
+    id: 34,
     name: "Oregon Inlet Fishing Center",
     description: "Popular marina for charter fishing trips and boat tours.",
     lat: 35.7951,
@@ -298,7 +274,7 @@ export const attractions = [
     category: MapItemCategory.Marina,
   },
   {
-    id: 38,
+    id: 35,
     name: "Coquina Beach",
     description: "Secluded beach known for its natural beauty and peaceful setting.",
     lat: 35.8212,
@@ -306,7 +282,7 @@ export const attractions = [
     category: MapItemCategory.Beach,
   },
   {
-    id: 39,
+    id: 36,
     name: "Pine Island Audubon Sanctuary",
     description: "Nature preserve with walking trails and birdwatching opportunities.",
     lat: 36.2324,
@@ -314,7 +290,7 @@ export const attractions = [
     category: MapItemCategory.Park,
   },
   {
-    id: 40,
+    id: 37,
     name: "OBX Mystery Dinner",
     description: "Interactive dinner theater experience featuring a fun and engaging mystery show.",
     lat: 36.0117,
@@ -322,15 +298,15 @@ export const attractions = [
     category: MapItemCategory.Theater,
   },
   {
-    id: 41,
+    id: 38,
     name: "Hatteras Village",
-    description: "Quaint coastal village known for its marinas, seafood restaurants, and ferry to Ocracoke.",
+    description: "Quaint coastal village known for its marinas, seafood, and ferry to Ocracoke.",
     lat: 35.2134,
     lng: -75.6932,
     category: MapItemCategory.Village,
   },
   {
-    id: 42,
+    id: 39,
     name: "Blackbeard’s Lodge",
     description: "Historic hotel on Ocracoke Island with a pirate-themed atmosphere.",
     lat: 35.1166,
@@ -338,7 +314,7 @@ export const attractions = [
     category: MapItemCategory.HistoricSite,
   },
   {
-    id: 43,
+    id: 40,
     name: "Ocracoke Preservation Society Museum",
     description: "Small museum dedicated to the history and culture of Ocracoke Island.",
     lat: 35.1164,
@@ -346,7 +322,7 @@ export const attractions = [
     category: MapItemCategory.Museum,
   },
   {
-    id: 44,
+    id: 41,
     name: "Outer Banks Distilling",
     description: "Local distillery producing award-winning rum, with tasting tours available.",
     lat: 35.9141,
@@ -354,15 +330,7 @@ export const attractions = [
     category: MapItemCategory.Distillery,
   },
   {
-    id: 45,
-    name: "The Blue Point",
-    description: "Fine dining seafood restaurant with waterfront views in Duck.",
-    lat: 36.1689,
-    lng: -75.7558,
-    category: MapItemCategory.Restaurant,
-  },
-  {
-    id: 46,
+    id: 42,
     name: "Nor'Banks Sailing & Watersports",
     description: "Outdoor adventure center offering sailing, kayaking, and jet skiing.",
     lat: 36.1611,
@@ -370,23 +338,7 @@ export const attractions = [
     category: MapItemCategory.WaterSports,
   },
   {
-    id: 47,
-    name: "H2OBX Waterpark",
-    description: "Waterpark featuring slides, a lazy river, and wave pools.",
-    lat: 36.1585,
-    lng: -75.7879,
-    category: MapItemCategory.Waterpark,
-  },
-  {
-    id: 48,
-    name: "Outer Banks Boil Company",
-    description: "Restaurant offering traditional Outer Banks seafood boils to-go or cooked on-site.",
-    lat: 36.1683,
-    lng: -75.7532,
-    category: MapItemCategory.Restaurant,
-  },
-  {
-    id: 49,
+    id: 43,
     name: "The Comedy Club of the Outer Banks",
     description: "Popular venue hosting stand-up comedy performances.",
     lat: 36.0101,
@@ -394,11 +346,19 @@ export const attractions = [
     category: MapItemCategory.Theater,
   },
   {
-    id: 50,
+    id: 44,
     name: "Pirate’s Cove Marina",
     description: "Full-service marina offering boat rentals and deep-sea fishing charters.",
     lat: 35.9093,
     lng: -75.6305,
     category: MapItemCategory.Marina,
   },
+  {
+    id: 45,
+    name: "North Carolina Aquarium on Roanoke Island",
+    description: "Large aquarium featuring marine life exhibits, sea turtles, and interactive experiences.",
+    lat: 35.9183,
+    lng: -75.7173,
+    category: MapItemCategory.Aquarium,
+  }
 ];

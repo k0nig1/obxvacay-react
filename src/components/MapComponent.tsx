@@ -4,6 +4,7 @@ import { attractions } from "../data/attractions";
 import { Geolocation } from "@capacitor/geolocation";
 import { IonSelect, IonSelectOption, IonButton, IonToast } from "@ionic/react";
 import { MapItemCategory } from "../types/MapItemCategory";
+import { Library } from '@googlemaps/js-api-loader';
 
 const mapContainerStyle = {
   width: "100%",
@@ -11,7 +12,7 @@ const mapContainerStyle = {
 };
 
 const center = { lat: 35.994, lng: -75.667 }; // Outer Banks default center
-const libraries: string[] = ["places"]; // Use "places" for better geolocation support
+const libraries: Library[] = ["places"]; // Use "places" for better geolocation support
 
 const MapComponent: React.FC = () => {
   // 🔹 State for storing user location
