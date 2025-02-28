@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { GoogleMap, LoadScript, InfoWindow, AdvancedMarkerElement } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, InfoWindow, Marker } from "@react-google-maps/api"; // Use Marker instead of AdvancedMarkerElement
 import { attractions } from "../data/attractions";
 import { Geolocation } from "@capacitor/geolocation";
 import { IonSelect, IonSelectOption, IonButton, IonToast } from "@ionic/react";
@@ -11,7 +11,7 @@ const mapContainerStyle = {
 };
 
 const center = { lat: 35.994, lng: -75.667 }; // Outer Banks default center
-const libraries = ["marker"]; // Define libraries as a constant outside the component
+const libraries: string[] = ["places"]; // Use "places" for better geolocation support
 
 const MapComponent: React.FC = () => {
   // 🔹 State for storing user location
@@ -25,8 +25,8 @@ const MapComponent: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<MapItemCategory>(MapItemCategory.All);
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
-  const userMarkerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
-  const attractionMarkersRef = useRef<Map<number, google.maps.marker.AdvancedMarkerElement>>(new Map());
+  const userMarkerRef = useRef<google.maps.Marker | null>(null);
+  const attractionMarkersRef = useRef<Map<number, google.maps.Marker>>(new Map());
 
   /** 📍 Function to Request Location Permissions */
   const requestLocationPermission = async () => {
@@ -78,7 +78,7 @@ const MapComponent: React.FC = () => {
       {/* 🚨 Toast Notification for Errors */}
       <IonToast
         isOpen={!!errorMessage}
-        message={errorMessage || undefined}
+        message={errorMessage || "En error occurred"}
         duration={3000}
         onDidDismiss={() => setErrorMessage(null)}
       />
@@ -98,9 +98,13 @@ const MapComponent: React.FC = () => {
       >
         {/* 📍 User's Location Marker */}
         {userLocation && (
-          <AdvancedMarkerElement
+          <Marker
             position={userLocation}
             title="Your Location"
+            icon={{
+              url: "/icons/user-location.png", // Use a custom user location icon
+              scaledSize: new window.google.maps.Size(40, 40),
+            }}
           />
         )}
 
@@ -108,13 +112,26 @@ const MapComponent: React.FC = () => {
         {attractions
           .filter((attraction) => selectedCategory === MapItemCategory.All || attraction.category === selectedCategory)
           .map((attraction) => (
-            <AdvancedMarkerElement
+            <Marker
               key={attraction.id}
               position={{ lat: attraction.lat, lng: attraction.lng }}
               title={attraction.name}
               onClick={() => setSelectedAttraction(attraction)}
             />
           ))}
+
+        {/* 🏷 InfoWindow for Selected Attraction */}
+        {selectedAttraction && (
+          <InfoWindow
+            position={{ lat: selectedAttraction.lat, lng: selectedAttraction.lng }}
+            onCloseClick={() => setSelectedAttraction(null)}
+          >
+            <div>
+              <h3>{selectedAttraction.name}</h3>
+              <p>{selectedAttraction.description}</p>
+            </div>
+          </InfoWindow>
+        )}
       </GoogleMap>
     </LoadScript>
   );
