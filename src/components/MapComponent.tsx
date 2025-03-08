@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
-import { GoogleMap, LoadScript, InfoWindow, Marker } from "@react-google-maps/api"; // Use Marker instead of AdvancedMarkerElement
+import React, { useState, useRef, useEffect } from "react";
+import {
+  GoogleMap,
+  LoadScript,
+  InfoWindow,
+  Marker,
+} from "@react-google-maps/api";
 import { attractions } from "../data/attractions";
 import { Geolocation } from "@capacitor/geolocation";
-import { IonSelect, IonSelectOption, IonButton, IonToast } from "@ionic/react";
+import { IonButton, IonToast } from "@ionic/react";
 import { MapItemCategory } from "../types/MapItemCategory";
-import { Library } from '@googlemaps/js-api-loader';
+import { Library } from "@googlemaps/js-api-loader";
 
 const mapContainerStyle = {
   width: "100%",
@@ -15,47 +20,46 @@ const center = { lat: 35.994, lng: -75.667 }; // Outer Banks default center
 const libraries: Library[] = ["places"]; // Use "places" for better geolocation support
 
 const MapComponent: React.FC = () => {
-  // 🔹 State for storing user location
-  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
-  
-  // 🔹 State for error messages (used in toast notifications)
+  const [userLocation, setUserLocation] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  // 🔹 Other existing state
   const [selectedAttraction, setSelectedAttraction] = useState<any>(null);
-  const [selectedCategory, setSelectedCategory] = useState<MapItemCategory>(MapItemCategory.All);
+  const [selectedCategory, setSelectedCategory] = useState<MapItemCategory>(
+    MapItemCategory.All
+  );
   const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [locationPermission, setLocationPermission] = useState<
+    "granted" | "denied" | "prompt"
+  >("prompt");
 
   const userMarkerRef = useRef<google.maps.Marker | null>(null);
-  const attractionMarkersRef = useRef<Map<number, google.maps.Marker>>(new Map());
-
-  /** 📍 Function to Request Location Permissions */
-  const requestLocationPermission = async () => {
-    try {
-      const permStatus = await Geolocation.requestPermissions();
-
-      if (permStatus.location === "granted") {
-        console.log("Location permission granted");
-        getUserLocation(); // 🔹 Fetch location after permission is granted
-      } else {
-        console.warn("Location permission denied");
-        setErrorMessage("Location access is required for the best experience.");
-      }
-    } catch (error) {
-      console.error("Error requesting location permission:", error);
-      setErrorMessage("An error occurred while requesting location permissions.");
-    }
-  };
+  const attractionMarkersRef = useRef<Map<number, google.maps.Marker>>(
+    new Map()
+  );
 
   /** 📍 Function to Get User Location */
   const getUserLocation = async () => {
     try {
       const permStatus = await Geolocation.checkPermissions();
 
-      if (permStatus.location !== "granted") {
-        console.warn("Location permission is not granted");
-        setErrorMessage("Location permission is required to show your position.");
+      if (permStatus.location === "denied") {
+        setLocationPermission("denied");
+        setErrorMessage(
+          "Location permission denied. You can enable it in settings."
+        );
         return;
+      }
+
+      if (permStatus.location !== "granted") {
+        const requestStatus = await Geolocation.requestPermissions();
+        if (requestStatus.location !== "granted") {
+          setLocationPermission("denied");
+          setErrorMessage("Location access is required for this feature.");
+          return;
+        }
+        setLocationPermission("granted");
       }
 
       const coordinates = await Geolocation.getCurrentPosition();
@@ -65,27 +69,58 @@ const MapComponent: React.FC = () => {
       });
     } catch (error) {
       console.error("Error getting location:", error);
-      setErrorMessage("Could not access location. Please enable GPS.");
+      setErrorMessage("Could not access location. Ensure GPS is enabled.");
     }
   };
 
-  /** 🔄 Run Once on Component Mount */
   useEffect(() => {
-    requestLocationPermission();
-  }, []);
+    if (map) {
+      console.log("Map loaded successfully");
+    }
+  }, [map]);
+
+  useEffect(() => {
+    if (map) {
+      console.log("Adding markers to the map");
+      attractions
+        .filter(
+          (attraction) =>
+            selectedCategory === MapItemCategory.All ||
+            attraction.category === selectedCategory
+        )
+        .forEach((attraction) => {
+          const marker = new google.maps.Marker({
+            position: { lat: attraction.lat, lng: attraction.lng },
+            map: map,
+            title: attraction.name,
+          });
+          marker.addListener("click", () => {
+            setSelectedAttraction(attraction);
+          });
+          attractionMarkersRef.current.set(attraction.id, marker);
+        });
+    }
+  }, [map, selectedCategory]);
 
   return (
-    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY} libraries={libraries}>
+    <LoadScript
+      googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+      libraries={libraries}
+    >
       {/* 🚨 Toast Notification for Errors */}
       <IonToast
         isOpen={!!errorMessage}
-        message={errorMessage || "En error occurred"}
+        message={errorMessage || ""}
         duration={3000}
         onDidDismiss={() => setErrorMessage(null)}
       />
 
       {/* 📍 "Find My Location" Button */}
-      <IonButton expand="full" onClick={getUserLocation} style={{ margin: "10px 0" }}>
+      <IonButton
+        expand="full"
+        onClick={getUserLocation}
+        style={{ margin: "10px 0" }}
+      >
         Find My Location
       </IonButton>
 
@@ -95,7 +130,10 @@ const MapComponent: React.FC = () => {
         center={userLocation || center}
         zoom={12}
         options={{ mapId: import.meta.env.VITE_GOOGLE_MAPS_ID }}
-        onLoad={(mapInstance) => setMap(mapInstance)}
+        onLoad={(mapInstance) => {
+          console.log("Google Map loaded");
+          setMap(mapInstance);
+        }}
       >
         {/* 📍 User's Location Marker */}
         {userLocation && (
@@ -103,28 +141,39 @@ const MapComponent: React.FC = () => {
             position={userLocation}
             title="Your Location"
             icon={{
-              url: "/icons/user-location.png", // Use a custom user location icon
+              url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Default Google Maps icon
               scaledSize: new window.google.maps.Size(40, 40),
             }}
           />
         )}
 
         {/* 📌 Markers for Attractions */}
-        {attractions
-          .filter((attraction) => selectedCategory === MapItemCategory.All || attraction.category === selectedCategory)
-          .map((attraction) => (
-            <Marker
-              key={attraction.id}
-              position={{ lat: attraction.lat, lng: attraction.lng }}
-              title={attraction.name}
-              onClick={() => setSelectedAttraction(attraction)}
-            />
-          ))}
+        {map &&
+          attractions
+            .filter(
+              (attraction) =>
+                selectedCategory === MapItemCategory.All ||
+                attraction.category === selectedCategory
+            )
+            .map((attraction) => {
+              // console.log("Adding marker for attraction:", attraction);
+              return (
+                <Marker
+                  key={attraction.id}
+                  position={{ lat: attraction.lat, lng: attraction.lng }}
+                  title={attraction.name}
+                  onClick={() => setSelectedAttraction(attraction)}
+                />
+              );
+            })}
 
         {/* 🏷 InfoWindow for Selected Attraction */}
         {selectedAttraction && (
           <InfoWindow
-            position={{ lat: selectedAttraction.lat, lng: selectedAttraction.lng }}
+            position={{
+              lat: selectedAttraction.lat,
+              lng: selectedAttraction.lng,
+            }}
             onCloseClick={() => setSelectedAttraction(null)}
           >
             <div>
