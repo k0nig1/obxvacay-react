@@ -3,13 +3,15 @@ import {
   GoogleMap,
   LoadScript,
   InfoWindow,
-  Marker,
+  Marker
 } from "@react-google-maps/api";
 import { attractions } from "../data/attractions";
 import { Geolocation } from "@capacitor/geolocation";
-import { IonButton, IonToast } from "@ionic/react";
+import { IonButton, IonToast, IonAlert } from "@ionic/react";
 import { MapItemCategory } from "../types/MapItemCategory";
+import { getCategoryIconBase64 } from "../types/MapCategoryIcons";
 import { Library } from "@googlemaps/js-api-loader";
+import { Capacitor } from "@capacitor/core";
 
 const mapContainerStyle = {
   width: "100%",
@@ -33,45 +35,63 @@ const MapComponent: React.FC = () => {
   const [locationPermission, setLocationPermission] = useState<
     "granted" | "denied" | "prompt"
   >("prompt");
+  const [showMapsAlert, setShowMapsAlert] = useState(false);
+  const [pendingAddress, setPendingAddress] = useState<string | null>(null);
 
   const userMarkerRef = useRef<google.maps.Marker | null>(null);
   const attractionMarkersRef = useRef<Map<number, google.maps.Marker>>(
     new Map()
   );
 
-  /** 📍 Function to Get User Location */
-  const getUserLocation = async () => {
-    try {
-      const permStatus = await Geolocation.checkPermissions();
+  const openInMaps = (address: string) => {
+    const encodedAddress = encodeURIComponent(address);
+    const platform = Capacitor.getPlatform();
 
-      if (permStatus.location === "denied") {
-        setLocationPermission("denied");
-        setErrorMessage(
-          "Location permission denied. You can enable it in settings."
-        );
-        return;
-      }
-
-      if (permStatus.location !== "granted") {
-        const requestStatus = await Geolocation.requestPermissions();
-        if (requestStatus.location !== "granted") {
-          setLocationPermission("denied");
-          setErrorMessage("Location access is required for this feature.");
-          return;
-        }
-        setLocationPermission("granted");
-      }
-
-      const coordinates = await Geolocation.getCurrentPosition();
-      setUserLocation({
-        lat: coordinates.coords.latitude,
-        lng: coordinates.coords.longitude,
-      });
-    } catch (error) {
-      console.error("Error getting location:", error);
-      setErrorMessage("Could not access location. Ensure GPS is enabled.");
+    if (platform === "ios") {
+      const url = `http://maps.apple.com/?q=${encodedAddress}`;
+      window.open(url, "_blank");
+    } else if (platform === "android") {
+      setPendingAddress(address);
+      setShowMapsAlert(true);
+    } else {
+      const url = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+      window.open(url, "_blank");
     }
   };
+
+  /** 📍 Function to Get User Location */
+  // const getUserLocation = async () => {
+  //   try {
+  //     const permStatus = await Geolocation.checkPermissions();
+
+  //     if (permStatus.location === "denied") {
+  //       setLocationPermission("denied");
+  //       setErrorMessage(
+  //         "Location permission denied. You can enable it in settings."
+  //       );
+  //       return;
+  //     }
+
+  //     if (permStatus.location !== "granted") {
+  //       const requestStatus = await Geolocation.requestPermissions();
+  //       if (requestStatus.location !== "granted") {
+  //         setLocationPermission("denied");
+  //         setErrorMessage("Location access is required for this feature.");
+  //         return;
+  //       }
+  //       setLocationPermission("granted");
+  //     }
+
+  //     const coordinates = await Geolocation.getCurrentPosition();
+  //     setUserLocation({
+  //       lat: coordinates.coords.latitude,
+  //       lng: coordinates.coords.longitude,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error getting location:", error);
+  //     setErrorMessage("Could not access location. Ensure GPS is enabled.");
+  //   }
+  // };
 
   useEffect(() => {
     if (map) {
@@ -81,6 +101,7 @@ const MapComponent: React.FC = () => {
 
   useEffect(() => {
     if (map) {
+      const geocoder = new window.google.maps.Geocoder();
       console.log("Adding markers to the map");
       attractions
         .filter(
@@ -89,15 +110,22 @@ const MapComponent: React.FC = () => {
             attraction.category === selectedCategory
         )
         .forEach((attraction) => {
-          const marker = new google.maps.Marker({
-            position: { lat: attraction.lat, lng: attraction.lng },
-            map: map,
-            title: attraction.name,
+          geocoder.geocode({ address: attraction.address }, (results, status) => {
+            if (status === "OK" && results && results[0]) {
+              const position = results[0].geometry.location;
+              const marker = new google.maps.Marker({
+                position,
+                map: map,
+                title: attraction.name,
+              });
+              marker.addListener("click", () => {
+                setSelectedAttraction({ ...attraction, position });
+              });
+              attractionMarkersRef.current.set(attraction.id, marker);
+            } else {
+              console.error("Geocode failed for", attraction.name, status);
+            }
           });
-          marker.addListener("click", () => {
-            setSelectedAttraction(attraction);
-          });
-          attractionMarkersRef.current.set(attraction.id, marker);
         });
     }
   }, [map, selectedCategory]);
@@ -116,13 +144,13 @@ const MapComponent: React.FC = () => {
       />
 
       {/* 📍 "Find My Location" Button */}
-      <IonButton
+      {/* <IonButton
         expand="full"
         onClick={getUserLocation}
         style={{ margin: "10px 0" }}
       >
         Find My Location
-      </IonButton>
+      </IonButton> */}
 
       {/* 🌍 Google Map */}
       <GoogleMap
@@ -147,42 +175,60 @@ const MapComponent: React.FC = () => {
           />
         )}
 
-        {/* 📌 Markers for Attractions */}
-        {map &&
-          attractions
-            .filter(
-              (attraction) =>
-                selectedCategory === MapItemCategory.All ||
-                attraction.category === selectedCategory
-            )
-            .map((attraction) => {
-              // console.log("Adding marker for attraction:", attraction);
-              return (
-                <Marker
-                  key={attraction.id}
-                  position={{ lat: attraction.lat, lng: attraction.lng }}
-                  title={attraction.name}
-                  onClick={() => setSelectedAttraction(attraction)}
-                />
-              );
-            })}
-
         {/* 🏷 InfoWindow for Selected Attraction */}
-        {selectedAttraction && (
+        {selectedAttraction && selectedAttraction.position && (
           <InfoWindow
-            position={{
-              lat: selectedAttraction.lat,
-              lng: selectedAttraction.lng,
-            }}
+            position={selectedAttraction.position}
             onCloseClick={() => setSelectedAttraction(null)}
           >
             <div>
               <h3>{selectedAttraction.name}</h3>
               <p>{selectedAttraction.description}</p>
+              <IonButton
+                expand="block"
+                size="small"
+                onClick={() => openInMaps(selectedAttraction.address)}
+              >
+                Open in Maps
+              </IonButton>
             </div>
           </InfoWindow>
         )}
       </GoogleMap>
+
+      <IonAlert
+        isOpen={showMapsAlert}
+        onDidDismiss={() => setShowMapsAlert(false)}
+        header="Open in Maps"
+        message="Which maps app would you like to use?"
+        buttons={[
+          {
+            text: "Google Maps App",
+            handler: () => {
+              if (pendingAddress) {
+                const encoded = encodeURIComponent(pendingAddress);
+                window.open(`geo:0,0?q=${encoded}`, "_blank");
+              }
+            },
+          },
+          {
+            text: "Browser",
+            handler: () => {
+              if (pendingAddress) {
+                const encoded = encodeURIComponent(pendingAddress);
+                window.open(
+                  `https://www.google.com/maps/search/?api=1&query=${encoded}`,
+                  "_blank"
+                );
+              }
+            },
+          },
+          {
+            text: "Cancel",
+            role: "cancel",
+          },
+        ]}
+      />
     </LoadScript>
   );
 };
