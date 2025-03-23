@@ -1,10 +1,10 @@
 export enum MapItemCategory {
+  All = "All", // Useful for filtering logic,
   Beach = "Beach",
   Lighthouse = "Lighthouse",
   Landmark = "Landmark",
   Park = "Park",
   Restaurant = "Restaurant",
-  All = "All", // Useful for filtering logic
   Museum = "Museum",
   HistoricSite = "HistoricSite",
   Theater = "Theater",
