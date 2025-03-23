@@ -143,6 +143,7 @@ const Homepage: React.FC = () => {
             <IonCol size="12" sizeMd="10" sizeLg="8" sizeXl="6">
               <IonCard className="ion-no-padding social-media-card">
                 <IonCardContent>
+                  <h2>Explore The OBX</h2><br/>
                   <MapComponent />
                 </IonCardContent>
               </IonCard>
