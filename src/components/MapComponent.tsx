@@ -8,19 +8,17 @@ import {
 } from "@react-google-maps/api";
 import { attractions } from "../data/attractions";
 import { Geolocation } from "@capacitor/geolocation";
-import { IonButton, IonToast, IonAlert, IonIcon } from "@ionic/react";
+import { IonButton, IonToast, IonAlert } from "@ionic/react";
 import { MapItemCategory } from "../types/MapItemCategory";
 import { getCategoryIconBase64 } from "../types/MapCategoryIcons";
 import { Library } from "@googlemaps/js-api-loader";
 import { Capacitor } from "@capacitor/core";
-import { expandOutline, contractOutline } from "ionicons/icons";
 import "./MapComponent.css";
 
 const center = { lat: 35.994, lng: -75.667 }; // Outer Banks default center
 const libraries: Library[] = ["places"]; // Use "places" for better geolocation support
 
 const MapComponent: React.FC = () => {
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [userLocation, setUserLocation] = useState<{
     lat: number;
     lng: number;
@@ -36,7 +34,6 @@ const MapComponent: React.FC = () => {
   >("prompt");
   const [showMapsAlert, setShowMapsAlert] = useState(false);
   const [pendingAddress, setPendingAddress] = useState<string | null>(null);
-  const fullscreenControlDivRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     if (map) {
@@ -44,27 +41,17 @@ const MapComponent: React.FC = () => {
         google.maps.event.trigger(map, "resize");
       }, 300); // Give layout time to apply
     }
-  }, [isFullscreen, map]);
+  }, [map]);
 
   const userMarkerRef = useRef<google.maps.Marker | null>(null);
   const attractionMarkersRef = useRef<Map<number, google.maps.Marker>>(
     new Map()
   );
-  const mapContainerStyle: React.CSSProperties = isFullscreen
-    ? {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        paddingTop: "env(safe-area-inset-top, 20px)",
-        zIndex: 1,
-      }
-    : {
-        width: "100%",
-        height: "400px",
-        position: "relative",
-      };
+  const mapContainerStyle: React.CSSProperties = {
+    width: "100%",
+    height: "400px",
+    position: "relative",
+  };
 
   const openInMaps = (address: string) => {
     const encodedAddress = encodeURIComponent(address);
@@ -87,13 +74,7 @@ const MapComponent: React.FC = () => {
 
     // Clear any previously injected custom controls
     map.controls[window.google.maps.ControlPosition.RIGHT_BOTTOM].clear();
-
-    if (fullscreenControlDivRef.current) {
-      const controlDiv = fullscreenControlDivRef.current;
-      map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
-      controlDiv.style.display = "block";
-    }
-  }, [map, isFullscreen]);
+  }, [map]);
 
   useEffect(() => {
     if (map) {
@@ -137,124 +118,56 @@ const MapComponent: React.FC = () => {
 
   return (
     <>
-      <div ref={fullscreenControlDivRef} style={{ display: "none" }}>
-        <div
-          className="gm-control-active"
-          style={{
-            background: "#fff",
-            border: "2px solid #ccc",
-            borderRadius: "2px",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-            cursor: "pointer",
-            margin: "10px",
-            textAlign: "center",
-            height: "40px",
-            width: "40px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+      <LoadScript
+        googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+        libraries={libraries}
+      >
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          center={userLocation || center}
+          zoom={12}
+          options={{
+            mapId: import.meta.env.VITE_GOOGLE_MAPS_ID,
+            disableDefaultUI: false,
+            zoomControl: true,
+            fullscreenControl: false,
+            streetViewControl: false,
           }}
-          onClick={() => setIsFullscreen(prev => !prev)}
+          onLoad={(mapInstance) => {
+            console.log("Google Map loaded");
+            setMap(mapInstance);
+          }}
         >
-          <IonIcon icon={isFullscreen ? contractOutline : expandOutline} />
-        </div>
-      </div>
-      {isFullscreen &&
-        ReactDOM.createPortal(
-          <LoadScript
-            googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
-            libraries={libraries}
-          >
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              center={userLocation || center}
-              zoom={12}
-              options={{
-                mapId: import.meta.env.VITE_GOOGLE_MAPS_ID,
-                disableDefaultUI: false,
-                zoomControl: true,
-                fullscreenControl: false,
-                streetViewControl: false,
+          {userLocation && (
+            <Marker
+              position={userLocation}
+              title="Your Location"
+              icon={{
+                url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                scaledSize: new window.google.maps.Size(40, 40),
               }}
-              onLoad={(mapInstance) => {
-                console.log("Google Map loaded");
-                setMap(mapInstance);
-              }}
+            />
+          )}
+          {selectedAttraction && selectedAttraction.position && (
+            <InfoWindow
+              position={selectedAttraction.position}
+              onCloseClick={() => setSelectedAttraction(null)}
             >
-              {selectedAttraction && selectedAttraction.position && (
-                <InfoWindow
-                  position={selectedAttraction.position}
-                  onCloseClick={() => setSelectedAttraction(null)}
+              <div>
+                <h3>{selectedAttraction.name}</h3>
+                <p>{selectedAttraction.description}</p>
+                <IonButton
+                  expand="block"
+                  size="small"
+                  onClick={() => openInMaps(selectedAttraction.address)}
                 >
-                  <div>
-                    <h3>{selectedAttraction.name}</h3>
-                    <p>{selectedAttraction.description}</p>
-                    <IonButton
-                      expand="block"
-                      size="small"
-                      onClick={() => openInMaps(selectedAttraction.address)}
-                    >
-                      Open in Maps
-                    </IonButton>
-                  </div>
-                </InfoWindow>
-              )}
-            </GoogleMap>
-          </LoadScript>,
-          document.getElementById("map-overlay")!
-        )}
-      {!isFullscreen && (
-        <LoadScript
-          googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
-          libraries={libraries}
-        >
-          <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            center={userLocation || center}
-            zoom={12}
-            options={{
-              mapId: import.meta.env.VITE_GOOGLE_MAPS_ID,
-              disableDefaultUI: false,
-              zoomControl: true,
-              fullscreenControl: false,
-              streetViewControl: false,
-            }}
-            onLoad={(mapInstance) => {
-              console.log("Google Map loaded");
-              setMap(mapInstance);
-            }}
-          >
-            {userLocation && (
-              <Marker
-                position={userLocation}
-                title="Your Location"
-                icon={{
-                  url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-                  scaledSize: new window.google.maps.Size(40, 40),
-                }}
-              />
-            )}
-            {selectedAttraction && selectedAttraction.position && (
-              <InfoWindow
-                position={selectedAttraction.position}
-                onCloseClick={() => setSelectedAttraction(null)}
-              >
-                <div>
-                  <h3>{selectedAttraction.name}</h3>
-                  <p>{selectedAttraction.description}</p>
-                  <IonButton
-                    expand="block"
-                    size="small"
-                    onClick={() => openInMaps(selectedAttraction.address)}
-                  >
-                    Open in Maps
-                  </IonButton>
-                </div>
-              </InfoWindow>
-            )}
-          </GoogleMap>
-        </LoadScript>
-      )}
+                  Open in Maps
+                </IonButton>
+              </div>
+            </InfoWindow>
+          )}
+        </GoogleMap>
+      </LoadScript>
       <IonToast
         isOpen={!!errorMessage}
         message={errorMessage || ""}
