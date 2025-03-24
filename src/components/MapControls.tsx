@@ -38,6 +38,7 @@ const MapControls: React.FC<MapControlsProps> = ({ map, userLocationRef }) => {
       controlUI.addEventListener("click", () => {
         if (userLocationRef.current) {
           map.setCenter(userLocationRef.current);
+          map.setZoom(14); // Closer focus
         }
       });
 

@@ -28,6 +28,11 @@
 	<string>We need your location even when the app is closed for real-time updates.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to show nearby attractions.</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>FullAccuracyPurpose</key>
+		<string>We need precise location to show nearby attractions accurately.</string>
+	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

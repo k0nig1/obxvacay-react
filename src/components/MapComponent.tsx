@@ -23,7 +23,7 @@ const MapComponent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState(initialErrorMessage);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [selectedAttraction, setSelectedAttraction] = useState<any>(null);
-  const [selectedCategories, setSelectedCategories] = useState<MapItemCategory[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<MapItemCategory[]>([ALL_CATEGORY]);
   const [searchRadius, setSearchRadius] = useState<number>(50);
   const [categoriesCollapsed, setCategoriesCollapsed] = useState<boolean>(true);
   const [pendingAddress, setPendingAddress] = useState<string | null>(null);
@@ -154,6 +154,17 @@ const MapComponent: React.FC = () => {
         >
           {categoriesCollapsed ? "Show Categories" : "Hide Categories"}
         </IonButton>
+        <IonButton
+          size="small"
+          onClick={() => {
+            if (map) {
+              map.setCenter({ lat: 35.77666580149015, lng: -75.54264482940843 });
+              map.setZoom(8);
+            }
+          }}
+        >
+          Show Outer Banks
+        </IonButton>
         {!categoriesCollapsed && (
           <>
             {Object.values(MapItemCategory).map((cat) => (
@@ -209,16 +220,20 @@ const MapComponent: React.FC = () => {
           }}
         >
           <MapControls map={map} userLocationRef={userLocationRef} />
-          {userLocation && window.google && window.google.maps && (
+          {userLocation && (
             <Marker
               key={`user-location-${userLocation.lat}-${userLocation.lng}`}
               position={userLocation}
               title="Your Location"
               zIndex={9999}
-              icon={{
-                url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-                scaledSize: new window.google.maps.Size(40, 40),
-              }}
+              icon={
+                window.google && window.google.maps && window.google.maps.Size
+                  ? {
+                      url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                      scaledSize: new window.google.maps.Size(40, 40),
+                    }
+                  : "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+              }
             />
           )}
           {selectedAttraction && selectedAttraction.position && (
