@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, startTransition } from "react";
 import { Route, Redirect } from "react-router";
 import {
   IonTabs,
@@ -15,6 +15,14 @@ import About from "./About";
 import "./Tabs.css";
 
 const Tabs: React.FC = () => {
+  const [activeTab, setActiveTab] = useState('Home');
+
+  const handleTabChange = (tab: string) => {
+    startTransition(() => {
+      setActiveTab(tab);
+    });
+  };
+
   return (
     <IonTabs>
       <IonRouterOutlet>

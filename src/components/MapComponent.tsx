@@ -1,62 +1,58 @@
 import React, { useState, useRef, useEffect } from "react";
-import ReactDOM from "react-dom";
-import {
-  GoogleMap,
-  LoadScript,
-  InfoWindow,
-  Marker,
-} from "@react-google-maps/api";
-import { attractions } from "../data/attractions";
-import { Geolocation } from "@capacitor/geolocation";
+import { GoogleMap, LoadScript, InfoWindow, Marker } from "@react-google-maps/api";
 import { IonButton, IonToast, IonAlert } from "@ionic/react";
-import { MapItemCategory } from "../types/MapItemCategory";
-import { getCategoryIconBase64 } from "../types/MapCategoryIcons";
-import { Library } from "@googlemaps/js-api-loader";
 import { Capacitor } from "@capacitor/core";
 import "./MapComponent.css";
 
-const center = { lat: 35.994, lng: -75.667 }; // Outer Banks default center
-const libraries: Library[] = ["places"]; // Use "places" for better geolocation support
+import { attractions } from "../data/attractions";
+import { MapItemCategory } from "../types/MapItemCategory";
+const ALL_CATEGORY = "All" as unknown as MapItemCategory;
+import MapControls from "./MapControls";
+import { useUserLocation } from "../hooks/useUserLocation";
+import { useGeofencing } from "../hooks/useGeofencing";
+import { getDistanceFromLatLonInMiles, isInOBX } from "../utils/distanceUtils";
+
+// Default OBX center coordinates and libraries configuration
+const center = { lat: 35.994, lng: -75.667 };
+type Library = "places" | "drawing" | "geometry";
+const libraries: Library[] = ["places"];
 
 const MapComponent: React.FC = () => {
-  const [userLocation, setUserLocation] = useState<{
-    lat: number;
-    lng: number;
-  } | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [selectedAttraction, setSelectedAttraction] = useState<any>(null);
-  const [selectedCategory, setSelectedCategory] = useState<MapItemCategory>(
-    MapItemCategory.All
-  );
+  // Use custom hook for user location
+  const { userLocation, errorMessage: initialErrorMessage } = useUserLocation();
+  const [errorMessage, setErrorMessage] = useState(initialErrorMessage);
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [locationPermission, setLocationPermission] = useState<
-    "granted" | "denied" | "prompt"
-  >("prompt");
-  const [showMapsAlert, setShowMapsAlert] = useState(false);
+  const [selectedAttraction, setSelectedAttraction] = useState<any>(null);
+  const [selectedCategories, setSelectedCategories] = useState<MapItemCategory[]>([]);
+  const [searchRadius, setSearchRadius] = useState<number>(50);
+  const [categoriesCollapsed, setCategoriesCollapsed] = useState<boolean>(true);
   const [pendingAddress, setPendingAddress] = useState<string | null>(null);
+  const [showMapsAlert, setShowMapsAlert] = useState(false);
+  const [geocoder, setGeocoder] = useState<google.maps.Geocoder | null>(null);
+  const userLocationRef = useRef(userLocation);
   
   useEffect(() => {
-    if (map) {
-      setTimeout(() => {
-        google.maps.event.trigger(map, "resize");
-      }, 300); // Give layout time to apply
-    }
-  }, [map]);
+    userLocationRef.current = userLocation;
+  }, [userLocation]);
 
-  const userMarkerRef = useRef<google.maps.Marker | null>(null);
-  const attractionMarkersRef = useRef<Map<number, google.maps.Marker>>(
-    new Map()
-  );
+  // Use custom hook for geofencing
+  const { locationAlert, setLocationAlert } = useGeofencing(userLocation, geocoder);
+
+  // Ref for managing attraction markers
+  const attractionMarkersRef = useRef<Map<number, google.maps.Marker>>(new Map());
+
   const mapContainerStyle: React.CSSProperties = {
     width: "100%",
     height: "400px",
     position: "relative",
   };
 
+  /**
+   * Opens the provided address in the appropriate maps app.
+   */
   const openInMaps = (address: string) => {
     const encodedAddress = encodeURIComponent(address);
     const platform = Capacitor.getPlatform();
-
     if (platform === "ios") {
       const url = `http://maps.apple.com/?q=${encodedAddress}`;
       window.open(url, "_blank");
@@ -69,33 +65,57 @@ const MapComponent: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (!map) return;
-
-    // Clear any previously injected custom controls
-    map.controls[window.google.maps.ControlPosition.RIGHT_BOTTOM].clear();
-  }, [map]);
-
+  // Resize map on load to ensure proper rendering
   useEffect(() => {
     if (map) {
-      console.log("Map loaded successfully");
+      setTimeout(() => {
+        google.maps.event.trigger(map, "resize");
+      }, 300);
     }
   }, [map]);
 
+  // Add attraction markers based on selected category and search radius
   useEffect(() => {
-    if (map) {
-      const geocoder = new window.google.maps.Geocoder();
-      console.log("Adding markers to the map");
-      attractions
-        .filter(
-          (attraction) =>
-            selectedCategory === MapItemCategory.All ||
-            attraction.category === selectedCategory
-        )
-        .forEach((attraction) => {
-          geocoder.geocode(
-            { address: attraction.address },
-            (results, status) => {
+    if (map && geocoder) {
+      attractionMarkersRef.current.forEach(marker => marker.setMap(null));
+      attractionMarkersRef.current.clear();
+
+      const attractionPromises = attractions.map((attraction) => {
+        const categoryMatch =
+          selectedCategories.length === 0 ||
+          selectedCategories.includes(ALL_CATEGORY) ||
+          (attraction.category !== undefined && selectedCategories.includes(attraction.category));
+
+        return new Promise<{ shouldAdd: boolean; attraction: typeof attraction }>((resolve) => {
+          if (!userLocation) {
+            resolve({ shouldAdd: categoryMatch, attraction });
+          } else {
+            const refLocation = userLocation && isInOBX(userLocation) ? userLocation : center;
+            geocoder.geocode({ address: attraction.address }, (results, status) => {
+              if (status === "OK" && results && results[0]) {
+                const pos = results[0].geometry.location;
+                const distance = getDistanceFromLatLonInMiles(
+                  refLocation.lat,
+                  refLocation.lng,
+                  pos.lat(),
+                  pos.lng()
+                );
+                resolve({
+                  shouldAdd: categoryMatch && distance <= searchRadius,
+                  attraction,
+                });
+              } else {
+                resolve({ shouldAdd: false, attraction });
+              }
+            });
+          }
+        });
+      });
+
+      Promise.all(attractionPromises).then((results) => {
+        results.forEach(({ shouldAdd, attraction }) => {
+          if (shouldAdd) {
+            geocoder.geocode({ address: attraction.address }, (results, status) => {
               if (status === "OK" && results && results[0]) {
                 const position = results[0].geometry.location;
                 const marker = new google.maps.Marker({
@@ -107,24 +127,72 @@ const MapComponent: React.FC = () => {
                   setSelectedAttraction({ ...attraction, position });
                 });
                 attractionMarkersRef.current.set(attraction.id, marker);
-              } else {
-                console.error("Geocode failed for", attraction.name, status);
               }
-            }
-          );
+            });
+          }
         });
+      });
     }
-  }, [map, selectedCategory]);
+  }, [map, selectedCategories, userLocation, searchRadius, geocoder]);
 
   return (
     <>
+      <div style={{ margin: "10px", display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
+        <label>
+          Radius:
+          <select value={searchRadius} onChange={(e) => setSearchRadius(Number(e.target.value))}>
+            {[5, 10, 25, 50].map((mile) => (
+              <option key={mile} value={mile}>
+                {mile} miles
+              </option>
+            ))}
+          </select>
+        </label>
+        <IonButton
+          size="small"
+          onClick={() => setCategoriesCollapsed(!categoriesCollapsed)}
+        >
+          {categoriesCollapsed ? "Show Categories" : "Hide Categories"}
+        </IonButton>
+        {!categoriesCollapsed && (
+          <>
+            {Object.values(MapItemCategory).map((cat) => (
+              <IonButton
+                key={cat}
+                size="small"
+                fill={selectedCategories.includes(cat) ? "solid" : "outline"}
+                onClick={() => {
+                if (cat === ALL_CATEGORY) {
+                    if (selectedCategories.includes(ALL_CATEGORY)) {
+                      setSelectedCategories([]);
+                    } else {
+                      setSelectedCategories([ALL_CATEGORY]);
+                    }
+                  } else {
+                    // For other categories, remove ALL_CATEGORY if it's selected
+                    let newSelection = selectedCategories.filter(c => c !== ALL_CATEGORY);
+                    if (newSelection.includes(cat)) {
+                      newSelection = newSelection.filter(c => c !== cat);
+                    } else {
+                      newSelection = [...newSelection, cat];
+                    }
+                    setSelectedCategories(newSelection);
+                  }
+                }}
+              >
+                {cat}
+              </IonButton>
+            ))}
+          </>
+        )}
+      </div>
       <LoadScript
         googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
         libraries={libraries}
       >
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          center={userLocation || center}
+          center={userLocation && isInOBX(userLocation) ? userLocation : center}
           zoom={12}
           options={{
             mapId: import.meta.env.VITE_GOOGLE_MAPS_ID,
@@ -134,14 +202,19 @@ const MapComponent: React.FC = () => {
             streetViewControl: false,
           }}
           onLoad={(mapInstance) => {
-            console.log("Google Map loaded");
             setMap(mapInstance);
+            if (window.google && window.google.maps) {
+              setGeocoder(new window.google.maps.Geocoder());
+            }
           }}
         >
-          {userLocation && (
+          <MapControls map={map} userLocationRef={userLocationRef} />
+          {userLocation && window.google && window.google.maps && (
             <Marker
+              key={`user-location-${userLocation.lat}-${userLocation.lng}`}
               position={userLocation}
               title="Your Location"
+              zIndex={9999}
               icon={{
                 url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
                 scaledSize: new window.google.maps.Size(40, 40),
@@ -175,6 +248,25 @@ const MapComponent: React.FC = () => {
         onDidDismiss={() => setErrorMessage(null)}
       />
       <IonAlert
+        isOpen={!!locationAlert}
+        header={`You're near ${locationAlert?.attraction.name}!`}
+        message={`Would you like to check out activities here?`}
+        buttons={[
+          {
+            text: "Yes",
+            handler: () => {
+              setSelectedAttraction({ ...locationAlert?.attraction, position: locationAlert?.position });
+              setLocationAlert(null);
+            },
+          },
+          {
+            text: "No",
+            role: "cancel",
+            handler: () => setLocationAlert(null),
+          },
+        ]}
+      />
+      <IonAlert
         isOpen={showMapsAlert}
         onDidDismiss={() => setShowMapsAlert(false)}
         header="Open in Maps"
@@ -194,10 +286,7 @@ const MapComponent: React.FC = () => {
             handler: () => {
               if (pendingAddress) {
                 const encoded = encodeURIComponent(pendingAddress);
-                window.open(
-                  `https://www.google.com/maps/search/?api=1&query=${encoded}`,
-                  "_blank"
-                );
+                window.open(`https://www.google.com/maps/search/?api=1&query=${encoded}`, "_blank");
               }
             },
           },
