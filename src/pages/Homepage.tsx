@@ -14,13 +14,13 @@ import {
   IonImg,
 } from "@ionic/react";
 import "./Homepage.css";
-import { usePullToRefresh } from "../utilities/UsePullToRefresh";
+import { usePullToRefresh } from "../utils/UsePullToRefresh";
 import logo from "../assets/flat_obxvacay.png";
 import obxvacay from "../assets/obx_vacay.png";
 import obxvoice from "../assets/obxvoice.png";
 import { SponsorCard } from "../components/CardComponents";
 import obx4sale from "../assets/obx4sale.png";
-import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
+import { openInCapacitorBrowser } from "../utils/openInCapacitorBrowser";
 import { SplashScreen } from "@capacitor/splash-screen";
 import MapComponent from "../components/MapComponent";
 

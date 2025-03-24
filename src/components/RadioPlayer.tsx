@@ -10,8 +10,8 @@ import radioLogo_WRSF from "../assets/radioLogos/radioLogo_WRSF.png";
 import radioLogo_WOBR from "../assets/radioLogos/radioLogo_WOBR.png";
 import radioLogo_WOBX from "../assets/radioLogos/radioLogo_WOBX.png";
 import "./RadioPlayer.css";
-import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
-import audioManager from "../utilities/AudioManager";
+import { openInCapacitorBrowser } from "../utils/openInCapacitorBrowser";
+import audioManager from "../utils/AudioManager";
 
 // Types
 interface Station {

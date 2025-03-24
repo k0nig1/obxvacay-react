@@ -8,7 +8,7 @@ import {
   IonImg,
 } from "@ionic/react";
 import "./CardComponents.css"; // Import the CSS file
-import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
+import { openInCapacitorBrowser } from "../utils/openInCapacitorBrowser";
 
 // BaseCard Component - A general-purpose card component
 const BaseCard: React.FC<{ children: React.ReactNode }> = ({ children }) => {

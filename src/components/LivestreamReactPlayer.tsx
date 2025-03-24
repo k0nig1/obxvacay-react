@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
-import audioManager from "../utilities/AudioManager";
+import audioManager from "../utils/AudioManager";
 import "./Livestream.css";
 
 const LivestreamReactPlayer: React.FC = () => {

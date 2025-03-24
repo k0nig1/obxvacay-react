@@ -3,7 +3,7 @@ import { IonButton, IonIcon } from "@ionic/react";
 import { logoFacebook, logoInstagram, logoYoutube, link } from "ionicons/icons";
 import { Browser } from "@capacitor/browser";
 import "./SocialMediaButtons.css"; // Include this CSS file for styling
-import { openInCapacitorBrowser } from "../utilities/openInCapacitorBrowser";
+import { openInCapacitorBrowser } from "../utils/openInCapacitorBrowser";
 
 const SocialMediaButtons: React.FC = () => {
 

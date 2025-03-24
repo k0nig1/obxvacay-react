@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   IonContent,
   IonHeader,
@@ -132,7 +132,9 @@ const About: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        <SocialMediaButtons />
+        <Suspense fallback={<div>Loading...</div>}>
+          <SocialMediaButtons />
+        </Suspense>
       </IonContent>
     </IonPage>
   );
